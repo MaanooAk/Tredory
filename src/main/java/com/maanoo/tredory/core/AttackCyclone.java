@@ -1,0 +1,64 @@
+package com.maanoo.tredory.core;
+
+import com.maanoo.tredory.core.entities.Projectile;
+import com.maanoo.tredory.face.SpriteBundleEntity;
+import com.maanoo.tredory.face.assets.AssetSet;
+import org.newdawn.slick.SpriteSheet;
+
+/**
+ *
+ * @author Akritas
+ */
+public class AttackCyclone extends Attack {
+
+    public final AssetSet<SpriteSheet> sprites;
+    
+    public final float projcount;
+    public final float projangle;
+    public final float projspeed;
+
+    public AttackCyclone(Team team, float attackspeed, AssetSet<SpriteSheet> sprites, float projcount, float projangle, float projspeed) {
+        super(team, attackspeed);
+        this.sprites = sprites;
+        this.projcount = projcount;
+        this.projangle = projangle;
+        this.projspeed = projspeed;
+    }
+    
+    @Override
+    @SuppressWarnings("LocalVariableHidesMemberVariable")
+    public void perform(Core c, Point p, float angle, Effect e) {
+        super.perform(c, p, angle, e); 
+        
+        angle = Ra.range(360);
+
+        final float attackspeed = e.attackspeed.apply(this.attackspeed);
+        final float projcount = e.projcount.apply(this.projcount);
+        float projangle = e.projangle.apply(this.projangle);
+        final float projspeed = e.projspeed.apply(this.projspeed);
+        
+        if(projcount == 1) {
+            
+            Point start = p.clone().add(new Point(angle).mul(32));
+            
+            c.l.add(new Projectile(team, start, angle+90, new SpriteBundleEntity(sprites.get()), 
+                    projspeed, 0.6f, attackspeed, 500));
+            
+        }else{
+            
+            if(projangle == 360) projangle -= projangle/projcount;
+            
+            float toxo = projangle;
+            for(int i=0; i<projcount; i+=1) {
+
+                float iangle = angle+(i/(projcount-1))*toxo-toxo/2;
+                Point start = p.clone().add(new Point(iangle).mul(32));
+
+                c.l.add(new Projectile(team, start, iangle+90, new SpriteBundleEntity(sprites.get()), 
+                        projspeed, 0.6f, attackspeed, 500));
+                
+            }
+        }
+    }
+    
+}
