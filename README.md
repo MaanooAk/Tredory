@@ -4,6 +4,12 @@ A 2d topdown randomly generated endless tail of a wizard in a no background worl
 
 > Development has been paused
 
+## Screenshots
+
+![Tredory Screenshot 1](https://user-images.githubusercontent.com/6997990/27118985-8d71b206-50e6-11e7-8f5b-032590a66746.png)
+
+[More screenshots](https://github.com/MaanooAk/Tredory/issues/2)
+
 ## License
 
 All files in this repository are Copyright (c) 2014-2017 Tredory author list.
@@ -14,3 +20,4 @@ Data in this repository is licensed under the
 [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
 
 Tredory author list can be determined via `git shortlog -sne`.
+
