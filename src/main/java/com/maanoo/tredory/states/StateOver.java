@@ -1,3 +1,5 @@
+// Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
+
 package com.maanoo.tredory.states;
 
 import com.maanoo.tredory.core.Core;
