@@ -10,15 +10,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public class StateOptions extends State {
 
     public StateOptions() {
         super(StateId.Options);
     }
-    
+
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         ; // TODO implement
@@ -32,10 +31,9 @@ public class StateOptions extends State {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input in = container.getInput();
-        
-        
-        
-        if(in.isKeyPressed(Op.Keys.Select) || in.isKeyPressed(Op.Keys.Back)) {
+
+
+        if (in.isKeyPressed(Op.Keys.Select) || in.isKeyPressed(Op.Keys.Back)) {
             changeState(game, StateId.Menu);
         }
     }

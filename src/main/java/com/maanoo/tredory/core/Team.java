@@ -3,11 +3,10 @@
 package com.maanoo.tredory.core;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public enum Team {
-    
+
     Neutral, Good, Bad;
-    
+
 }

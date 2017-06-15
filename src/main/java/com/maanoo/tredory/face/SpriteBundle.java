@@ -7,20 +7,24 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public abstract class SpriteBundle {
 
     public Animation idle, move, attack, die, special;
-    
+
     public Animation getAnimation(EntityState state) {
         switch (state) {
-            case Idle: return idle;
-            case Move: return move;
-            case Attack: return attack;
-            case Die: return die;
-            case Special: return special;
+        case Idle:
+            return idle;
+        case Move:
+            return move;
+        case Attack:
+            return attack;
+        case Die:
+            return die;
+        case Special:
+            return special;
         }
         return null;
     }
@@ -28,6 +32,6 @@ public abstract class SpriteBundle {
     public Image getStaticImage() {
         return idle.getImage(0);
     }
-    
+
     public abstract SpriteBundle copy();
 }

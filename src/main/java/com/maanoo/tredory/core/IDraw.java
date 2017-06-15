@@ -5,11 +5,10 @@ package com.maanoo.tredory.core;
 import org.newdawn.slick.Graphics;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public interface IDraw {
-    
-    public void draw(Graphics g);
-    
+
+    void draw(Graphics g);
+
 }

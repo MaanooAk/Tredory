@@ -3,8 +3,7 @@
 package com.maanoo.tredory.core.entities;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public enum ItemType {
 
@@ -13,7 +12,7 @@ public enum ItemType {
     Shield0, Shield1, Shield2, Shield3, Shield4,
     Crystal1, Crystal2, Crystal3,
     Stone;
-    
+
     public static ItemTag getTag(ItemType type) {
         switch (type) {
         case Copper:

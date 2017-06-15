@@ -6,19 +6,18 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public class SpriteBundleStatic extends SpriteBundle {
 
     public final Image image;
-    
+
     public SpriteBundleStatic(Image image) {
-        
+
         this.image = image;
-        
+
         this.idle = new Animation(new Image[]{image}, 1000);
-        
+
     }
 
     @Override

@@ -9,8 +9,7 @@ import com.maanoo.tredory.face.assets.AssetSet;
 import org.newdawn.slick.Sound;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public class SoundBundle {
 
@@ -19,29 +18,31 @@ public class SoundBundle {
     public SoundBundle(AssetSet<Sound> sound) {
         this.sound = sound;
     }
-    
+
     public void play() {
         sound.get().play(1f, Op.sound);
     }
-    
+
     public void playAt(Point p) {
         float dx = p.x - Core.c.camera.x, dy = p.y - Core.c.camera.y;
-        float a = limit(1f-sigma(abs(dx)+abs(dy)), 0, 1);
-        float x = sigma(dx), y = sigma(dy), z = a*1;
-        
+        float a = limit(1f - sigma(abs(dx) + abs(dy)), 0, 1);
+        float x = sigma(dx), y = sigma(dy), z = a * 1;
+
         //System.out.println((int)(100*x) + " - " + (int)(100*y) + " ( " + (int)(100*a) + " )");
-        sound.get().playAt(1f, a*Op.sound, x, y, z);
+        sound.get().playAt(1f, a * Op.sound, x, y, z);
     }
-    
+
     private static float sigma(float x) {
-        x = x/64f;
+        x = x / 64f;
         return x / (1f + abs(x));
     }
+
     private static float abs(float x) {
         return x < 0 ? -x : x;
     }
+
     private static float limit(float x, float a, float b) {
-        return x < a ? a : x > b? b : x;
+        return x < a ? a : x > b ? b : x;
     }
-    
+
 }

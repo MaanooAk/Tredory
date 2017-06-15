@@ -3,11 +3,10 @@
 package com.maanoo.tredory.states;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public enum StateId {
-    
+
     Menu, Game, Over, Options, Gallery;
-    
+
 }

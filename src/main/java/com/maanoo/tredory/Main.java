@@ -12,8 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public class Main extends StateBasedGame {
 
@@ -23,18 +22,18 @@ public class Main extends StateBasedGame {
      */
     public static void main(String[] args) throws SlickException {
 
-        AppGameContainer game = new AppGameContainer(new Main()); 
-        game.setIcon("com/maanoo/tredory/data/icon.png"); 
+        AppGameContainer game = new AppGameContainer(new Main());
+        game.setIcon("com/maanoo/tredory/data/icon.png");
 
         Op.load(args);
 
-        if(Op.fullscreen){
+        if (Op.fullscreen) {
             DisplayMode ddm = Display.getDesktopDisplayMode();
             game.setDisplayMode(ddm.getWidth(), ddm.getHeight(), true);
-        }else{
+        } else {
             game.setDisplayMode(Op.w, Op.h, false);
         }
-        
+
         game.start();
     }
 
@@ -44,29 +43,29 @@ public class Main extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
-        
+
         gc.setMaximumLogicUpdateInterval(Op.fps);
         gc.setTargetFrameRate(Op.fps);
-        
-        gc.setVSync(Op.vsync);        
+
+        gc.setVSync(Op.vsync);
         gc.setAlwaysRender(Op.alwaysRender);
-        
+
         gc.setClearEachFrame(true);
         gc.setMultiSample(1);
         gc.setShowFPS(false);
 
         Assets.load();
-        
+
         gc.setDefaultFont(Assets.font1);
         gc.setMouseCursor(Assets.cursor.getSubImage(0, 0).getScaledCopy(2), 0, 0);
-        
+
         this.addState(new StateMenu());
         this.addState(new StateGame());
         this.addState(new StateOver());
         this.addState(new StateGallery());
         this.addState(new StateOptions());
-        
+
     }
 
-    
+
 }

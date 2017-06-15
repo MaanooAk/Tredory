@@ -10,27 +10,26 @@ import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.Assets;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public class Projectile extends Entity {
-    
+
     public boolean damaging;
-    
+
     public float rota;
     public float lifetime;
-    
+
     public Projectile(Team team, Point location, float angle, SpriteBundleEntity sprites, float speed, float rota, float attackspeed, float lifetime) {
         super(team, location, angle, sprites);
         this.rota = rota;
         this.lifetime = lifetime;
-        
+
         this.speed = new Point(angle).mul(speed);
-        
+
         undead = true;
-        
+
         damaging = false;
-        
+
         startAttack(attackspeed);
     }
 
@@ -41,10 +40,10 @@ public class Projectile extends Entity {
         switch (state) {
         case Attack:
 
-            if(sprites.attack.getFrame() >= 2) {                
+            if (sprites.attack.getFrame() >= 2) {
                 damaging = true;
             }
-            
+
             if (sprites.attack.getFrame() >= 4) {
                 state = EntityState.Move;
                 lifetime += life;
@@ -52,10 +51,10 @@ public class Projectile extends Entity {
 
             break;
         case Move:
-            
-            if(rota != 0) {
-                angle += rota*d;
-                speed.rotate(rota*d);
+
+            if (rota != 0) {
+                angle += rota * d;
+                speed.rotate(rota * d);
             }
             location.add(speed.clone().mul(d));
 
@@ -72,16 +71,15 @@ public class Projectile extends Entity {
     @Override
     public void collide(Entity e) {
         super.collide(e);
-        
-        if(damaging && !e.undead && e.team != team) {
-            
+
+        if (damaging && !e.undead && e.team != team) {
+
             Assets.bam.playAt(location);
-            
+
             takeDamage();
             e.takeDamage();
         }
     }
 
-    
-    
+
 }

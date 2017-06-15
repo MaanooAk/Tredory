@@ -3,11 +3,10 @@
 package com.maanoo.tredory.core;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public interface IUpdate {
-    
-    public void update(int d);
-    
+
+    void update(int d);
+
 }

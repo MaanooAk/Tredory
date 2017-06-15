@@ -3,9 +3,8 @@
 package com.maanoo.tredory;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public class Res {
-    
+
 }

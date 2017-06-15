@@ -3,35 +3,35 @@
 package com.maanoo.tredory.face.assets;
 
 import com.maanoo.tredory.core.Ra;
+
 import java.util.ArrayList;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public class AssetSet<T> {
 
     private final ArrayList<T> l;
-    
+
     public int count;
 
     public AssetSet() {
         l = new ArrayList<>();
         count = 0;
     }
-    
+
     public void add(T item) {
         l.add(item);
         count += 1;
     }
-    
+
     public T get() {
         return l.get(Ra.range(count));
     }
-    
+
     public T get(int index) {
         return l.get(index);
     }
-    
-    
+
+
 }

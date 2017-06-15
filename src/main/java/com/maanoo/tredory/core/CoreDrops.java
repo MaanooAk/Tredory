@@ -6,15 +6,14 @@ import com.maanoo.tredory.core.entities.Item;
 import com.maanoo.tredory.core.entities.ItemType;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public class CoreDrops {
-    
+
     public static void dropCoins(Core c, Entity ent, float angle, float cone, float speedmin, float speedmax, int value) {
         Item item;
         Point p = ent.location.clone();
-        
+
         while (value % 10 > 0) {
             item = new Item(ItemType.Copper, p.clone().add(new Point(Ra.range(-8, 8), Ra.range(-8, 8))));
             item.push(angle + Ra.range(0, cone), Ra.range(speedmin, speedmax));
@@ -29,14 +28,14 @@ public class CoreDrops {
 
             value -= 10;
         }
-        
+
     }
-    
+
     public static void dropItem(Core c, Entity ent, float angle, float cone, float speedmin, float speedmax, ItemType type) {
         Point p = ent.location.clone();
-        
+
         Item item = new Item(type, p);
-        item.push(angle + Ra.range(-cone/2, cone/2), Ra.range(speedmin, speedmax));
-        c.ltoadd.add(item);    
+        item.push(angle + Ra.range(-cone / 2, cone / 2), Ra.range(speedmin, speedmax));
+        c.ltoadd.add(item);
     }
 }

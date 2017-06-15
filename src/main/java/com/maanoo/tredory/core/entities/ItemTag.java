@@ -3,11 +3,10 @@
 package com.maanoo.tredory.core.entities;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public enum ItemTag {
-    
+
     Coin, Shield, Crystal, Stone;
-    
+
 }

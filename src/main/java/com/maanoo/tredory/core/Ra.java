@@ -5,51 +5,54 @@ package com.maanoo.tredory.core;
 import java.util.Random;
 
 /**
- *
- * @author Akritas
+ * @author MaanooAk
  */
 public final class Ra {
-    
+
     private static Random r = new Random();
-    
-    
+
+
     public static int range(int max) {
         return r.nextInt(max);
     }
+
     public static int range(int min, int max) {
-        return min + r.nextInt(max-min);
+        return min + r.nextInt(max - min);
     }
-    
+
     public static float range(float max) {
-        return r.nextFloat()*max;
+        return r.nextFloat() * max;
     }
+
     public static float range(float min, float max) {
-        return min + r.nextFloat()*(max-min);
+        return min + r.nextFloat() * (max - min);
     }
-    
+
     public static float rangeTriangle(float min, float max) {
         min /= 2;
         max /= 2;
         return range(min, max) + range(min, max);
     }
+
     public static float rangeNormal(float min, float max) {
         min /= 3;
         max /= 3;
         return range(min, max) + range(min, max) + range(min, max);
     }
-    
-    
+
+
     public static boolean bool() {
         return r.nextBoolean();
     }
-    
-    public static boolean chance(float value){
+
+    public static boolean chance(float value) {
         return r.nextFloat() < value;
     }
-        
+
     public static int list(int[] array) {
         return array[r.nextInt(array.length)];
     }
+
     public static <T> T list(T[] array) {
         return array[r.nextInt(array.length)];
     }
