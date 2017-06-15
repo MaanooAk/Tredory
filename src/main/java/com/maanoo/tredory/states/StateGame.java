@@ -36,9 +36,9 @@ public class StateGame extends State {
         super(StateId.Game);
     }
     
-    Core c;
+    private Core c;
 
-    PlayerAttacks pa;
+    private PlayerAttacks pa;
     
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
@@ -109,16 +109,6 @@ public class StateGame extends State {
         
         g.popTransform();
 
-        // ===
-        
-        if(Op.debug) {
-            Assets.font1.drawString(10, 10, "fps " + gc.getFPS() +
-                    " | e " + c.l.size() +
-                    " | s " + (c.l.size() + c.map.things.size()) +
-                    " | " + (int)c.player.location.x + " " + (int)c.player.location.y + " " + (int)c.player.angle , Color.darkGray);
-        }else{
-           Assets.font1.drawString(10, 10, gc.getFPS() + "", Color.darkGray);
-        }
         // map
         {
             g.setColor(new Color(0, 0, 0, 0.75f));
@@ -227,7 +217,7 @@ public class StateGame extends State {
                 int y = 0;
                 int left = c.player.coins;
                 while (left >= 10) {
-                    Assets.getItem(ItemType.Gold).get().draw(x, y - 0, 2);
+                    Assets.getItem(ItemType.Gold).get().draw(x, y, 2);
                     left -= 10;
                     y = (y + 3) % (3*groups);
                     if (y == 0) x -= 16;
@@ -238,7 +228,7 @@ public class StateGame extends State {
                     x -= 16;
                 }
                 while (left >= 1) {
-                    Assets.getItem(ItemType.Copper).get().draw(x, y - 0, 2);
+                    Assets.getItem(ItemType.Copper).get().draw(x, y, 2);
                     left -= 1;
                     y = (y + 3) % (3*groups);
                     if (y == 0) x -= 16;
@@ -265,6 +255,14 @@ public class StateGame extends State {
                 
                 x += wi+10;
             }
+        }
+
+        // debug
+        if(Op.debug) {
+            Assets.font1.drawString(10, 10, "fps " + gc.getFPS() +
+                    " | e " + c.l.size() +
+                    " | s " + (c.l.size() + c.map.things.size()) +
+                    " | " + (int)c.player.location.x + " " + (int)c.player.location.y + " " + (int)c.player.angle , Color.darkGray);
         }
     }
 
@@ -321,24 +319,35 @@ public class StateGame extends State {
         } 
         
         if(c.player.state != EntityState.Attack) {
-            
+
             Point vec = new Point();
-            if(!in.isKeyDown(Input.KEY_E)) {
-                if(in.isKeyDown(Input.KEY_W)) vec.y -= 1;
-                if(in.isKeyDown(Input.KEY_S)) vec.y += 1;
-                if(in.isKeyDown(Input.KEY_A)) vec.x -= 1;
-                if(in.isKeyDown(Input.KEY_D)) vec.x += 1;
+            if (!in.isKeyDown(Keys.PickUp)) {
+                if (in.isKeyDown(Keys.MoveU)) vec.y -= 1;
+                if (in.isKeyDown(Keys.MoveD)) vec.y += 1;
+                if (in.isKeyDown(Keys.MoveL)) vec.x -= 1;
+                if (in.isKeyDown(Keys.MoveR)) vec.x += 1;
             }
 
-            float m = Ma.abs(vec.angle()-c.player.angle);
-            while(m>180) m -= 360;
-            m = Ma.abs(m/180f);
+            // move player
+            if (!vec.isZero()) {
 
-            float speed = (1 - m*.6f)*c.player.lspeed;
-            c.player.location.add(vec.norm().mul(speed*d));
+                // calculate speed multiplier based on movement direction relative to facing angle
+                float m = Ma.abs(vec.angle() - c.player.angle);
+                while (m > 180) m -= 360;
+                m = Ma.abs(m / 180f);
 
-            if(c.player.state == EntityState.Idle && !vec.isZero()) c.player.state = EntityState.Move;
-            else if(c.player.state == EntityState.Move && vec.isZero()) c.player.state = EntityState.Idle;
+                float speed = (1 - m * .6f) * c.player.lspeed;
+
+                c.player.location.add(vec.norm().mul(speed * d));
+            }
+
+
+            if (c.player.state == EntityState.Idle && !vec.isZero()) {
+                c.player.state = EntityState.Move;
+
+            } else if (c.player.state == EntityState.Move && vec.isZero()) {
+                c.player.state = EntityState.Idle;
+            }
 
         }
         

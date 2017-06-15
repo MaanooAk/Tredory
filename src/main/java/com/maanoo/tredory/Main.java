@@ -4,9 +4,6 @@ package com.maanoo.tredory;
 
 import com.maanoo.tredory.face.assets.Assets;
 import com.maanoo.tredory.states.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.stage.Screen;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.AppGameContainer;
@@ -25,12 +22,12 @@ public class Main extends StateBasedGame {
      * @throws org.newdawn.slick.SlickException
      */
     public static void main(String[] args) throws SlickException {
-                
-        //System.setProperty("org.lwjgl.librarypath", new File("native").getAbsolutePath());
 
         AppGameContainer game = new AppGameContainer(new Main()); 
         game.setIcon("com/maanoo/tredory/data/icon.png"); 
-        
+
+        Op.load(args);
+
         if(Op.fullscreen){
             DisplayMode ddm = Display.getDesktopDisplayMode();
             game.setDisplayMode(ddm.getWidth(), ddm.getHeight(), true);
@@ -52,7 +49,7 @@ public class Main extends StateBasedGame {
         gc.setTargetFrameRate(Op.fps);
         
         gc.setVSync(Op.vsync);        
-        gc.setAlwaysRender(Op.alwaysren);
+        gc.setAlwaysRender(Op.alwaysRender);
         
         gc.setClearEachFrame(true);
         gc.setMultiSample(1);
