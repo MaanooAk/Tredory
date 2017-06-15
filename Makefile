@@ -1,0 +1,27 @@
+
+
+.phony: default
+default: build
+
+# TODO put mvn in a variable
+
+.phony: build
+build:
+	mvn clean package
+
+.phony: clean
+clean:
+	mvn clean
+
+# TODO should probably change version detection technique
+# TODO detect if run and debug need build
+
+.phony: run
+run: 
+	./target/Tredory-*-release/Tredory-*/game.sh
+
+.phony: debug
+debug: 
+	./target/Tredory-*-release/Tredory-*/game.sh --debug
+	
+# TODO add help
