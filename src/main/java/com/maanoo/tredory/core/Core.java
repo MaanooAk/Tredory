@@ -6,6 +6,8 @@ import com.maanoo.tredory.core.entities.Item;
 import com.maanoo.tredory.core.entities.ItemType;
 import com.maanoo.tredory.core.entities.Player;
 import com.maanoo.tredory.core.map.Map;
+import com.maanoo.tredory.core.map.MapMaker;
+import com.maanoo.tredory.core.map.MapType;
 import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
@@ -50,7 +52,7 @@ public class Core implements IUpdate {
 
         while (l.size() > 1) l.remove(1);
 
-        map = new Map(new Point(4000, 4000));
+        map = MapMaker.make();
 
         player.location.set(map.spawn);
 

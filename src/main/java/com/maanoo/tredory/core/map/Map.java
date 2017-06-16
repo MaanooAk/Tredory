@@ -39,133 +39,13 @@ public class Map implements IUpdate, IDraw {
     public Map(Point size) {
         this.size = size;
 
+        spawn = new Point();
         things = new ArrayList<>();
         l = new ArrayList<>();
-
         hotspots = new ArrayList<>();
-
         spots = new ArrayList<>();
 
-        bigs = 1;
-        if (Ra.chance(0.2f)) bigs += 1;
-
-        int count = createSpots(0.6f, bigs);
-
-        spawn = new Point(spots.get(0).x, spots.get(0).y);
-
-        for (int i = 0; i < 20; i++) {
-            things.add(new TerrainThing(
-                    new Point(Ra.range(32, (int) size.x - 32), Ra.range(32, (int) size.y - 32)),
-                    Ra.range(360), Assets.terrain_small.get(Ra.range(0, 2))));
-        }
-
-        MapGen.genSpawn(this, spots.get(0));
-
-        MapGen.genBigBoxguards(this, spots.get(2));
-        if (bigs > 1) MapGen.genBigAltarguards(this, spots.get(3));
-
-        MapGen.genPortal(this, spots.get(1));
-
-        int count_boxes = (int) (count * 0.25f);
-        for (int i = 0; i < count_boxes; i++) {
-            MapGen.genBoxguards(this, emptyPoint());
-        }
-
-        int count_nonbox = (int) (count * 0.50f);
-        for (int i = 0; i < count_nonbox; i++) {
-            if (Ra.chance(1f / 3f)) {
-                MapGen.genSquad(this, emptyPoint());
-            } else if (Ra.chance(1f / 2f)) {
-                MapGen.genGroup(this, emptyPoint());
-            } else {
-                MapGen.genFireplace(this, emptyPoint());
-            }
-        }
-
-        for (int i = 0; i < 20; i++) {
-            //c.l.add(new Container(Team.Bad, emptyPoint(), 0, new SpriteBundleEntity(Assets.box.get())));
-        }
-        for (int i = 0; i < 80; i++) {
-            //c.l.add(new Animal(Team.Bad, emptyPoint(), 0, new SpriteBundleEntity(Assets.axeman.get())));
-        }
-
     }
-
-    private int createSpots(float area, int bigs) {
-        spots.clear();
-
-        area = (size.x * size.y * area);
-
-        area -= addSpot(500); // spawn
-        area -= addSpot(300); // portal
-        for (int i = 0; i < bigs; i++) area -= addSpot(400); // big
-
-        spots_index = spots.size();
-
-        int r = 250;
-        int count = (int) (area / (Math.PI * r * r));
-
-        for (int i = 0; i < count; i++) {
-            spots.add(new Spot(Ra.range(r, (int) size.x - r), Ra.range(r, (int) size.y - r), r));
-        }
-
-        for (int i = 0; i < 150; i++) {
-            if (!fitSpots()) break;
-        }
-
-        return count;
-    }
-
-    private float addSpot(float r) {
-        spots.add(new Spot(Ra.range(r, (int) size.x - r), Ra.range(r, (int) size.y - r), r));
-        return Ma.PI * r * r;
-    }
-
-    private boolean fitSpots() {
-        boolean changed = false;
-
-        int count = spots.size();
-        for (int i1 = 0; i1 < count; i1++) {
-            Spot p1 = spots.get(i1);
-
-            for (int i2 = i1 + 1; i2 < count; i2++) {
-
-                float r1 = spots.get(i1).r;
-                float r2 = spots.get(i2).r;
-
-                Point vec = spots.get(i1).clone().sub(spots.get(i2));
-                float inside = vec.len() / (r1 + r2);
-
-                if (inside <= 1) {
-
-                    if (inside < 0.5f) {
-                        vec.norm().mul((r1 + r2) / 2);
-                    }
-
-                    spots.get(i1).add(vec.mul(0.4f * (1.01f - inside)));
-                    spots.get(i2).add(vec.mul(-1));
-                    changed = true;
-                }
-
-            }
-
-            if (p1.x < p1.r) p1.x = p1.r;
-            if (p1.y < p1.r) p1.y = p1.r;
-            if (p1.x > size.x - p1.r) p1.x = size.x - p1.r;
-            if (p1.y > size.y - p1.r) p1.y = size.y - p1.r;
-
-        }
-
-        return changed;
-    }
-
-    private Spot emptyPoint() {
-        //return new Point(Ra.range(32, (int)size.x-32), Ra.range(32, (int)size.y-32));
-        return spots.get(spots_index++);
-    }
-
-    private int tmp = 2000;
-    private int tmp2 = 0;
 
     @Override
     public void update(int d) {
@@ -215,9 +95,7 @@ public class Map implements IUpdate, IDraw {
         g.drawRect(0, 0, size.x, size.y);
     }
 
-
     public void drawMini(Graphics g, Point p, float radius) {
-
 
         for (int ii = 1; ii < 2 + bigs; ii++) {
             Spot i = spots.get(ii);
