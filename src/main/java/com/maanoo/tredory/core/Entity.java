@@ -4,7 +4,8 @@ package com.maanoo.tredory.core;
 
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.core.memory.Poolable;
-import com.maanoo.tredory.core.memory.Pools;
+import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.core.utils.Points;
 import com.maanoo.tredory.face.SpriteBundle;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -39,10 +40,12 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
     public Entity() {
         speed = new Point();
+        move = new Point();
     }
 
     public Entity(Team team, Point location, float angle, SpriteBundle sprites) {
         speed = new Point();
+        move = new Point();
         init(team, location, angle, sprites);
     }
 
@@ -60,6 +63,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         alerted = false;
         shieldsSum = 0;
         speed.init();
+        move.init();
     }
 
     public void init(Team team, Point location, float angle, SpriteBundle sprites) {

@@ -2,6 +2,7 @@
 
 package com.maanoo.tredory.core;
 
+import com.maanoo.tredory.core.map.Map;
 import org.newdawn.slick.Image;
 
 import java.util.ArrayList;

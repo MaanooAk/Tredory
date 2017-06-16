@@ -3,6 +3,7 @@
 package com.maanoo.tredory.core;
 
 import com.maanoo.tredory.core.entities.Player;
+import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
 
 /**

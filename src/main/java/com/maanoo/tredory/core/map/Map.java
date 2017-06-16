@@ -1,8 +1,15 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.map;
 
 import com.maanoo.tredory.Op;
+import com.maanoo.tredory.core.Entity;
+import com.maanoo.tredory.core.IDraw;
+import com.maanoo.tredory.core.IUpdate;
+import com.maanoo.tredory.core.utils.Ma;
+import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.core.utils.Points;
+import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -15,35 +22,6 @@ import java.util.Iterator;
  * @author MaanooAk
  */
 public class Map implements IUpdate, IDraw {
-
-    public final static class TerrainThing {
-        public final Point p;
-        public final float angle;
-        public final Image img;
-        public final int w;
-        public final int h;
-
-        public TerrainThing(Point p, float angle, Image img) {
-            this.p = p;
-            this.angle = angle;
-            this.img = img;
-
-            w = img.getWidth();
-            h = img.getHeight();
-
-            p.intify();
-        }
-    }
-
-    public final static class Spot extends Point {
-        public final float r;
-        public Color color = Color.darkGray;
-
-        public Spot(float x, float y, float r) {
-            super(x, y);
-            this.r = r;
-        }
-    }
 
     public final Point size;
 

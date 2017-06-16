@@ -1,13 +1,14 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.map;
 
-import com.maanoo.tredory.core.Map.Spot;
-import com.maanoo.tredory.core.Map.TerrainThing;
+import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entities.Altar;
 import com.maanoo.tredory.core.entities.Animal;
 import com.maanoo.tredory.core.entities.Container;
 import com.maanoo.tredory.core.entities.Portal;
+import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.Color;

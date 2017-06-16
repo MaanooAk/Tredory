@@ -8,6 +8,8 @@ import com.maanoo.tredory.core.*;
 import com.maanoo.tredory.core.entities.Item;
 import com.maanoo.tredory.core.entities.ItemType;
 import com.maanoo.tredory.core.memory.Inspector;
+import com.maanoo.tredory.core.utils.Ma;
+import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;

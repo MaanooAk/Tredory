@@ -1,6 +1,6 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.utils;
 
 import com.maanoo.tredory.core.memory.Poolable;
 

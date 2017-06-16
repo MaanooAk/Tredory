@@ -2,7 +2,7 @@
 
 package com.maanoo.tredory.face.assets;
 
-import com.maanoo.tredory.core.Ra;
+import com.maanoo.tredory.core.utils.Ra;
 
 import java.util.ArrayList;
 

@@ -4,7 +4,7 @@ package com.maanoo.tredory.core.entities;
 
 import com.maanoo.tredory.core.Entity;
 import com.maanoo.tredory.core.EntityState;
-import com.maanoo.tredory.core.Point;
+import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.Assets;

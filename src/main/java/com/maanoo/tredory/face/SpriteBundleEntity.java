@@ -2,7 +2,7 @@
 
 package com.maanoo.tredory.face;
 
-import com.maanoo.tredory.core.Ra;
+import com.maanoo.tredory.core.utils.Ra;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 

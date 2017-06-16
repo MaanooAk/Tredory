@@ -3,8 +3,8 @@
 package com.maanoo.tredory.states;
 
 import com.maanoo.tredory.core.Core;
-import com.maanoo.tredory.core.Point;
-import com.maanoo.tredory.core.Ra;
+import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.*;

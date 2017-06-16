@@ -3,7 +3,7 @@
 package com.maanoo.tredory.states;
 
 import com.maanoo.tredory.Op.Keys;
-import com.maanoo.tredory.core.Ma;
+import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.face.assets.AssetSet;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.*;

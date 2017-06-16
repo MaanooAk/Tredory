@@ -4,6 +4,8 @@ package com.maanoo.tredory.core;
 
 import com.maanoo.tredory.core.entities.Projectile;
 import com.maanoo.tredory.core.memory.Pools;
+import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.AssetSet;
 import org.newdawn.slick.SpriteSheet;

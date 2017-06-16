@@ -4,7 +4,7 @@ package com.maanoo.tredory.face;
 
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.core.Core;
-import com.maanoo.tredory.core.Point;
+import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.AssetSet;
 import org.newdawn.slick.Sound;
 

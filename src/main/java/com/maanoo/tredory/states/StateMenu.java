@@ -2,7 +2,7 @@
 
 package com.maanoo.tredory.states;
 
-import com.maanoo.tredory.core.Ma;
+import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
