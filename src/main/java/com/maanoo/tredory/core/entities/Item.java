@@ -52,7 +52,8 @@ public class Item extends Entity implements Comparable<Item> {
         super.update(d);
 
         if (speedm > 0) {
-            location.add(speed.clone().mul(speedm * d));
+            move.init(speed).mul(speedm * d);
+            location.add(move);
             speedm -= d / 500f;
         }
 

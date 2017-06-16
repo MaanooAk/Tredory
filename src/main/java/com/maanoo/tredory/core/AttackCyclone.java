@@ -3,6 +3,7 @@
 package com.maanoo.tredory.core;
 
 import com.maanoo.tredory.core.entities.Projectile;
+import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.AssetSet;
 import org.newdawn.slick.SpriteSheet;
@@ -42,8 +43,9 @@ public class AttackCyclone extends Attack {
 
             Point start = p.clone().add(new Point(angle).mul(32));
 
-            c.l.add(new Projectile(team, start, angle + 90, new SpriteBundleEntity(sprites.get()),
-                    projspeed, 0.6f, attackspeed, 500));
+            c.l.add(Pools.obtain(Projectile.class)
+                    .init(team, start, angle + 90, new SpriteBundleEntity(sprites.get()),
+                            projspeed, 0.6f, attackspeed, 500));
 
         } else {
 
@@ -55,7 +57,8 @@ public class AttackCyclone extends Attack {
                 float iangle = angle + (i / (projcount - 1)) * toxo - toxo / 2;
                 Point start = p.clone().add(new Point(iangle).mul(32));
 
-                c.l.add(new Projectile(team, start, iangle + 90, new SpriteBundleEntity(sprites.get()),
+                c.l.add(Pools.obtain(Projectile.class)
+                        .init(team, start, iangle + 90, new SpriteBundleEntity(sprites.get()),
                         projspeed, 0.6f, attackspeed, 500));
 
             }

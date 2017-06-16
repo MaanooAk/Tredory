@@ -7,6 +7,7 @@ import com.maanoo.tredory.Op.Keys;
 import com.maanoo.tredory.core.*;
 import com.maanoo.tredory.core.entities.Item;
 import com.maanoo.tredory.core.entities.ItemType;
+import com.maanoo.tredory.core.memory.Inspector;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
@@ -60,7 +61,6 @@ public class StateGame extends State {
         h = gc.getHeight();
 
         //g.setAntiAlias(true);
-        
         
         /*
         g.setColor(new Color(.3f, .4f, .3f));        
@@ -248,6 +248,9 @@ public class StateGame extends State {
                     " | e " + c.l.size() +
                     " | s " + (c.l.size() + c.map.things.size()) +
                     " | " + (int) c.player.location.x + " " + (int) c.player.location.y + " " + (int) c.player.angle, Color.darkGray);
+            Assets.font1.drawString(10, h - 100, "gcs " + Inspector.instance.getGcs() +
+                    " | am " + Inspector.instance.getAllocatedMemory() +
+                    (Inspector.instance.didGarbageCollect() ? " | Garbage collection performed" : ""), Color.darkGray);
         }
     }
 

@@ -2,10 +2,14 @@
 
 package com.maanoo.tredory.core;
 
+import com.maanoo.tredory.core.memory.Poolable;
+
 /**
  * @author MaanooAk
  */
-public class Point {
+public class Point implements Poolable {
+
+    //public static final Point point = new Point();
 
     public float x, y;
 
@@ -28,11 +32,36 @@ public class Point {
         return new Point(x, y);
     }
 
-    public boolean isZero() {
-        return x == 0 && y == 0;
+    // for pooling
+
+    public Point init() {
+        x = y = 0.0f;
+        return this;
+    }
+
+    public Point init(float x, float y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public Point init(float angle) {
+        this.x = (float) -Math.sin(Math.toRadians(angle));
+        this.y = (float) Math.cos(Math.toRadians(angle));
+        return this;
+    }
+
+    public Point init(Point point) {
+        this.x = point.x;
+        this.y = point.y;
+        return this;
     }
 
     // simple
+
+    public boolean isZero() {
+        return x == 0 && y == 0;
+    }
 
     public Point set(Point v) {
         x = v.x;

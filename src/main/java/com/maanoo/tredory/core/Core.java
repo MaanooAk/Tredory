@@ -5,6 +5,7 @@ package com.maanoo.tredory.core;
 import com.maanoo.tredory.core.entities.Item;
 import com.maanoo.tredory.core.entities.ItemType;
 import com.maanoo.tredory.core.entities.Player;
+import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.Assets;
 
@@ -80,6 +81,10 @@ public class Core implements IUpdate {
             if (!i.dead) i.update(d);
         }
 
+        for (Entity i : l) {
+            if (i.dead) Pools.give(i);
+        }
+
         l.removeIf(i -> i.dead);
 
         // == Collision detction ==
@@ -93,8 +98,8 @@ public class Core implements IUpdate {
 
                 float r1 = l.get(i1).sizecol;
                 float r2 = l.get(i2).sizecol;
-                Point c1 = l.get(i1).location.clone();//.add(new Point(r1, r1));
-                Point c2 = l.get(i2).location.clone();//.add(new Point(r2, r2));
+                Point c1 = l.get(i1).location;//.clone();//.add(new Point(r1, r1));
+                Point c2 = l.get(i2).location;//.clone();//.add(new Point(r2, r2));
 
                 if (c1.distance(c2) < (r1 + r2) * 1.0f) {
                     l.get(i1).collide(l.get(i2));

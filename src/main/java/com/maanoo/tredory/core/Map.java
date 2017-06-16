@@ -243,7 +243,7 @@ public class Map implements IUpdate, IDraw {
 
         for (int ii = 1; ii < 2 + bigs; ii++) {
             Spot i = spots.get(ii);
-            if (i.clone().sub(p).len() > radius) continue;
+            if (Points.distance(i, p) > radius) continue;
             g.setColor(Color.lightGray);
             g.fillOval(i.x - i.r / 2, i.y - i.r / 2, i.r, i.r);
         }
@@ -251,7 +251,7 @@ public class Map implements IUpdate, IDraw {
         g.setColor(Color.darkGray);
         for (int ii = 2 + bigs; ii < spots_index; ii++) {
             Spot i = spots.get(ii);
-            if (i.clone().sub(p).len() > radius) continue;
+            if (Points.distance(i, p) > radius) continue;
             g.setColor(i.color);
             g.fillOval(i.x - i.r / 2, i.y - i.r / 2, i.r, i.r);
         }

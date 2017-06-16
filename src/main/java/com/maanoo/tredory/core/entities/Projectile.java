@@ -19,18 +19,23 @@ public class Projectile extends Entity {
     public float rota;
     public float lifetime;
 
-    public Projectile(Team team, Point location, float angle, SpriteBundleEntity sprites, float speed, float rota, float attackspeed, float lifetime) {
-        super(team, location, angle, sprites);
+    public Projectile() {
+    }
+
+    public Projectile init(Team team, Point location, float angle, SpriteBundleEntity sprites, float speed, float rota, float attackspeed, float lifetime) {
+        init(team, location, angle, sprites);
         this.rota = rota;
         this.lifetime = lifetime;
 
-        this.speed = new Point(angle).mul(speed);
+        this.speed.init(angle).mul(speed);
 
         undead = true;
 
         damaging = false;
 
         startAttack(attackspeed);
+
+        return this;
     }
 
     @Override
@@ -56,7 +61,8 @@ public class Projectile extends Entity {
                 angle += rota * d;
                 speed.rotate(rota * d);
             }
-            location.add(speed.clone().mul(d));
+            move.init(speed).mul(d);
+            location.add(move);
 
             if (life >= lifetime) {
                 damaging = false;
