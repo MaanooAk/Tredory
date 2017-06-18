@@ -63,14 +63,14 @@ public class StateGame extends State {
         h = gc.getHeight();
 
         //g.setAntiAlias(true);
-        
+
         /*
-        g.setColor(new Color(.3f, .4f, .3f));        
+        g.setColor(new Color(.3f, .4f, .3f));
         g.fillRect(10, 580, 780, 10);
-        
-        g.setColor(new Color(.2f, .9f, .2f));        
+
+        g.setColor(new Color(.2f, .9f, .2f));
         g.fillRect(10, 580, 780-20, 10);
-        g.setColor(new Color(.2f, .8f, .2f));        
+        g.setColor(new Color(.2f, .8f, .2f));
         g.fillRect(15, 585, 770-20, 5);
         */
 
@@ -85,14 +85,14 @@ public class StateGame extends State {
         for (Entity i : c.l) i.draw(g);
 
         c.player.draw(g);
-        
+
         /*
         g.pushTransform();
         g.translate(player.location.x, player.location.y);
         g.rotate(0, 0, player.angle);
 
         SpriteBundles.char1.image.draw(-32, -32, 2);
-        
+
         g.popTransform();*/
 
         g.popTransform();
@@ -187,7 +187,7 @@ public class StateGame extends State {
                 }
             }
         }
-        // coins 
+        // coins
         {
             if (c.player.coins > 0) {
                 final int groups = c.player.coins < 400 ? 5 : c.player.coins < 800 ? 10 : c.player.coins < 2000 ? 20 : 30;
@@ -249,6 +249,7 @@ public class StateGame extends State {
             Assets.font1.drawString(10, 10, "fps " + gc.getFPS() +
                     " | e " + c.l.size() +
                     " | s " + (c.l.size() + c.map.things.size()) +
+                    " | cd " + c.collision_detections + 
                     " | " + (int) c.player.location.x + " " + (int) c.player.location.y + " " + (int) c.player.angle, Color.darkGray);
             Assets.font1.drawString(10, h - 100, "gcs " + Inspector.instance.getGcs() +
                     " | am " + Inspector.instance.getAllocatedMemory() +
@@ -263,6 +264,9 @@ public class StateGame extends State {
         Input in = gc.getInput();
 
         Point mouse = new Point(in.getMouseX() - w / 2, in.getMouseY() - h / 2);
+
+        // TODO move time handling into core
+        // TODO impement time speed
 
         if (in.isKeyDown(Input.KEY_P)) d = d / 2;
         if (in.isKeyDown(Input.KEY_O)) d = d / 5;
@@ -290,20 +294,20 @@ public class StateGame extends State {
                 c.player.startAttack(spell.getAttackspeed(c.player.ccomp.effect));
                 spell.perform(c, c.player.location, c.player.angle, c.player.ccomp.effect);
             }
-            
+
             /*
             if(in.isKeyDown(Input.KEY_Q)) {
 
                 c.player.startAttack(1.0f);
 
-                Entity ent = new AreaDamage(Team.Good, c.player.location.clone().add(mouse), 0, 
-                        new SpriteBundleEntity(Assets.flameblast.get()), 
+                Entity ent = new AreaDamage(Team.Good, c.player.location.clone().add(mouse), 0,
+                        new SpriteBundleEntity(Assets.flameblast.get()),
                         c.player.sprites.attack.getSpeed());
                 ent.size *= 3;
                 ent.sizecol = ent.size*2/3;
-                
+
                 c.l.add(0, ent);
-                
+
             }*/
 
         }

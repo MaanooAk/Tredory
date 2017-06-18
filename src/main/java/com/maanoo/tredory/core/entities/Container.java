@@ -15,7 +15,7 @@ public class Container extends Entity {
 
     public int tier;
 
-    private static final int shieldsSumPerTier[] = new int[]{0, 0, 2, 8};
+    private static final int shieldsSumPerTier[] = new int[]{0, 1, 3, 8};
 
     public Container(Team team, int tier, Point location, float angle, SpriteBundleEntity sprites) {
         super(team, location, angle, sprites);

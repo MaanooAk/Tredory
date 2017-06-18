@@ -11,6 +11,8 @@ import java.util.ArrayList;
  */
 public final class CrystalComp {
 
+    // TODO rename class
+
     public final int count[];
 
     public Effect effect;
@@ -49,7 +51,7 @@ public final class CrystalComp {
     }
 
     private void calcEffect() {
-        effect = new Effect();
+        effect = new Effect(); // TODO can we remove this line ?
         effect.shields.add = count[0] * 0.5f;
         effect.speed.add = count[1] * 0.03f;
         effect.attackspeed.mul = count[2] * 0.2f;

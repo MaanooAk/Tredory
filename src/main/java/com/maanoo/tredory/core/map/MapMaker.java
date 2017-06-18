@@ -75,7 +75,7 @@ public class MapMaker {
             //c.l.add(new Container(Team.Bad, emptyPoint(), 0, new SpriteBundleEntity(Assets.box.get())));
         }
         for (int i = 0; i < 200; i++) {
-            MapGen.genManTier(1, map, new Point(Ra.range(32, (int) size.x - 32), Ra.range(32, (int) size.y - 32)), Ra.range(360));
+            //MapGen.genManTier(1, map, new Point(Ra.range(32, (int) size.x - 32), Ra.range(32, (int) size.y - 32)), Ra.range(360));
         }
 
         return map;
@@ -113,6 +113,7 @@ public class MapMaker {
 
     private static boolean fitSpots(Map map) {
         boolean changed = false;
+        Point vec = new Point();
 
         int count = map.spots.size();
         for (int i1 = 0; i1 < count; i1++) {
@@ -123,7 +124,7 @@ public class MapMaker {
                 float r1 = map.spots.get(i1).r;
                 float r2 = map.spots.get(i2).r;
 
-                Point vec = map.spots.get(i1).clone().sub(map.spots.get(i2));
+                vec.init( map.spots.get(i1)).sub(map.spots.get(i2));
                 float inside = vec.len() / (r1 + r2);
 
                 if (inside <= 1) {

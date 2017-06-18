@@ -77,9 +77,10 @@ public class PlayerAttacks implements IUpdate {
 
     @Override
     public void update(int d) {
+        // TODO why is this commented ?
         //spellFireball1.update(d);
         //spellFireball2.update(d);
-        //spellFireball3.update(d);    
+        //spellFireball3.update(d);
         //spellFireballCyclone1.update(d);
         spellTeleport.update(d);
         spellSwap.update(d);

@@ -11,6 +11,9 @@ import com.maanoo.tredory.face.assets.Assets;
  */
 public class EntityBrain implements IUpdate {
 
+    // TODO create inheriting structrue
+    // TODO add intelligence parameter
+
     public final Animal ent;
 
     private float viewRange = 300;

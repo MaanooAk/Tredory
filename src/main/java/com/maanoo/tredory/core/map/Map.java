@@ -23,15 +23,17 @@ import java.util.Iterator;
  */
 public class Map implements IUpdate, IDraw {
 
+    // TODO store map type
+
     public final Point size;
 
     public final Point spawn;
     public final ArrayList<TerrainThing> things;
     public final ArrayList<Entity> l;
 
-    public int bigs;
+    public int bigs; // TODO move into map type
     public final ArrayList<Spot> spots;
-    public int spots_index = 0;
+    public int spots_index = 0; // TODO no need to store ?
 
     public final ArrayList<Entity> hotspots;
 
@@ -95,11 +97,16 @@ public class Map implements IUpdate, IDraw {
         g.drawRect(0, 0, size.x, size.y);
     }
 
+    /**
+     * Draws the minimap on the corner
+     */
     public void drawMini(Graphics g, Point p, float radius) {
+
+        // TODO simlifiy ?
 
         for (int ii = 1; ii < 2 + bigs; ii++) {
             Spot i = spots.get(ii);
-            if (Points.distance(i, p) > radius) continue;
+            if (i.distance(p) > radius) continue;
             g.setColor(Color.lightGray);
             g.fillOval(i.x - i.r / 2, i.y - i.r / 2, i.r, i.r);
         }
@@ -107,7 +114,7 @@ public class Map implements IUpdate, IDraw {
         g.setColor(Color.darkGray);
         for (int ii = 2 + bigs; ii < spots_index; ii++) {
             Spot i = spots.get(ii);
-            if (Points.distance(i, p) > radius) continue;
+            if (i.distance(p) > radius) continue;
             g.setColor(i.color);
             g.fillOval(i.x - i.r / 2, i.y - i.r / 2, i.r, i.r);
         }

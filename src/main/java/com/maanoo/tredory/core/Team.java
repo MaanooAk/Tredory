@@ -7,6 +7,34 @@ package com.maanoo.tredory.core;
  */
 public enum Team {
 
-    Neutral, Good, Bad;
+    // TODO split into team and factions and rename holder something else
+
+    Neutral, Good, Bad, Evil, Pure;
+
+    // TODO change
+    // TODO use in logic
+    public static final Team[] getEnemies(Team team) {
+        switch(team) {
+            case Neutral: return new Team[] {};
+            case Good: return new Team[] {Bad, Evil};
+            case Bad: return new Team[] {Good, Evil};
+            case Evil: return new Team[] {Neutral, Good, Bad};
+            case Pure: return new Team[] {};
+            default: return new Team[] {};
+        }
+    }
+
+    // TODO change
+    // TODO use in logic
+    public static final Team[] getAllies(Team team) {
+            switch(team) {
+                case Neutral: return new Team[] {Neutral, Pure};
+                case Good: return new Team[] {Neutral, Pure};
+                case Bad: return new Team[] {Bad, Pure};
+                case Evil: return new Team[] {Evil};
+                case Pure: return new Team[] {Neutral, Good, Bad, Evil, Pure};
+                default: return new Team[] {Pure};
+            }
+        }
 
 }

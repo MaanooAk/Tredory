@@ -2,6 +2,7 @@
 
 package com.maanoo.tredory.states;
 
+import com.maanoo.tredory.Op;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.*;
@@ -60,6 +61,7 @@ public class StateMenu extends State {
 
         message = menuInd[menu_index];
         Assets.font1.drawString(w / 2 - Assets.font1.getWidth(message) / 2, h - 70, message, Color.darkGray);
+
     }
 
     @Override
@@ -87,10 +89,10 @@ public class StateMenu extends State {
 
         }
 
-        if (gc.getInput().isKeyPressed(Input.KEY_A)) menu_index -= 1;
-        if (gc.getInput().isKeyPressed(Input.KEY_W)) menu_index -= 1;
-        if (gc.getInput().isKeyPressed(Input.KEY_D)) menu_index += 1;
-        if (gc.getInput().isKeyPressed(Input.KEY_S)) menu_index += 1;
+        if (gc.getInput().isKeyPressed(Op.Keys.MoveL)) menu_index -= 1;
+        if (gc.getInput().isKeyPressed(Op.Keys.MoveU)) menu_index -= 1;
+        if (gc.getInput().isKeyPressed(Op.Keys.MoveD)) menu_index += 1;
+        if (gc.getInput().isKeyPressed(Op.Keys.MoveR)) menu_index += 1;
         menu_index = Ma.looparound(menu_index, menu.length);
 
 

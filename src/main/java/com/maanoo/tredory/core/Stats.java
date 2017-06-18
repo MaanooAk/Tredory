@@ -15,6 +15,8 @@ public class Stats {
     public static int kills;
     public static int maps;
 
+    // TODO add life, networth, kills per sec, fame
+
     public static ArrayList<Image> killed;
 
     public static void reset() {

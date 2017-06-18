@@ -7,6 +7,7 @@ package com.maanoo.tredory.core.utils;
  */
 public final class Ma {
 
+    // TODO replace with TAU
     public static final float PI = (float) Math.PI;
 
     public static float abs(float x) {

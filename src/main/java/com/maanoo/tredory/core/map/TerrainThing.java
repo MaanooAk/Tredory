@@ -2,15 +2,19 @@
 
 package com.maanoo.tredory.core.map;
 
+import com.maanoo.tredory.core.IDraw;
 import com.maanoo.tredory.core.utils.Point;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Graphics;
 
 /**
  * TODO doc
  *
  * @author MaanooAk
  */
-public class TerrainThing {
+public class TerrainThing implements IDraw {
+
+    // TODO remove the finals
 
     public final Point p;
     public final float angle;
@@ -27,6 +31,18 @@ public class TerrainThing {
         h = img.getHeight();
 
         p.intify();
+    }
+
+    @Override
+    public void draw(Graphics g) {
+
+        // TODO remove transformations (split to angled and not ?)
+
+        g.pushTransform();
+        g.translate(p.x, p.y);
+        g.rotate(0, 0, angle);
+        img.draw(-w, -h, 2);
+        g.popTransform();
     }
 
 }

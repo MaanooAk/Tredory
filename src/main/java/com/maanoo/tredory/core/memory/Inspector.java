@@ -14,7 +14,12 @@ public class Inspector {
     }
 
     private final Runtime runtime;
+
     private long lastFreeMemory;
+
+    /**
+     * Number of garbage collections performed.
+     */
     private long gcs;
 
     private Inspector() {
@@ -27,15 +32,15 @@ public class Inspector {
         return (100L * runtime.freeMemory() / runtime.totalMemory()) / 100f;
     }
 
-    public long getGcs() {
-        return gcs;
-    }
-
     public boolean didGarbageCollect() {
         boolean did = runtime.freeMemory() > lastFreeMemory;
         if (did) gcs += 1;
         lastFreeMemory = runtime.freeMemory();
         return did;
+    }
+
+    public long getGcs() {
+        return gcs;
     }
 
 }

@@ -11,6 +11,7 @@ public final class Ra {
 
     private static Random r = new Random();
 
+    // TODO split in deterministic and not
 
     public static int range(int max) {
         return r.nextInt(max);
@@ -39,7 +40,6 @@ public final class Ra {
         max /= 3;
         return range(min, max) + range(min, max) + range(min, max);
     }
-
 
     public static boolean bool() {
         return r.nextBoolean();

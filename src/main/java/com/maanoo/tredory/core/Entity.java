@@ -15,9 +15,17 @@ import org.newdawn.slick.Graphics;
  */
 public class Entity implements IUpdate, IDraw, Poolable {
 
+    // TODO fame gain
+
+    /**
+     * The duration of its life.
+     */
     public int life;
     public boolean undead;
     public boolean dead;
+    /**
+     * If it can be picked up by an other Entity.
+     */
     public boolean pickable;
     public boolean stepable;
     public boolean activatable;
@@ -33,6 +41,9 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public EntityState state;
     public SpriteBundle sprites;
     public int size;
+    /**
+     * Collision circle size.
+     */
     public int sizecol;
     public boolean alerted;
     public int shieldsSum;
@@ -110,7 +121,6 @@ public class Entity implements IUpdate, IDraw, Poolable {
     @Override
     public void draw(Graphics g) {
         g.pushTransform();
-
         g.translate(location.x, location.y);
         g.rotate(0, 0, angle + 180);
 

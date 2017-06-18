@@ -45,11 +45,13 @@ public class Animal extends Entity {
         Core.c.addItem(this, 0);
     }
 
-
+    // TODO add the source of the damage
     @Override
     public void takeDamage() {
         super.takeDamage();
 
+        // alert all near by allies when it takes damage
+        // TODO find all allies not teammates
         ArrayList<Entity> l = Core.c.findAll(this, team, 250);
         for (Entity i : l) {
             i.alerted = true;
@@ -60,6 +62,7 @@ public class Animal extends Entity {
     public void die() {
         super.die();
 
+        // TODO credit the killing blow giver not the player
         if (team != Team.Good) Stats.addKilled(this);
     }
 

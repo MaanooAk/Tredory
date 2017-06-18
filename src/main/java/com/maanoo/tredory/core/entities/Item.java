@@ -18,6 +18,7 @@ public class Item extends Entity implements Comparable<Item> {
 
     public float speedm;
 
+    // TODO change into time diff based not absolute values
     private int unpicable;
 
     public Item(ItemType type, Point location) {
@@ -42,6 +43,9 @@ public class Item extends Entity implements Comparable<Item> {
         this.speed = new Point(angle);
     }
 
+    /**
+     * Make the item unpicable for a given duration.
+     */
     public void unpicablify(int duration) {
         pickable = false;
         unpicable = duration;

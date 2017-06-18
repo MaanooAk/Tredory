@@ -11,6 +11,8 @@ public enum MapType {
 
     Plain(1), Altar(2);
 
+    // TODO store more things here
+    // TODO store parts of the map gen ?
 
     public final int bigs;
 

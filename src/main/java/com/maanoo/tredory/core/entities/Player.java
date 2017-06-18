@@ -116,7 +116,6 @@ public final class Player extends Entity {
 
     public void updateEffects() {
 
-
         ccomp.update(crystals, shields);
         ccomp.effect.crystals.add = stones.size() * 2;
 

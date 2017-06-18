@@ -61,6 +61,8 @@ public class Assets {
 
     public static void load() throws SlickException {
 
+        // TODO make all of load runnables (Provider)
+
         icon = loadImage("data/icon.png");
         cursor = new SpriteSheet(loadImage("data/cursor.png"), 16, 16);
         font1 = new SpriteSheetFont(new SpriteSheet(loadImage("data/fonts/font1.png"), 8, 12), '\0');
@@ -82,6 +84,9 @@ public class Assets {
         colors.add(new Color(0xFF70CF));
         colors.add(new Color(0xFF7070));
         colors.add(new Color(0x5DD37A));
+        // TODO add more colors
+        // TODO laod from file
+        // TODO colors based on function
 
         axeman = loadSpriteSheetSet("axeman", 32, 32);
         maceman = loadSpriteSheetSet("maceman", 32, 32);

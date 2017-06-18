@@ -9,4 +9,6 @@ public enum EntityState {
 
     Idle, Move, Attack, Work, Die, Special;
 
+    // TODO add some parameters defined behaviur, eg. canMove, canInterupt
+
 }

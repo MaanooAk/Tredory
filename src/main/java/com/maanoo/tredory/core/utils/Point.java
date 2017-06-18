@@ -118,6 +118,7 @@ public class Point implements Poolable {
         return (float) Math.sqrt(pow2(x - p.x) + pow2(y - p.y));
     }
 
+    // TODO move inside
     private static float pow2(float x) {
         return x * x;
     }

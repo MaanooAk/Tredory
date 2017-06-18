@@ -9,4 +9,6 @@ public enum StateId {
 
     Menu, Game, Over, Options, Gallery;
 
+    // TODO add text name and description
+
 }

@@ -45,6 +45,7 @@ public class Points {
 
     private static final Point distancePoint = new Point();
 
+    // TODO replace with p1.distance(p2)
     public static float distance(Point p1, Point p2) {
         return distancePoint.init(p1).sub(p2).len();
     }

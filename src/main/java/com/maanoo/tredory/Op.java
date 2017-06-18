@@ -60,6 +60,8 @@ public class Op {
 
     public static void load(String[] args) {
 
+        // TODO load options from a file
+
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
 
