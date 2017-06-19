@@ -27,6 +27,8 @@ public class Main extends StateBasedGame {
 
         Op.load(args);
 
+        //Log.setVerbose(Op.debug);
+
         if (Op.fullscreen) {
             DisplayMode ddm = Display.getDesktopDisplayMode();
             game.setDisplayMode(ddm.getWidth(), ddm.getHeight(), true);

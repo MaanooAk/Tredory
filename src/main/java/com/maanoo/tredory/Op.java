@@ -19,7 +19,7 @@ public class Op {
     // Video
     public static int fps = 60;
     public static boolean vsync = true;
-    public static boolean alwaysRender = false;
+    public static boolean alwaysRender = true;
     public static int scale = 2;
 
     // Audio

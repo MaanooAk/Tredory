@@ -37,7 +37,8 @@ public class Attack implements IUpdate {
         act_effect = effect;
     }
 
-    public void activate(Core c, Point p, float angle) {
+    public final void activate(Core c, Point p, float angle) {
+        // TODO remove the object creation (create a static empty effect)
         activate(c, p, angle, new Effect());
     }
 

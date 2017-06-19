@@ -7,6 +7,7 @@ import com.maanoo.tredory.core.entities.Altar;
 import com.maanoo.tredory.core.entities.Animal;
 import com.maanoo.tredory.core.entities.Container;
 import com.maanoo.tredory.core.entities.Portal;
+import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundleEntity;
@@ -19,8 +20,7 @@ import org.newdawn.slick.Color;
 public class MapGen {
 
     public static final void genFireplace(Map m, Spot center) {
-        final Color c = new Color(.2f, .2f, .2f);
-        center.color = c;
+        center.color = Colors.c202020;
 
         for (int i = 0; i < 20; i++) {
             Point p = center.clone();
@@ -46,8 +46,7 @@ public class MapGen {
     }
 
     public static final void genGroup(Map m, Spot center) {
-        final Color c = new Color(.2f, .2f, .2f);
-        center.color = c;
+        center.color = Colors.c202020;
 
         for (int i = 0; i < 20; i++) {
             Point p = center.clone();
@@ -71,8 +70,7 @@ public class MapGen {
     }
 
     public static final void genSquad(Map m, Spot center) {
-        final Color c = new Color(.2f, .2f, .2f);
-        center.color = c;
+        center.color = Colors.c202020;
 
         int man = Ra.range(2, 8);
 
@@ -101,8 +99,7 @@ public class MapGen {
     }
 
     public static final void genBoxguards(Map m, Spot center) {
-        final Color c = new Color(.4f, .4f, .4f);
-        center.color = c;
+        center.color = Colors.c404040;
 
         m.l.add(new Container(Team.Bad, 1, center.clone(), Ra.range(360), new SpriteBundleEntity(Assets.box.get())));
 

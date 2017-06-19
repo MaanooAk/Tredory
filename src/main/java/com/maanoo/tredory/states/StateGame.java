@@ -8,8 +8,10 @@ import com.maanoo.tredory.core.*;
 import com.maanoo.tredory.core.entities.Item;
 import com.maanoo.tredory.core.entities.ItemType;
 import com.maanoo.tredory.core.memory.Inspector;
+import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.core.utils.Str;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
@@ -22,13 +24,30 @@ public class StateGame extends State {
     private int w, h;
     private float zoom;
 
-    public StateGame() {
-        super(StateId.Game);
-    }
-
     private Core c;
 
+    // TODO to core
+    // TODO support multiple players (in the logic)
     private PlayerAttacks pa;
+
+    /**
+     * The mouse position whith origin the top left corner of the screen.
+     */
+    private final Point mouse;
+
+    /**
+     * The mouse position whith origin the center of the screen.
+     */
+    private final Point mouseC;
+
+    // TODO add mouse position in the map cordinate system
+
+    public StateGame() {
+        super(StateId.Game);
+
+        mouse = new Point();
+        mouseC = new Point();
+    }
 
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
@@ -56,23 +75,12 @@ public class StateGame extends State {
         }
     }
 
-
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
         w = gc.getWidth();
         h = gc.getHeight();
 
-        //g.setAntiAlias(true);
-
-        /*
-        g.setColor(new Color(.3f, .4f, .3f));
-        g.fillRect(10, 580, 780, 10);
-
-        g.setColor(new Color(.2f, .9f, .2f));
-        g.fillRect(10, 580, 780-20, 10);
-        g.setColor(new Color(.2f, .8f, .2f));
-        g.fillRect(15, 585, 770-20, 5);
-        */
+        //g.setAntiAlias(true); // TODO can we support aa ?
 
         // ===
         g.pushTransform();
@@ -86,20 +94,11 @@ public class StateGame extends State {
 
         c.player.draw(g);
 
-        /*
-        g.pushTransform();
-        g.translate(player.location.x, player.location.y);
-        g.rotate(0, 0, player.angle);
-
-        SpriteBundles.char1.image.draw(-32, -32, 2);
-
-        g.popTransform();*/
-
         g.popTransform();
 
         // map
         {
-            g.setColor(new Color(0, 0, 0, 0.75f));
+            g.setColor(Colors.black75);
             g.fillRect(-1, -1, 10 + 96, 10 + 96);
             g.setColor(Color.darkGray);
             g.drawRect(-1, -1, 10 + 96, 10 + 96);
@@ -127,11 +126,12 @@ public class StateGame extends State {
 
             g.popTransform();
         }
+        // TODO create gui object
         // shields
         {
 
             if (c.player.shields.size() > 0) {
-                g.setColor(new Color(0, 0, 0, 0.75f));
+                g.setColor(Colors.black75);
                 g.fillRect(-1, h - 52, 33 + 18 * c.player.shields.max + 1, 52);
                 g.setColor(Color.darkGray);
                 g.drawRect(-1, h - 52, 33 + 18 * c.player.shields.max + 1, 52);
@@ -151,7 +151,7 @@ public class StateGame extends State {
                 int pad = 16 - 4;
                 int wi = 20 + count * pad;
 
-                g.setColor(new Color(0, 0, 0, 0.75f));
+                g.setColor(Colors.black75);
                 g.fillRect(w - wi, h - 52, wi, 52);
                 g.setColor(Color.darkGray);
                 g.drawRect(w - wi, h - 52, wi, 52);
@@ -173,7 +173,7 @@ public class StateGame extends State {
                 int pad = 16 - 4 + 6;
                 int wi = 20 + count * pad;
 
-                g.setColor(new Color(0, 0, 0, 0.75f));
+                g.setColor(Colors.black75);
                 g.fillRect(w - wi, h - 52 - 52, wi, 52);
                 g.setColor(Color.darkGray);
                 g.drawRect(w - wi, h - 52 - 52, wi, 52);
@@ -195,7 +195,7 @@ public class StateGame extends State {
                 int wi = 16 * (c.player.coins / (groups * 10)) + 16;
                 wi += groups <= 10 ? (10 / groups) * 16 : 16;
 
-                g.setColor(new Color(0, 0, 0, 0.75f));
+                g.setColor(Colors.black75);
                 g.fillRect(w - wi - 10, 0, wi + 20, 28 + 3 * groups);
                 g.setColor(Color.darkGray);
                 g.drawRect(w - wi - 10, -1, wi + 20 + 1, 28 + 3 * groups + 1);
@@ -232,7 +232,7 @@ public class StateGame extends State {
             int x = (int) (-count / 2f * (wi + 10));
             for (int i = 0; i < count; i++) {
 
-                g.setColor(new Color(0, 0, 0, 0.75f));
+                g.setColor(Colors.black75);
                 g.fillOval(w / 2 + x, h - wi - 10, wi, wi);
                 g.setColor(Color.darkGray);
                 g.drawOval(w / 2 + x, h - wi - 10, wi, wi);
@@ -246,14 +246,20 @@ public class StateGame extends State {
 
         // debug
         if (Op.debug) {
-            Assets.font1.drawString(10, 10, "fps " + gc.getFPS() +
-                    " | e " + c.l.size() +
-                    " | s " + (c.l.size() + c.map.things.size()) +
-                    " | cd " + c.collision_detections + 
-                    " | " + (int) c.player.location.x + " " + (int) c.player.location.y + " " + (int) c.player.angle, Color.darkGray);
-            Assets.font1.drawString(10, h - 100, "gcs " + Inspector.instance.getGcs() +
-                    " | am " + Inspector.instance.getAllocatedMemory() +
-                    (Inspector.instance.didGarbageCollect() ? " | Garbage collection performed" : ""), Color.darkGray);
+            Assets.font1.drawString(10, 10, Str.create(
+                    "fps ", Integer.toString(gc.getFPS()),
+                    " | e ", Integer.toString(c.l.size()),
+                    " | s ", Integer.toString(c.l.size() + c.map.things.size()),
+                    " | cd ", Integer.toString(c.collision_detections),
+                    " | p ", Integer.toString((int) c.player.location.x),
+                    " ", Integer.toString((int) c.player.location.y),
+                    " ", Integer.toString((int) c.player.angle)),
+                    Color.darkGray);
+            Assets.font1.drawString(10, h - 100, Str.create(
+                    "gcs ", Long.toString(Inspector.instance.getGcs()),
+                    " | am ", Float.toString(Inspector.instance.getAllocatedMemory()),
+                    (Inspector.instance.didGarbageCollect() ? " | Garbage collection performed" : ""))
+                    , Color.darkGray);
         }
     }
 
@@ -263,7 +269,10 @@ public class StateGame extends State {
 
         Input in = gc.getInput();
 
-        Point mouse = new Point(in.getMouseX() - w / 2, in.getMouseY() - h / 2);
+        // TODO use this two variables to get mouse position
+
+        mouse.init(in.getMouseX(), in.getMouseY());
+        mouseC.init(in.getMouseX() - w / 2, in.getMouseY() - h / 2);
 
         // TODO move time handling into core
         // TODO impement time speed

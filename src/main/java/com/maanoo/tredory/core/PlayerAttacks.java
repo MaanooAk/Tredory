@@ -46,7 +46,6 @@ public class PlayerAttacks implements IUpdate {
             }
         };
 
-
     }
 
     public Attack getAttack(int group, int index) {

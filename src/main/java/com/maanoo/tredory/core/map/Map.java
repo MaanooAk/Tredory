@@ -6,10 +6,7 @@ import com.maanoo.tredory.Op;
 import com.maanoo.tredory.core.Entity;
 import com.maanoo.tredory.core.IDraw;
 import com.maanoo.tredory.core.IUpdate;
-import com.maanoo.tredory.core.utils.Ma;
-import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.core.utils.Points;
-import com.maanoo.tredory.core.utils.Ra;
+import com.maanoo.tredory.core.utils.*;
 import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -37,7 +34,6 @@ public class Map implements IUpdate, IDraw {
 
     public final ArrayList<Entity> hotspots;
 
-    @SuppressWarnings("LeakingThisInConstructor")
     public Map(Point size) {
         this.size = size;
 
@@ -57,20 +53,7 @@ public class Map implements IUpdate, IDraw {
 
             if (i.dead) it.remove();
         }
-        /*
-        tmp -= d;
-        if(tmp > 0) return ;
-        tmp = 1;
-        //while(fitSpots()) {
-        tmp2 += 1;
-        //}
-        if(!fitSpots()) {
-            System.out.println(tmp2);
-            tmp = 2000;
-            tmp2 = 0;
-            createSpots(0.5f);
-        }
-        //*/
+
     }
 
     @Override
@@ -93,7 +76,7 @@ public class Map implements IUpdate, IDraw {
             g.popTransform();
         }
 
-        g.setColor(new Color(0.1f, 0.1f, 0.1f));
+        g.setColor(Colors.c101010);
         g.drawRect(0, 0, size.x, size.y);
     }
 
@@ -118,9 +101,6 @@ public class Map implements IUpdate, IDraw {
             g.setColor(i.color);
             g.fillOval(i.x - i.r / 2, i.y - i.r / 2, i.r, i.r);
         }
-
-        //g.setColor(new Color(0.1f,0.1f,0.1f));
-        //g.drawRect(0, 0, size.x, size.y);
     }
 
 }
