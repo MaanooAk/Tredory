@@ -1,7 +1,11 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.entity;
 
+import com.maanoo.tredory.core.Core;
+import com.maanoo.tredory.core.IUpdate;
+import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.utils.Point;
 
 /**
@@ -9,13 +13,12 @@ import com.maanoo.tredory.core.utils.Point;
  */
 public class Attack implements IUpdate {
 
-    public final Team team;
-    public final float attackspeed;
+    public Team team;
+    public float attackspeed;
 
     private int activatein;
     private Core act_c;
-    private Point act_p;
-    private float act_angle;
+    protected Entity ent;
     private Effect act_effect;
 
     public Attack(Team team, float attackspeed) {
@@ -25,18 +28,19 @@ public class Attack implements IUpdate {
         activatein = -1;
     }
 
-    public final void perform(Core c, Point p, float angle) {
-        perform(c, p, angle, new Effect());
+    // TODO remove
+    public final void perform(Core c, Entity ent) {
+        perform(c, ent, new Effect());
     }
 
-    public void perform(Core c, Point p, float angle, Effect effect) {
+    public void perform(Core c, Entity ent, Effect effect) {
         activatein = (int) (450 / effect.attackspeed.apply(attackspeed));
         act_c = c;
-        act_p = p;
-        act_angle = angle;
+        this.ent = ent;
         act_effect = effect;
     }
 
+    // TODO remove
     public final void activate(Core c, Point p, float angle) {
         // TODO remove the object creation (create a static empty effect)
         activate(c, p, angle, new Effect());
@@ -54,12 +58,16 @@ public class Attack implements IUpdate {
         return e.attackspeed.apply(attackspeed);
     }
 
+    public boolean isActive() {
+        return activatein > 0;
+    }
+
     @Override
     public void update(int d) {
 
         if (activatein > 0) {
             activatein -= d;
-            if (activatein <= 0) activate(act_c, act_p, act_angle, act_effect);
+            if (activatein <= 0) activate(act_c, ent.location, ent.angle, act_effect);
         }
     }
 

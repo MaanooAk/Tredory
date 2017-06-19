@@ -2,8 +2,9 @@
 
 package com.maanoo.tredory.core;
 
-import com.maanoo.tredory.core.entities.Item;
-import com.maanoo.tredory.core.entities.ItemType;
+import com.maanoo.tredory.core.entity.Entity;
+import com.maanoo.tredory.core.entity.entities.Item;
+import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 

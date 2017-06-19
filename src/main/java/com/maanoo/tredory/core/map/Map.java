@@ -3,14 +3,12 @@
 package com.maanoo.tredory.core.map;
 
 import com.maanoo.tredory.Op;
-import com.maanoo.tredory.core.Entity;
+import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.IDraw;
 import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.utils.*;
-import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 import java.util.ArrayList;
 import java.util.Iterator;

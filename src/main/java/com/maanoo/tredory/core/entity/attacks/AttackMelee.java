@@ -1,7 +1,12 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.entity.attacks;
 
+import com.maanoo.tredory.core.Core;
+import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.entity.Attack;
+import com.maanoo.tredory.core.entity.Effect;
+import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.utils.Point;
 
 /**
@@ -20,8 +25,8 @@ public class AttackMelee extends Attack {
     }
 
     @Override
-    public void perform(Core c, Point p, float angle, Effect effect) {
-        super.perform(c, p, angle, effect);
+    public void perform(Core c, Entity ent, Effect effect) {
+        super.perform(c, ent, effect);
     }
 
 

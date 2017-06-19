@@ -2,7 +2,7 @@
 
 package com.maanoo.tredory.core;
 
-import com.maanoo.tredory.core.entities.ItemType;
+import com.maanoo.tredory.core.entity.entities.ItemType;
 
 import java.util.ArrayList;
 

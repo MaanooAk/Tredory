@@ -5,8 +5,12 @@ package com.maanoo.tredory.states;
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Op.Keys;
 import com.maanoo.tredory.core.*;
-import com.maanoo.tredory.core.entities.Item;
-import com.maanoo.tredory.core.entities.ItemType;
+import com.maanoo.tredory.core.entity.Attack;
+import com.maanoo.tredory.core.entity.Collision;
+import com.maanoo.tredory.core.entity.Entity;
+import com.maanoo.tredory.core.entity.EntityState;
+import com.maanoo.tredory.core.entity.entities.Item;
+import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.memory.Inspector;
 import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
@@ -250,7 +254,7 @@ public class StateGame extends State {
                     "fps ", Integer.toString(gc.getFPS()),
                     " | e ", Integer.toString(c.l.size()),
                     " | s ", Integer.toString(c.l.size() + c.map.things.size()),
-                    " | cd ", Integer.toString(c.collision_detections),
+                    " | cd ", Integer.toString(Collision.collision_checks), " ", Integer.toString(Collision.collision_detections),
                     " | p ", Integer.toString((int) c.player.location.x),
                     " ", Integer.toString((int) c.player.location.y),
                     " ", Integer.toString((int) c.player.angle)),
@@ -286,9 +290,12 @@ public class StateGame extends State {
             changeState(game, StateId.Menu);
         }
 
-        if (c.player.state != EntityState.Attack) {
+        if (c.player.state != EntityState.Attack || c.player.sprites.attack.getFrame() >= 4) {
 
             c.player.angle = (float) (-Math.atan2(gc.getInput().getMouseX() - w / 2, gc.getInput().getMouseY() - h / 2) * 360 / (2 * Math.PI));
+        }
+
+        if (c.player.state != EntityState.Attack) {
 
             Attack spell = null;
 
@@ -300,8 +307,8 @@ public class StateGame extends State {
             for (int i = 0; i < 7; i++) if (in.isKeyDown(Keys.Spell[i])) spell = pa.getAttack(1, i);
 
             if (spell != null) {
-                c.player.startAttack(spell.getAttackspeed(c.player.ccomp.effect));
-                spell.perform(c, c.player.location, c.player.angle, c.player.ccomp.effect);
+                c.player.startAttack(spell);
+                spell.perform(c, c.player, c.player.ccomp.effect);
             }
 
             /*

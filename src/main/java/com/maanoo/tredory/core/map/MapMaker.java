@@ -2,15 +2,10 @@
 
 package com.maanoo.tredory.core.map;
 
-import com.maanoo.tredory.core.Team;
-import com.maanoo.tredory.core.entities.Animal;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
-import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.Assets;
-
-import static com.maanoo.tredory.core.Core.c;
 
 /**
  * TODO doc

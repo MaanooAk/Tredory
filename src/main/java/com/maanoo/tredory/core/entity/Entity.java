@@ -1,9 +1,13 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.entity;
 
 import com.maanoo.tredory.Op;
+import com.maanoo.tredory.core.IDraw;
+import com.maanoo.tredory.core.IUpdate;
+import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.memory.Poolable;
+import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Points;
 import com.maanoo.tredory.face.SpriteBundle;
@@ -49,6 +53,8 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public int shieldsSum;
     public boolean opened;
 
+    public Attack activeAttack;
+
     public Entity() {
         speed = new Point();
         move = new Point();
@@ -73,6 +79,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         sizecol = size / 2;
         alerted = false;
         shieldsSum = 0;
+        activeAttack = null;
         speed.init();
         move.init();
     }
@@ -91,11 +98,21 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
         sprites.getAnimation(state).update(d);
 
+        if (activeAttack != null) {
+            activeAttack.update(d);
+        }
+
         switch (state) {
         case Attack:
 
-            if (sprites.attack.isStopped()) {
+            if (sprites.attack.isStopped()) { // TODO find a new way to determine if its over and then remove 86123 and 86124
                 stopAttack();
+            }
+
+            if (activeAttack != null && activeAttack.isActive()) {
+                if (sprites.attack.getFrame() > 4) {
+                    sprites.attack.setCurrentFrame(4);
+                }
             }
 
             break;
@@ -134,6 +151,10 @@ public class Entity implements IUpdate, IDraw, Poolable {
         g.popTransform();
     }
 
+    public Effect getEffect() {
+        return Effect.empty;
+    }
+
     public void collide(Entity e) {
 
         if (!undead && !e.undead) {
@@ -150,15 +171,23 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
     }
 
+    public final void startAttack(Attack attack) {
+        sprites.attack.restart();
+        sprites.attack.setSpeed(Ma.min(attack.getAttackspeed(getEffect()), 14f)); // TODO 86123 remove min
+        state = EntityState.Attack;
+        activeAttack = attack;
+    }
+
     public final void startAttack(float speed) {
         sprites.attack.restart();
-        sprites.attack.setSpeed(speed);
+        sprites.attack.setSpeed(Ma.min(speed, 14f)); // TODO 86124 remove min
         state = EntityState.Attack;
     }
 
     public final void stopAttack() {
         sprites.attack.restart();
         state = EntityState.Idle;
+        activeAttack = null;
     }
 
     public void takeDamage() {

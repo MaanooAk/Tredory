@@ -3,16 +3,15 @@
 package com.maanoo.tredory.core.map;
 
 import com.maanoo.tredory.core.Team;
-import com.maanoo.tredory.core.entities.Altar;
-import com.maanoo.tredory.core.entities.Animal;
-import com.maanoo.tredory.core.entities.Container;
-import com.maanoo.tredory.core.entities.Portal;
+import com.maanoo.tredory.core.entity.entities.Altar;
+import com.maanoo.tredory.core.entity.entities.Animal;
+import com.maanoo.tredory.core.entity.entities.Container;
+import com.maanoo.tredory.core.entity.entities.Portal;
 import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.Assets;
-import org.newdawn.slick.Color;
 
 /**
  * @author MaanooAk

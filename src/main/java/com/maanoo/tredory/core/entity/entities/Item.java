@@ -1,8 +1,8 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core.entities;
+package com.maanoo.tredory.core.entity.entities;
 
-import com.maanoo.tredory.core.Entity;
+import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.face.SpriteBundleStatic;

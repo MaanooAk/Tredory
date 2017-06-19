@@ -2,7 +2,7 @@
 
 package com.maanoo.tredory.face;
 
-import com.maanoo.tredory.core.EntityState;
+import com.maanoo.tredory.core.entity.EntityState;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 

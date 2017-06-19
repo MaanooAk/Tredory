@@ -1,6 +1,6 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.entity;
 
 import com.maanoo.tredory.core.utils.Ma;
 
@@ -8,6 +8,8 @@ import com.maanoo.tredory.core.utils.Ma;
  * @author MaanooAk
  */
 public final class Effect {
+
+    public static final Effect empty = new Effect();
 
     public static final class Item {
         public float add = 0;

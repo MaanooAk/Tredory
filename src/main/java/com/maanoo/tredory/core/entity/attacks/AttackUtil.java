@@ -1,6 +1,9 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.entity.attacks;
+
+import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.entity.Attack;
 
 /**
  * @author MaanooAk

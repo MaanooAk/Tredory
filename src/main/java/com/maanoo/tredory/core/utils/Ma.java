@@ -39,4 +39,14 @@ public final class Ma {
         return a > b ? a : b;
     }
 
+    public static final float pow2(float x) {
+        return x * x;
+    }
+    public static final float pow3(float x) {
+        return x * x * x;
+    }
+    public static final float pow4(float x) {
+        return pow2(x * x);
+    }
+
 }

@@ -1,9 +1,9 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core.entities;
+package com.maanoo.tredory.core.entity.entities;
 
-import com.maanoo.tredory.core.Entity;
-import com.maanoo.tredory.core.EntityState;
+import com.maanoo.tredory.core.entity.Entity;
+import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.face.SpriteBundleEntity;
@@ -19,6 +19,8 @@ public class Projectile extends Entity {
     public float rota;
     public float lifetime;
 
+    private float tmp;
+
     public Projectile() {
     }
 
@@ -33,7 +35,7 @@ public class Projectile extends Entity {
 
         damaging = false;
 
-        startAttack(attackspeed);
+        startAttack(attackspeed); tmp = attackspeed;
 
         return this;
     }
@@ -45,11 +47,11 @@ public class Projectile extends Entity {
         switch (state) {
         case Attack:
 
-            if (sprites.attack.getFrame() >= 2) {
+            if (life * tmp >= 200) {
                 damaging = true;
             }
 
-            if (sprites.attack.getFrame() >= 4) {
+            if (life * tmp >= 400) {
                 state = EntityState.Move;
                 lifetime += life;
             }

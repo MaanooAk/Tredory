@@ -1,8 +1,10 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core.entities;
+package com.maanoo.tredory.core.entity.entities;
 
 import com.maanoo.tredory.core.*;
+import com.maanoo.tredory.core.entity.Effect;
+import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundle;
@@ -130,6 +132,11 @@ public final class Player extends Entity {
     @Override
     public void draw(Graphics g) {
         super.draw(g);
+    }
+
+    @Override
+    public Effect getEffect() {
+        return ccomp.effect;
     }
 
     public void takeItem(Item i) {

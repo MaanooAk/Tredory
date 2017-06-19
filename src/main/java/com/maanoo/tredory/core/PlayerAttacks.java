@@ -2,7 +2,11 @@
 
 package com.maanoo.tredory.core;
 
-import com.maanoo.tredory.core.entities.Player;
+import com.maanoo.tredory.core.entity.Attack;
+import com.maanoo.tredory.core.entity.Effect;
+import com.maanoo.tredory.core.entity.Entity;
+import com.maanoo.tredory.core.entity.attacks.*;
+import com.maanoo.tredory.core.entity.entities.Player;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
 
@@ -11,12 +15,14 @@ import com.maanoo.tredory.face.assets.Assets;
  */
 public class PlayerAttacks implements IUpdate {
 
-    public AttackProjectiles spellFireball1;
-    public AttackProjectiles spellFireball2;
-    public AttackProjectiles spellFireball3;
-    public AttackCyclone spellFireballCyclone1;
-    public AttackUtil spellTeleport;
-    public AttackUtil spellSwap;
+    public Attack spellFireball1;
+    public Attack spellFireball2;
+    public Attack spellFireball3;
+    public Attack spellFireballCyclone1;
+    public Attack spellTeleport;
+    public Attack spellSwap;
+    public Attack spellChannel;
+    public Attack spellPush;
 
     public PlayerAttacks(Player player) {
 
@@ -25,18 +31,16 @@ public class PlayerAttacks implements IUpdate {
         this.spellFireball3 = new AttackProjectiles(Team.Good, 0.6f, Assets.fireball, 12, 360, 0.6f);
         this.spellFireballCyclone1 = new AttackCyclone(Team.Good, 2f, Assets.fireball, 3, 360, 0.45f);
 
-        this.spellTeleport = new AttackUtil(Team.Good, 0.6f) {
+        this.spellTeleport = new Spell(Team.Good, 0.6f) {
             @Override
-            public void activate(Core c, Point p, float angle, Effect effect) {
-                super.activate(c, p, angle, effect);
+            public void spell(Core c, Point p, float angle, Effect effect) {
 
                 c.player.location.add(new Point(angle).mul(250));
             }
         };
-        this.spellSwap = new AttackUtil(Team.Good, 0.6f) {
+        this.spellSwap = new Spell(Team.Good, 0.6f) {
             @Override
-            public void activate(Core c, Point p, float angle, Effect effect) {
-                super.activate(c, p, angle, effect);
+            public void spell(Core c, Point p, float angle, Effect effect) {
 
                 Entity ent = c.findClossest(player, Team.Bad);
 
@@ -45,6 +49,10 @@ public class PlayerAttacks implements IUpdate {
                 }
             }
         };
+
+        this.spellChannel = new AttackBlow(Team.Good, 0.4f);
+
+        this.spellPush = new SpellPush(Team.Good, 2f);
 
     }
 
@@ -68,6 +76,10 @@ public class PlayerAttacks implements IUpdate {
                 return spellTeleport;
             case 1:
                 return spellSwap;
+            case 2:
+                return spellChannel;
+            case 3:
+                return spellPush;
             }
             return null;
         }
@@ -81,8 +93,9 @@ public class PlayerAttacks implements IUpdate {
         //spellFireball2.update(d);
         //spellFireball3.update(d);
         //spellFireballCyclone1.update(d);
-        spellTeleport.update(d);
-        spellSwap.update(d);
+//        spellTeleport.update(d);
+//        spellSwap.update(d);
+//        spellChannel.update(d);
     }
 
 }

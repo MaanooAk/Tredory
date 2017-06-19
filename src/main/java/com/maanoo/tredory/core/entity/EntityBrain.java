@@ -1,8 +1,11 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.entity;
 
-import com.maanoo.tredory.core.entities.Animal;
+import com.maanoo.tredory.core.Core;
+import com.maanoo.tredory.core.IUpdate;
+import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.entity.entities.Animal;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
 
@@ -55,7 +58,7 @@ public class EntityBrain implements IUpdate {
                 Point vec = target.location.clone().sub(ent.location);
 
                 if (vec.len() < ent.attack.range) {
-                    ent.startAttack(ent.attack.getAttackspeed());
+                    ent.startAttack(ent.attack);
                 } else {
                     ent.location.add(vec.norm().mul(ent.lspeed * d));
                 }

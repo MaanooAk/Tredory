@@ -2,12 +2,14 @@
 
 package com.maanoo.tredory.core;
 
-import com.maanoo.tredory.core.entities.Item;
-import com.maanoo.tredory.core.entities.ItemType;
-import com.maanoo.tredory.core.entities.Player;
+import com.maanoo.tredory.core.entity.Collision;
+import com.maanoo.tredory.core.entity.Entity;
+import com.maanoo.tredory.core.entity.EntityState;
+import com.maanoo.tredory.core.entity.entities.Item;
+import com.maanoo.tredory.core.entity.entities.ItemType;
+import com.maanoo.tredory.core.entity.entities.Player;
 import com.maanoo.tredory.core.map.Map;
 import com.maanoo.tredory.core.map.MapMaker;
-import com.maanoo.tredory.core.map.MapType;
 import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
@@ -35,8 +37,6 @@ public class Core implements IUpdate {
     private boolean request_newMap = false;
 
     public float arrow_angle;
-
-    public int collision_detections; // TODO debuging remove
 
     public void init() {
 
@@ -94,36 +94,8 @@ public class Core implements IUpdate {
 
         l.removeIf(i -> i.dead);
 
-        // == Collision detction ==
-        collision_detections = 0;
-
-        int count = l.size();
-        for (int i1 = 0; i1 < count; i1++) {
-            Entity e1 = l.get(i1);
-            if (e1.state == EntityState.Die) continue;
-
-            for (int i2 = i1 + 1; i2 < count; i2++) {
-                Entity e2 = l.get(i2);
-                if (e2.state == EntityState.Die) continue;
-
-                // TODO remove when collision detection is not O(n^2)
-                if (e1.state == EntityState.Idle && e2.state == EntityState.Idle) continue;
-
-                float r1 = e1.sizecol;
-                float r2 = e2.sizecol;
-                Point c1 = e1.location;
-                Point c2 = e2.location;
-
-                if (c1.distance(c2) < (r1 + r2) * 1.0f) {
-                    e1.collide(e2);
-                    e2.collide(e1);
-
-                    if (e1.state == EntityState.Die) i2 = count;
-                }
-
-                collision_detections += 1;
-            }
-        }
+        // collision detection
+        Collision.perform(l);
 
         l.addAll(ltoadd);
         ltoadd.clear();

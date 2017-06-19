@@ -1,8 +1,13 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core;
+package com.maanoo.tredory.core.entity.attacks;
 
-import com.maanoo.tredory.core.entities.Projectile;
+import com.maanoo.tredory.core.Core;
+import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.entity.Attack;
+import com.maanoo.tredory.core.entity.Effect;
+import com.maanoo.tredory.core.entity.Entity;
+import com.maanoo.tredory.core.entity.entities.Projectile;
 import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
@@ -31,10 +36,10 @@ public class AttackCyclone extends Attack {
 
     @Override
     @SuppressWarnings("LocalVariableHidesMemberVariable")
-    public void perform(Core c, Point p, float angle, Effect e) {
-        super.perform(c, p, angle, e);
+    public void perform(Core c, Entity ent, Effect e) {
+        super.perform(c, ent, e);
 
-        angle = Ra.range(360);
+        float angle = Ra.range(360);
 
         final float attackspeed = e.attackspeed.apply(this.attackspeed);
         final float projcount = e.projcount.apply(this.projcount);
@@ -43,9 +48,9 @@ public class AttackCyclone extends Attack {
 
         if (projcount == 1) {
 
-            Point start = p.clone().add(new Point(angle).mul(32));
+            Point start = ent.location.clone().add(new Point(angle).mul(32));
 
-            c.l.add(Pools.obtain(Projectile.class)
+            c.ltoadd.add(Pools.obtain(Projectile.class)
                     .init(team, start, angle + 90, new SpriteBundleEntity(sprites.get()),
                             projspeed, 0.6f, attackspeed, 500));
 
@@ -57,9 +62,9 @@ public class AttackCyclone extends Attack {
             for (int i = 0; i < projcount; i += 1) {
 
                 float iangle = angle + (i / (projcount - 1)) * toxo - toxo / 2;
-                Point start = p.clone().add(new Point(iangle).mul(32));
+                Point start = ent.location.clone().add(new Point(iangle).mul(32));
 
-                c.l.add(Pools.obtain(Projectile.class)
+                c.ltoadd.add(Pools.obtain(Projectile.class)
                         .init(team, start, iangle + 90, new SpriteBundleEntity(sprites.get()),
                         projspeed, 0.6f, attackspeed, 500));
 

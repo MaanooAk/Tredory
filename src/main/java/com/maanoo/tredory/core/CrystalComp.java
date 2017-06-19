@@ -2,7 +2,8 @@
 
 package com.maanoo.tredory.core;
 
-import com.maanoo.tredory.core.entities.Item;
+import com.maanoo.tredory.core.entity.Effect;
+import com.maanoo.tredory.core.entity.entities.Item;
 
 import java.util.ArrayList;
 
