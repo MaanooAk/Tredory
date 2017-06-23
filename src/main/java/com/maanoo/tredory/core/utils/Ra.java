@@ -25,6 +25,10 @@ public final class Ra {
         return r.nextFloat() * max;
     }
 
+    public static float angle() {
+        return r.nextFloat() * 360;
+    }
+
     public static float range(float min, float max) {
         return min + r.nextFloat() * (max - min);
     }

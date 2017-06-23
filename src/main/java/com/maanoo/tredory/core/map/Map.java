@@ -22,6 +22,8 @@ public class Map implements IUpdate, IDraw {
 
     public final Point size;
 
+    public MapType type;
+
     public final Point spawn;
     public final ArrayList<TerrainThing> things;
     public final ArrayList<Entity> l;
@@ -65,13 +67,7 @@ public class Map implements IUpdate, IDraw {
             }
         }
         for (TerrainThing i : things) {
-            g.pushTransform();
-            g.translate(i.p.x, i.p.y);
-            g.rotate(0, 0, i.angle);
-
-            i.img.draw(-i.w, -i.h, 2);
-
-            g.popTransform();
+            i.draw(g);
         }
 
         g.setColor(Colors.c101010);

@@ -46,12 +46,7 @@ public class Altar extends Entity {
 
         }
 
-        super.takeDamage();
-    }
-
-    @Override
-    public void takeDamage() {
-
+        takeDamage();
     }
 
 }

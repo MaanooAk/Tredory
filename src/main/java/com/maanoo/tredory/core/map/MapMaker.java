@@ -2,6 +2,8 @@
 
 package com.maanoo.tredory.core.map;
 
+import org.newdawn.slick.util.Log;
+
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
@@ -23,13 +25,19 @@ public class MapMaker {
         if (Ra.chance(0.2f)) {
             type = MapType.Altar;
         }
+        if (Ra.chance(0.2f)) {
+            type = MapType.Overpop;
+        }
 
         return make(basicSize, type);
     }
 
     public static Map make(Point size, MapType type) {
 
+        Log.info("Map making (" + type + ")");
+
         Map map = new Map(size);
+        map.type = type;
 
         map.bigs = type.bigs;
 
@@ -38,9 +46,9 @@ public class MapMaker {
         map.spawn.init(map.spots.get(0).x, map.spots.get(0).y);
 
         for (int i = 0; i < 20; i++) {
-            map.things.add(new TerrainThing(
+            map.things.add(new TerrainThingAngled(
                     new Point(Ra.range(32, (int) size.x - 32), Ra.range(32, (int) size.y - 32)),
-                    Ra.range(360), Assets.terrain_small.get(Ra.range(0, 2))));
+                    Ra.angle(), Assets.terrain_small.get(Ra.range(0, 2))));
         }
 
         MapGen.genSpawn(map, map.spots.get(0));
@@ -70,7 +78,7 @@ public class MapMaker {
             //c.l.add(new Container(Team.Bad, emptyPoint(), 0, new SpriteBundleEntity(Assets.box.get())));
         }
         for (int i = 0; i < 200; i++) {
-            //MapGen.genManTier(1, map, new Point(Ra.range(32, (int) size.x - 32), Ra.range(32, (int) size.y - 32)), Ra.range(360));
+            //MapGen.genManTier(1, map, new Point(Ra.range(32, (int) size.x - 32), Ra.range(32, (int) size.y - 32)), Ra.angle());
         }
 
         return map;

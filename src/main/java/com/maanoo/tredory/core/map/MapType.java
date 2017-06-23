@@ -9,14 +9,18 @@ package com.maanoo.tredory.core.map;
  */
 public enum MapType {
 
-    Plain(1), Altar(2);
+    Plain(1, 1f),
+    Altar(2, 1f),
+    Overpop(1, 2f);
 
     // TODO store more things here
     // TODO store parts of the map gen ?
 
     public final int bigs;
+    public final float population;
 
-    MapType(int bigs) {
+    MapType(int bigs, float population) {
         this.bigs = bigs;
+        this.population = population;
     }
 }

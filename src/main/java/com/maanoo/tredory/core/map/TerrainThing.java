@@ -17,14 +17,12 @@ public class TerrainThing implements IDraw {
     // TODO remove the finals
 
     public final Point p;
-    public final float angle;
     public final Image img;
     public final int w;
     public final int h;
 
-    public TerrainThing(Point p, float angle, Image img) {
+    public TerrainThing(Point p, Image img) {
         this.p = p;
-        this.angle = angle;
         this.img = img;
 
         w = img.getWidth();
@@ -36,13 +34,7 @@ public class TerrainThing implements IDraw {
     @Override
     public void draw(Graphics g) {
 
-        // TODO remove transformations (split to angled and not ?)
-
-        g.pushTransform();
-        g.translate(p.x, p.y);
-        g.rotate(0, 0, angle);
-        img.draw(-w, -h, 2);
-        g.popTransform();
+        img.draw(p.x - w, p.y -h, 2);
     }
 
 }

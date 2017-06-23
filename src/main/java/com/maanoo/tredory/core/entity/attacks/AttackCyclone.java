@@ -39,7 +39,7 @@ public class AttackCyclone extends Attack {
     public void perform(Core c, Entity ent, Effect e) {
         super.perform(c, ent, e);
 
-        float angle = Ra.range(360);
+        float angle = Ra.angle();
 
         final float attackspeed = e.attackspeed.apply(this.attackspeed);
         final float projcount = e.projcount.apply(this.projcount);

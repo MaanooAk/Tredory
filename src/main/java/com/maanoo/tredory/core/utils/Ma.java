@@ -49,4 +49,8 @@ public final class Ma {
         return pow2(x * x);
     }
 
+    public static final int round(float x) {
+        return (int) (x + 0.5f);
+    }
+
 }
