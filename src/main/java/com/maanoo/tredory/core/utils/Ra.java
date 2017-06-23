@@ -45,6 +45,10 @@ public final class Ra {
         return r.nextBoolean();
     }
 
+    public static float sign() {
+        return r.nextBoolean() ? -1 : 1;
+    }
+
     public static boolean chance(float value) {
         return r.nextFloat() < value;
     }

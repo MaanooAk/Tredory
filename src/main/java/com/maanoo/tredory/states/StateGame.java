@@ -71,7 +71,7 @@ public class StateGame extends State {
             Core.c = c;
             c.init();
 
-            pa = new PlayerAttacks(c.player);
+            pa = new PlayerAttacks(c.player, Assets.fireball);
 
             zoom = 1;
 

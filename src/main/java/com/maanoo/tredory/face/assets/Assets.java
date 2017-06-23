@@ -29,6 +29,7 @@ public class Assets {
     public static AssetSet<SpriteSheet> altar;
     public static AssetSet<SpriteSheet> portal;
     public static AssetSet<SpriteSheet> fireball;
+    public static AssetSet<SpriteSheet> fireinvball;
     public static AssetSet<SpriteSheet> flameblast;
 
     public static ArrayList<Color> colors;
@@ -76,6 +77,7 @@ public class Assets {
         portal = loadSpriteSheetSet("portal", 32, 32);
         slime = loadSpriteSheetSet("slime", 32, 32);
         fireball = loadSpriteSheetSet("fireball", 32, 32);
+        fireinvball = loadSpriteSheetSet("fireinvball", 32, 32); // TODO created the inverted image
         flameblast = loadSpriteSheetSet("flameblast", 96, 96);
 
         colors = new ArrayList<>();

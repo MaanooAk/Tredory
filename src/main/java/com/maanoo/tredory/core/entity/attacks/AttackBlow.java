@@ -8,7 +8,9 @@ import com.maanoo.tredory.core.entity.Attack;
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.face.assets.AssetSet;
 import com.maanoo.tredory.face.assets.Assets;
+import org.newdawn.slick.SpriteSheet;
 
 /**
  * TODO doc
@@ -17,14 +19,17 @@ import com.maanoo.tredory.face.assets.Assets;
  */
 public class AttackBlow extends Attack {
 
-    public AttackBlow(Team team, float attackspeed) {
-        super(team, attackspeed);
-    }
-
-    private AttackProjectilesFlux attack = new AttackProjectilesFlux(this.team, 1.5f, Assets.fireball, 1, 0, 0, 0.6f);
+    private AttackProjectilesFlux attack;
 
     private int attacks_max = 80;
     private int attacks_left = 0;
+
+
+    public AttackBlow(Team team, float attackspeed, AssetSet<SpriteSheet> sprites) {
+        super(team, attackspeed);
+
+        attack = new AttackProjectilesFlux(this.team, 1.5f, sprites, 1, 0, 0, 0.6f);
+    }
 
     @Override
     public void activate(Core c, Point p, float angle, Effect effect) {

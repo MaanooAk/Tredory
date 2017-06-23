@@ -8,12 +8,16 @@ import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.attacks.*;
 import com.maanoo.tredory.core.entity.entities.Player;
 import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.face.assets.AssetSet;
 import com.maanoo.tredory.face.assets.Assets;
+import org.newdawn.slick.SpriteSheet;
 
 /**
  * @author MaanooAk
  */
 public class PlayerAttacks implements IUpdate {
+
+    private AssetSet<SpriteSheet> projectile;
 
     public Attack spellFireball1;
     public Attack spellFireball2;
@@ -23,13 +27,15 @@ public class PlayerAttacks implements IUpdate {
     public Attack spellSwap;
     public Attack spellChannel;
     public Attack spellPush;
+    public Attack spellFireballCyclone2;
 
-    public PlayerAttacks(Player player) {
+    public PlayerAttacks(Player player, AssetSet<SpriteSheet> projectile) {
+        this.projectile = projectile;
 
-        this.spellFireball1 = new AttackProjectiles(Team.Good, 1.5f, Assets.fireball, 1, 0, 0.6f);
-        this.spellFireball2 = new AttackProjectiles(Team.Good, 0.9f, Assets.fireball, 5, 40, 0.6f);
-        this.spellFireball3 = new AttackProjectiles(Team.Good, 0.6f, Assets.fireball, 12, 360, 0.6f);
-        this.spellFireballCyclone1 = new AttackCyclone(Team.Good, 2f, Assets.fireball, 3, 360, 0.45f);
+        this.spellFireball1 = new AttackProjectiles(Team.Good, 1.5f, projectile, 1, 0, 0.6f);
+        this.spellFireball2 = new AttackProjectiles(Team.Good, 0.9f, projectile, 5, 40, 0.6f);
+        this.spellFireball3 = new AttackProjectiles(Team.Good, 0.6f, projectile, 12, 360, 0.6f);
+        this.spellFireballCyclone1 = new AttackCyclone(Team.Good, 2f, projectile, 3, 360, 0.45f);
 
         this.spellTeleport = new Spell(Team.Good, 0.6f) {
             @Override
@@ -50,9 +56,11 @@ public class PlayerAttacks implements IUpdate {
             }
         };
 
-        this.spellChannel = new AttackBlow(Team.Good, 0.4f);
+        this.spellChannel = new AttackBlow(Team.Good, 0.4f, projectile);
 
         this.spellPush = new SpellPush(Team.Good, 2f);
+
+        this.spellFireballCyclone2 = new AttackCyclone2(Team.Good, 4f, projectile, 16, 0.30f);
 
     }
 
@@ -80,6 +88,8 @@ public class PlayerAttacks implements IUpdate {
                 return spellChannel;
             case 3:
                 return spellPush;
+            case 4:
+                return spellFireballCyclone2;
             }
             return null;
         }

@@ -11,6 +11,8 @@ import java.util.HashMap;
  */
 public class Pools {
 
+    // TODO change hashmap with something faster
+
     private static HashMap<Class<?>, Pool> map = new HashMap<>();
 
     public static <T extends Poolable> T obtain(Class<T> type) {
