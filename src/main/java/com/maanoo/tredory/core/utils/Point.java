@@ -9,8 +9,6 @@ import com.maanoo.tredory.core.memory.Poolable;
  */
 public class Point implements Poolable {
 
-    //public static final Point point = new Point();
-
     public float x, y;
 
     public Point() {
