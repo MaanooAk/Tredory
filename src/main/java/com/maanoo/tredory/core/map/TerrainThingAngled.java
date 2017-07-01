@@ -21,7 +21,8 @@ public class TerrainThingAngled extends TerrainThing {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int layer) {
+        if (layer != 3) return;
 
         g.pushTransform();
         g.translate(p.x, p.y);

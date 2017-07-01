@@ -130,11 +130,6 @@ public final class Player extends Entity {
     }
 
     @Override
-    public void draw(Graphics g) {
-        super.draw(g);
-    }
-
-    @Override
     public Effect getEffect() {
         return ccomp.effect;
     }

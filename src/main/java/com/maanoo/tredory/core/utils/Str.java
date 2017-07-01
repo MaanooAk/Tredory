@@ -10,9 +10,17 @@ package com.maanoo.tredory.core.utils;
 public class Str {
 
     public static String create(String... l) {
-        StringBuilder sb = new java.lang.StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (String i : l) {
             sb.append(i);
+        }
+        return sb.toString();
+    }
+
+    public static String create(Object... l) {
+        StringBuilder sb = new StringBuilder();
+        for (Object i : l) {
+            sb.append(i.toString());
         }
         return sb.toString();
     }

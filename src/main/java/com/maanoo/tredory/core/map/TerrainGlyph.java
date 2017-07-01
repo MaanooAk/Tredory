@@ -21,7 +21,8 @@ public class TerrainGlyph extends TerrainThingAngled {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int layer) {
+        if (layer != 3) return;
 
         // TODO remove transformations (split to angled and not ?)
 

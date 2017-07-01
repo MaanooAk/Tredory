@@ -10,10 +10,13 @@ import org.newdawn.slick.Graphics;
  */
 public interface IDraw {
 
-    void draw(Graphics g);
+    void draw(Graphics g, int layer);
 
     default boolean needDraw(Rectangle view) {
         return true;
     }
 
+    default void pushDraw() {
+        Draws.push(this);
+    }
 }

@@ -57,21 +57,26 @@ public class Map implements IUpdate, IDraw {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int layer) {
 
-        if (Op.debug) {
+        if (layer == -1) {
+            for (TerrainThing i : things) {
+                i.pushDraw();
+            }
+        }
+
+        if (layer == 1) {
+            g.setColor(Colors.c101010);
+            g.drawRect(0, 0, size.x, size.y);
+        }
+
+        if (Op.debug && layer == 9) {
             g.setColor(Color.red);
             for (Spot i : spots) {
                 g.setLineWidth(i.r == 250 ? 1f : 20f);
                 g.drawOval(i.x - i.r, i.y - i.r, i.r * 2, i.r * 2);
             }
         }
-        for (TerrainThing i : things) {
-            i.draw(g);
-        }
-
-        g.setColor(Colors.c101010);
-        g.drawRect(0, 0, size.x, size.y);
     }
 
     /**

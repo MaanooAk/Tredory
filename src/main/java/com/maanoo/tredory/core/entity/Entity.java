@@ -10,6 +10,7 @@ import com.maanoo.tredory.core.memory.Poolable;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Points;
+import com.maanoo.tredory.core.utils.Rectangle;
 import com.maanoo.tredory.face.SpriteBundle;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -53,17 +54,21 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public int shieldsSum;
     public boolean opened;
 
+    protected final int targetlayer;
+
     public Attack activeAttack;
 
     public Entity() {
         speed = new Point();
         move = new Point();
+        targetlayer = 5;
     }
 
     public Entity(Team team, Point location, float angle, SpriteBundle sprites) {
         speed = new Point();
         move = new Point();
         init(team, location, angle, sprites);
+        targetlayer = 5;
     }
 
     public void init() {
@@ -136,19 +141,35 @@ public class Entity implements IUpdate, IDraw, Poolable {
     }
 
     @Override
-    public void draw(Graphics g) {
-        g.pushTransform();
-        g.translate(location.x, location.y);
-        g.rotate(0, 0, angle + 180);
+    public void draw(Graphics g, int layer) {
 
-        sprites.getAnimation(state).draw(-size, -size, 2 * size, 2 * size);
+        if (layer == targetlayer) {
 
-        if (Op.debug) {
-            g.setColor(Color.red);
-            g.drawOval(-sizecol, -sizecol, 2 * sizecol, 2 * sizecol);
+            g.pushTransform();
+            g.translate(location.x, location.y);
+            g.rotate(0, 0, angle + 180);
+
+            sprites.getAnimation(state).draw(-size, -size, 2 * size, 2 * size);
+
+            g.popTransform();
         }
 
-        g.popTransform();
+        if (Op.debug && layer == 9) {
+            g.pushTransform();
+            g.translate(location.x, location.y);
+            g.rotate(0, 0, angle + 180);
+
+            g.setColor(Color.red);
+            g.drawOval(-sizecol, -sizecol, 2 * sizecol, 2 * sizecol);
+
+            g.popTransform();
+        }
+    }
+
+    @Override
+    public boolean needDraw(Rectangle view) {
+
+        return view.inside(location, 4 * size);
     }
 
     public Effect getEffect() {

@@ -25,7 +25,7 @@ public class MapMaker {
         if (Ra.chance(0.2f)) {
             type = MapType.Altar;
         }
-        if (Ra.chance(0.2f)) {
+        if (Ra.chance(0.1f)) {
             type = MapType.Overpop;
         }
 

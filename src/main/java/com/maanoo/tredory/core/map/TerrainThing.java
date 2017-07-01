@@ -4,6 +4,7 @@ package com.maanoo.tredory.core.map;
 
 import com.maanoo.tredory.core.IDraw;
 import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.core.utils.Rectangle;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Graphics;
 
@@ -32,9 +33,15 @@ public class TerrainThing implements IDraw {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int layer) {
+        if (layer != 3) return;
 
         img.draw(p.x - w, p.y -h, 2);
     }
 
+    @Override
+    public boolean needDraw(Rectangle view) {
+
+        return view.inside(p, w + h);
+    }
 }

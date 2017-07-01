@@ -92,11 +92,15 @@ public class StateGame extends State {
         g.scale(zoom, zoom);
         g.translate(-c.camera.x, -c.camera.y);
 
-        c.map.draw(g);
+        Draws.set(g, c.camera.x - w/2/zoom, c.camera.y - h/2/zoom, w/zoom,  h/zoom);
 
-        for (Entity i : c.l) i.draw(g);
+        c.map.pushDraw();
 
-        c.player.draw(g);
+        for (Entity i : c.l) i.pushDraw();
+
+        c.player.pushDraw();
+
+        Draws.drawAll();
 
         g.popTransform();
 
@@ -248,12 +252,14 @@ public class StateGame extends State {
             }
         }
 
+
         // debug
         if (Op.debug) {
             Assets.font1.drawString(10, 10, Str.create(
                     "fps ", Integer.toString(gc.getFPS()),
                     " | e ", Integer.toString(c.l.size()),
                     " | s ", Integer.toString(c.l.size() + c.map.things.size()),
+                    " | dr ", Draws.draws_performed,
                     " | cd ", Integer.toString(Collision.collision_checks), " ", Integer.toString(Collision.collision_detections),
                     " | p ", Integer.toString((int) c.player.location.x),
                     " ", Integer.toString((int) c.player.location.y),
@@ -265,6 +271,7 @@ public class StateGame extends State {
                     (Inspector.instance.didGarbageCollect() ? " | Garbage collection performed" : ""))
                     , Color.darkGray);
         }
+
     }
 
     @Override
@@ -310,21 +317,6 @@ public class StateGame extends State {
                 c.player.startAttack(spell);
                 spell.perform(c, c.player, c.player.ccomp.effect);
             }
-
-            /*
-            if(in.isKeyDown(Input.KEY_Q)) {
-
-                c.player.startAttack(1.0f);
-
-                Entity ent = new AreaDamage(Team.Good, c.player.location.clone().add(mouse), 0,
-                        new SpriteBundleEntity(Assets.flameblast.get()),
-                        c.player.sprites.attack.getSpeed());
-                ent.size *= 3;
-                ent.sizecol = ent.size*2/3;
-
-                c.l.add(0, ent);
-
-            }*/
 
         }
 

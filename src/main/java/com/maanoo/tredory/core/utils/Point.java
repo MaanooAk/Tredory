@@ -25,11 +25,6 @@ public class Point implements Poolable {
         this.y = (float) Math.cos(Math.toRadians(angle));
     }
 
-    @Override
-    public Point clone() {
-        return new Point(x, y);
-    }
-
     // for pooling
 
     public Point init() {
@@ -168,5 +163,26 @@ public class Point implements Poolable {
         return y * v.x > x * v.y ? 1 : -1;
     }
 
+    // object overrides
 
+    @Override
+    public Point clone() {
+        return new Point(x, y);
+    }
+
+    @Override
+    public int hashCode() {
+        return Float.hashCode(x) ^ Float.hashCode(y);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Point other = (Point) o;
+        return x == other.x && y == other.y;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{x: " + x + ", y: " + y + '}';
+    }
 }
