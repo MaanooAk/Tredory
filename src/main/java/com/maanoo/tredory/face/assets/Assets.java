@@ -28,8 +28,11 @@ public class Assets {
     public static AssetSet<SpriteSheet> boxg;
     public static AssetSet<SpriteSheet> altar;
     public static AssetSet<SpriteSheet> portal;
+
     public static AssetSet<SpriteSheet> fireball;
-    public static AssetSet<SpriteSheet> fireinvball;
+    public static AssetSet<SpriteSheet> invball;
+    public static AssetSet<SpriteSheet> toxicball;
+
     public static AssetSet<SpriteSheet> flameblast;
 
     public static ArrayList<Color> colors;
@@ -70,15 +73,18 @@ public class Assets {
 
         // ===
 
-        chara = loadSpriteSheetSet("char", 32, 32);
-        box = loadSpriteSheetSet("box", 32, 32);
-        boxg = loadSpriteSheetSet("boxg", 32, 32);
-        altar = loadSpriteSheetSet("altar", 32, 32);
-        portal = loadSpriteSheetSet("portal", 32, 32);
-        slime = loadSpriteSheetSet("slime", 32, 32);
-        fireball = loadSpriteSheetSet("fireball", 32, 32);
-        fireinvball = loadSpriteSheetSet("fireinvball", 32, 32); // TODO created the inverted image
-        flameblast = loadSpriteSheetSet("flameblast", 96, 96);
+        chara = loadSpriteSheetSet("char");
+        box = loadSpriteSheetSet("box");
+        boxg = loadSpriteSheetSet("boxg");
+        altar = loadSpriteSheetSet("altar");
+        portal = loadSpriteSheetSet("portal");
+        slime = loadSpriteSheetSet("slime");
+
+        fireball = loadSpriteSheetSet("fireball");
+        invball = loadSpriteSheetSet("fireinvball");
+        toxicball = loadSpriteSheetSet("toxicball");
+
+        flameblast = loadSpriteSheetSet("flameblast");
 
         colors = new ArrayList<>();
         colors.add(new Color(0x715CCE));
@@ -90,9 +96,9 @@ public class Assets {
         // TODO laod from file
         // TODO colors based on function
 
-        axeman = loadSpriteSheetSet("axeman", 32, 32);
-        maceman = loadSpriteSheetSet("maceman", 32, 32);
-        swordman = loadSpriteSheetSet("swordman", 32, 32);
+        axeman = loadSpriteSheetSet("axeman");
+        maceman = loadSpriteSheetSet("maceman");
+        swordman = loadSpriteSheetSet("swordman");
 
         items_sheet = new SpriteSheet(loadImage("data/sprites/items.png"), 16, 16);
         items = new AssetSet[ItemType.values().length];
@@ -191,7 +197,7 @@ public class Assets {
 
     // ===
 
-    private static AssetSet<SpriteSheet> loadSpriteSheetSet(String name, int tw, int th) throws SlickException {
+    private static AssetSet<SpriteSheet> loadSpriteSheetSet(String name) throws SlickException {
         AssetSet<SpriteSheet> set = new AssetSet<>();
 
         for (int i = 1; ; i += 1) {
@@ -201,7 +207,9 @@ public class Assets {
             String pathm = "data/sprites/entities/" + name + i + "m.png";
             if (!existsRes(pathm)) {
 
-                set.add(new SpriteSheet(loadImage(path), tw, th));
+                Image img = loadImage(path);
+
+                set.add(new SpriteSheet(img, img.getWidth() / 6, img.getHeight() / 6));
 
             } else {
 
@@ -219,7 +227,7 @@ public class Assets {
                     g.flush();
                     image.setFilter(Image.FILTER_NEAREST);
 
-                    set.add(new SpriteSheet(image, tw, th));
+                    set.add(new SpriteSheet(image, img.getWidth() / 6, img.getHeight() / 6));
                 }
             }
         }

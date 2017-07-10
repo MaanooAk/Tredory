@@ -13,25 +13,23 @@ public class AssetSet<T> {
 
     private final ArrayList<T> l;
 
-    public int count;
-
     public AssetSet() {
-        l = new ArrayList<>();
-        count = 0;
+        this.l = new ArrayList<>();
     }
 
     public void add(T item) {
         l.add(item);
-        count += 1;
     }
 
     public T get() {
-        return l.get(Ra.range(count));
+        return l.get(Ra.range(l.size()));
     }
 
     public T get(int index) {
         return l.get(index);
     }
 
-
+    public int getCount() {
+        return l.size();
+    }
 }
