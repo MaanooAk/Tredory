@@ -35,7 +35,7 @@ public class StateGallery extends State {
 
     private void addImages(AssetSet<SpriteSheet> set) {
 
-        for (int i = 0; i < set.count; i++) {
+        for (int i = 0; i < set.getCount(); i++) {
             images.add(set.get(i).getSubImage(0, 0));
         }
     }

@@ -1,7 +1,7 @@
 MVN = mvn -q
 
 .phony: default
-default: build
+default: build run
 
 # TODO put mvn in a variable
 

@@ -5,6 +5,7 @@ package com.maanoo.tredory.core.entity.entities;
 import com.maanoo.tredory.core.*;
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
+import com.maanoo.tredory.core.entity.Souls;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundle;
@@ -18,28 +19,16 @@ import java.util.Collections;
  */
 public final class Player extends Entity {
 
-    public static final class Items extends ArrayList<Item> {
-        public int max;
-        public int max_base;
-
-        public Items(int max) {
-            this.max = max;
-            this.max_base = max;
-        }
-
-        public boolean isMax() {
-            return size() >= max;
-        }
-    }
-
-    public int coins;
-
     private final float lspeed_base = 0.35f;
     public float lspeed;
+
+    public int coins;
 
     public final Items shields;
     public final Items crystals;
     public final Items stones;
+
+    public final Souls souls;
 
     public CrystalComp ccomp;
 
@@ -54,7 +43,9 @@ public final class Player extends Entity {
 
         shields = new Items(2);
         crystals = new Items(15);
-        stones = new Items(3);
+        stones = new Items(5);
+
+        souls = new Souls();
 
         ccomp = new CrystalComp(0, 0, 0);
 
@@ -67,6 +58,8 @@ public final class Player extends Entity {
     @Override
     public void update(int d) {
         super.update(d);
+
+        souls.update(d);
 
         switch (state) {
         case Idle: {
@@ -135,7 +128,6 @@ public final class Player extends Entity {
     }
 
     public void takeItem(Item i) {
-        Items its = null;
 
         switch (ItemType.getTag(i.type)) {
         case Crystal:
@@ -145,23 +137,8 @@ public final class Player extends Entity {
             takeShield(i);
             break;
         case Stone:
-            its = stones;
+            takeStone(i);
             break;
-        }
-
-        if (its != null) {
-
-            if (its.isMax()) {
-                Item it = its.remove(Ra.range(its.size()));
-
-                it.unpicablify(1000);
-                Core.c.dropItem(this, it);
-            }
-
-            its.add(i);
-            Collections.sort(its);
-
-            updateEffects();
         }
     }
 
@@ -206,6 +183,22 @@ public final class Player extends Entity {
 
         updateEffects();
         return crystal;
+    }
+
+    public void takeStone(Item stone) {
+
+        if (stones.isMax()) {
+            Item it = stones.remove(Ra.range(stones.size()));
+
+            it.unpicablify(1000);
+            Core.c.dropItem(this, it);
+        }
+
+        stones.add(stone);
+        Collections.sort(stones);
+
+        souls.updateStones(stones);
+        updateEffects();
     }
 
     public void giveItem(ItemType type) {

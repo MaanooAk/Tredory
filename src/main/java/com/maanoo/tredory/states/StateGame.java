@@ -173,8 +173,10 @@ public class StateGame extends State {
                 }
             }
         }
-        // stones
+        // stones and souls
         {
+            // stones
+
             int count = c.player.stones.size();
             if (count > 0) {
 
@@ -182,9 +184,9 @@ public class StateGame extends State {
                 int wi = 20 + count * pad;
 
                 g.setColor(Colors.black75);
-                g.fillRect(w - wi, h - 52 - 52, wi, 52);
+                g.fillRect(w - wi, h - 52*2, wi, 52);
                 g.setColor(Color.darkGray);
-                g.drawRect(w - wi, h - 52 - 52, wi, 52);
+                g.drawRect(w - wi, h - 52*2, wi, 52);
 
                 int x = w - wi + 10 - pad + 12, y = 2;
                 if (count % 2 == 0) y *= -1;
@@ -193,6 +195,15 @@ public class StateGame extends State {
                     x += pad;
                     y *= -1;
                 }
+
+                // souls
+
+                int barh = 5;
+
+                g.setColor(Color.darkGray);
+                g.fillRect(w - wi, h - 52*2 - barh, wi * c.player.souls.getSouls() / c.player.souls.getCapacity(), barh);
+                g.setColor(Color.darkGray);
+                g.drawRect(w - wi, h - 52*2 - barh, wi, barh);
             }
         }
         // coins

@@ -66,7 +66,12 @@ public class Animal extends Entity {
         super.die();
 
         // TODO credit the killing blow giver not the player
-        if (team != Team.Good) Stats.addKilled(this);
+        if (team != Team.Good) {
+            Stats.addKilled(this);
+
+            // TODO give soul to the clossest soul collector
+            Core.c.player.souls.addSoul();
+        }
     }
 
 

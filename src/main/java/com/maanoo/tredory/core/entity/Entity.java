@@ -3,6 +3,7 @@
 package com.maanoo.tredory.core.entity;
 
 import com.maanoo.tredory.Op;
+import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.IDraw;
 import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.Team;
