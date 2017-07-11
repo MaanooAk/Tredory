@@ -57,7 +57,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
     protected final int targetlayer;
 
-    public Attack activeAttack;
+    public Actions actions;
 
     public Entity() {
         speed = new Point();
@@ -85,7 +85,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         sizecol = size / 2;
         alerted = false;
         shieldsSum = 0;
-        activeAttack = null;
+        actions = new ActionsSimple();
         speed.init();
         move.init();
     }
@@ -104,22 +104,21 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
         sprites.getAnimation(state).update(d);
 
-        if (activeAttack != null) {
-            activeAttack.update(d);
-        }
+        actions.update(d);
 
         switch (state) {
         case Attack:
 
-            if (sprites.attack.isStopped()) { // TODO find a new way to determine if its over and then remove 86123 and 86124
-                stopAttack();
-            }
-
-            if (activeAttack != null && activeAttack.isActive()) {
-                if (sprites.attack.getFrame() > 4) {
-                    sprites.attack.setCurrentFrame(4);
-                }
-            }
+        	Action action = actions.getActive();
+        	
+        	if (action == null) {
+        		
+        		stopAttack();
+        		
+        	} else {
+        	
+        		sprites.attack.setCurrentFrame(action.getAnimationFrame());	
+        	}
 
             break;
         case Move:
@@ -174,7 +173,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
     }
 
     public Effect getEffect() {
-        return Effect.empty;
+        return Effect.EMPTY;
     }
 
     public void collide(Entity e) {
@@ -193,13 +192,18 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
     }
 
-    public final void startAttack(Attack attack) {
+    // TODO change to start action
+    public final void startAttack(Action action) {
+    	
+    	if (action.canStart()) action.start();
+    	
         sprites.attack.restart();
-        sprites.attack.setSpeed(Ma.min(attack.getAttackspeed(getEffect()), 14f)); // TODO 86123 remove min
+        //sprites.attack.setSpeed(Ma.min(attack.getAttackspeed(getEffect()), 14f)); // TODO 86123 remove min
         state = EntityState.Attack;
-        activeAttack = attack;
+        
     }
 
+    // TODO remove
     public final void startAttack(float speed) {
         sprites.attack.restart();
         sprites.attack.setSpeed(Ma.min(speed, 14f)); // TODO 86124 remove min
@@ -209,7 +213,12 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public final void stopAttack() {
         sprites.attack.restart();
         state = EntityState.Idle;
-        activeAttack = null;
+
+        // TODO revisit
+        Action action = actions.getActive();
+        if (action != null) {
+        	action.stop();
+        }
     }
 
     public void takeDamage() {

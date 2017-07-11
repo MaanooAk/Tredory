@@ -2,14 +2,19 @@
 
 package com.maanoo.tredory.core;
 
-import com.maanoo.tredory.core.entity.Attack;
+import com.maanoo.tredory.core.entity.Action;
+import com.maanoo.tredory.core.entity.AttackOld;
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
-import com.maanoo.tredory.core.entity.attacks.*;
+import com.maanoo.tredory.core.entity.ProjectileType;
+import com.maanoo.tredory.core.entity.Spell;
+import com.maanoo.tredory.core.entity.attacks.AttackProjectileArc;
+import com.maanoo.tredory.core.entity.attacks.AttackProjectileCyclone;
 import com.maanoo.tredory.core.entity.entities.Player;
+import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.core.utils.Points;
 import com.maanoo.tredory.face.assets.AssetSet;
-import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.SpriteSheet;
 
 /**
@@ -17,54 +22,76 @@ import org.newdawn.slick.SpriteSheet;
  */
 public class PlayerAttacks implements IUpdate {
 
-    private AssetSet<SpriteSheet> projectile;
+	private ProjectileType projectile;
 
-    public Attack spellFireball1;
-    public Attack spellFireball2;
-    public Attack spellFireball3;
-    public Attack spellFireballCyclone1;
-    public Attack spellTeleport;
-    public Attack spellSwap;
-    public Attack spellChannel;
-    public Attack spellPush;
-    public Attack spellFireballCyclone2;
+    public Action spellFireball1;
+    public Action spellFireball2;
+    public Action spellFireball3;
+    public Action spellFireballCyclone1;
+    public Action spellFireballCyclone2;
+    public Action spellTeleport;
+    public Action spellSwap;
+    public Action spellChannel;
+    public Action spellPush;
 
     public PlayerAttacks(Player player, AssetSet<SpriteSheet> projectile) {
-        this.projectile = projectile;
+        this.projectile = new ProjectileType(projectile);
 
-        this.spellFireball1 = new AttackProjectiles(Team.Good, 1.5f, projectile, 1, 0, 0.6f);
-        this.spellFireball2 = new AttackProjectiles(Team.Good, 0.9f, projectile, 5, 40, 0.6f);
-        this.spellFireball3 = new AttackProjectiles(Team.Good, 0.6f, projectile, 12, 360, 0.6f);
-        this.spellFireballCyclone1 = new AttackCyclone(Team.Good, 2f, projectile, 3, 360, 0.45f);
+        this.spellFireball1 = new AttackProjectileArc(player, 400 / 1.5f, 0, 250 / 1.5f, 0, this.projectile, 0.6f, 1, 0);
+        this.spellFireball2 = new AttackProjectileArc(player, 400 / 0.9f, 0, 250 / 0.9f, 0, this.projectile, 0.6f, 5, 40);
+        this.spellFireball3 = new AttackProjectileArc(player, 400 / 0.6f, 0, 250 / 0.6f, 0, this.projectile, 0.6f, 12, 360);
+        this.spellFireballCyclone1 = new AttackProjectileCyclone(player, 400 / 2.0f, 0, 250 / 2.0f, 0, this.projectile, 0.45f, 3, 0.0f, 0, 0.0f);
+        this.spellFireballCyclone2 = new AttackProjectileCyclone(player, 400 / 4.0f, 0, 250 / 4.0f, 0, this.projectile, 0.3f, 16, 1.0f, 0, 0.25f);
 
-        this.spellTeleport = new Spell(Team.Good, 0.6f) {
+        //this.spellChannel = new AttackBlow(Team.Good, 0.4f, projectile);
+        this.spellChannel = new AttackProjectileArc(player, 400 / 0.9f, 650 / 0.9f / 2, 250 / 0.9f, 0, this.projectile, 0.6f, 3, 20);
+        
+        this.spellTeleport = new Spell(player, 400 * 0.6f, 0, 200 * 0.6f, 0) {
             @Override
-            public void spell(Core c, Point p, float angle, Effect effect) {
+            public void perform() {
 
-                c.player.location.add(new Point(angle).mul(250));
+            	user.location.add(new Point(user.angle).mul(250));
             }
         };
-        this.spellSwap = new Spell(Team.Good, 0.6f) {
+        
+        this.spellSwap = new Spell(player, 400 * 0.6f, 0, 200 * 0.6f, 0) {
             @Override
-            public void spell(Core c, Point p, float angle, Effect effect) {
+            public void perform() {
 
-                Entity ent = c.findClossest(player, Team.Bad);
+                Entity ent = Core.c.findClossest(user, Team.Bad); // TODO change enemy team selection
 
                 if (ent != null) {
-                    c.player.location.swap(ent.location);
+                	user.location.swap(ent.location);
                 }
             }
         };
+        
+        this.spellPush = new Spell(player, 400 * 2f, 0, 200 * 2f, 0) {
 
-        this.spellChannel = new AttackBlow(Team.Good, 0.4f, projectile);
+			@Override
+			public void perform() {
+				
+				Point vec = Points.create();
 
-        this.spellPush = new SpellPush(Team.Good, 2f);
+		        for (Entity i : Core.c.findAll(user, Team.Bad, 200)) { // TODO change enemy team selection
 
-        this.spellFireballCyclone2 = new AttackCyclone2(Team.Good, 4f, projectile, 16, 0.30f);
+		            if (!i.movable) continue;
+
+		            vec.init(i.location).sub(user.location);
+		            vec.mul(10000 / Ma.pow2(vec.len()));
+
+		            i.location.add(vec);
+
+		        }
+
+		        Points.dispose(vec);
+			}
+        	
+        };
 
     }
 
-    public Attack getAttack(int group, int index) {
+    public Action getAttack(int group, int index) {
         switch (group) {
         case 0:
             switch (index) {

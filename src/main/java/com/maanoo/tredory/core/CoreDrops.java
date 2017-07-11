@@ -20,14 +20,14 @@ public class CoreDrops {
         while (value % 10 > 0) {
             item = new Item(ItemType.Copper, p.clone().add(new Point(Ra.range(-8, 8), Ra.range(-8, 8))));
             item.push(angle + Ra.range(0, cone), Ra.range(speedmin, speedmax));
-            c.ltoadd.add(item);
+            Core.addEntity(item);
 
             value -= 1;
         }
         while (value >= 10) {
             item = new Item(ItemType.Gold, p.clone().add(new Point(Ra.range(-4, 4), Ra.range(-4, 4))));
             item.push(angle + Ra.range(0, cone), Ra.range(speedmin, speedmax));
-            c.ltoadd.add(item);
+            Core.addEntity(item);
 
             value -= 10;
         }
@@ -39,6 +39,6 @@ public class CoreDrops {
 
         Item item = new Item(type, p);
         item.push(angle + Ra.range(-cone / 2, cone / 2), Ra.range(speedmin, speedmax));
-        c.ltoadd.add(item);
+        Core.addEntity(item);
     }
 }

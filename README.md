@@ -12,7 +12,7 @@ A 2d topdown randomly generated endless tail of a wizard in a no background worl
 
 ## Development
 
-- `make build run`
+- Build and run with executing `make` in the root folder. To run on debug mode execute `make build debug`.
 
 ## License
 

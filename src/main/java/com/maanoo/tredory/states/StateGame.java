@@ -5,7 +5,9 @@ package com.maanoo.tredory.states;
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Op.Keys;
 import com.maanoo.tredory.core.*;
+import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Attack;
+import com.maanoo.tredory.core.entity.AttackOld;
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.EntityState;
@@ -35,16 +37,16 @@ public class StateGame extends State {
     private PlayerAttacks pa;
 
     /**
-     * The mouse position whith origin the top left corner of the screen.
+     * The mouse position with origin the top left corner of the screen.
      */
     private final Point mouse;
 
     /**
-     * The mouse position whith origin the center of the screen.
+     * The mouse position with origin the center of the screen.
      */
     private final Point mouseC;
 
-    // TODO add mouse position in the map cordinate system
+    // TODO add mouse position in the map coordinate system
 
     public StateGame() {
         super(StateId.Game);
@@ -73,6 +75,16 @@ public class StateGame extends State {
 
             pa = new PlayerAttacks(c.player, Assets.fireball);
 
+            c.player.actions.add(pa.spellFireball1);
+            c.player.actions.add(pa.spellFireball2);
+            c.player.actions.add(pa.spellFireball3);
+            c.player.actions.add(pa.spellFireballCyclone1);
+            c.player.actions.add(pa.spellFireballCyclone2);
+            c.player.actions.add(pa.spellTeleport);
+            c.player.actions.add(pa.spellSwap);
+            c.player.actions.add(pa.spellChannel);
+            c.player.actions.add(pa.spellPush);
+            
             zoom = 1;
 
             Stats.reset();
@@ -297,7 +309,7 @@ public class StateGame extends State {
         mouseC.init(in.getMouseX() - w / 2, in.getMouseY() - h / 2);
 
         // TODO move time handling into core
-        // TODO impement time speed
+        // TODO implement time speed
 
         if (in.isKeyDown(Input.KEY_P)) d = d / 2;
         if (in.isKeyDown(Input.KEY_O)) d = d / 5;
@@ -308,25 +320,25 @@ public class StateGame extends State {
             changeState(game, StateId.Menu);
         }
 
-        if (c.player.state != EntityState.Attack || c.player.sprites.attack.getFrame() >= 4) {
+        if (c.player.state != EntityState.Attack || c.player.sprites.attack.getFrame() >= 4) { // TODO change second coondition
 
             c.player.angle = (float) (-Math.atan2(gc.getInput().getMouseX() - w / 2, gc.getInput().getMouseY() - h / 2) * 360 / (2 * Math.PI));
         }
 
         if (c.player.state != EntityState.Attack) {
 
-            Attack spell = null;
+            Action action = null;
 
-            if (in.isMouseButtonDown(Keys.Attack1)) spell = pa.getAttack(0, 0);
-            if (in.isMouseButtonDown(Keys.Attack2)) spell = pa.getAttack(0, 1);
-            if (in.isMouseButtonDown(Keys.Attack3)) spell = pa.getAttack(0, 2);
-            if (in.isKeyDown(Keys.Attack4)) spell = pa.getAttack(0, 3);
+            if (in.isMouseButtonDown(Keys.Attack1)) action = pa.getAttack(0, 0);
+            if (in.isMouseButtonDown(Keys.Attack2)) action = pa.getAttack(0, 1);
+            if (in.isMouseButtonDown(Keys.Attack3)) action = pa.getAttack(0, 2);
+            if (in.isKeyDown(Keys.Attack4)) action = pa.getAttack(0, 3);
 
-            for (int i = 0; i < 7; i++) if (in.isKeyDown(Keys.Spell[i])) spell = pa.getAttack(1, i);
+            for (int i = 0; i < 7; i++) if (in.isKeyDown(Keys.Spell[i])) action = pa.getAttack(1, i);
 
-            if (spell != null) {
-                c.player.startAttack(spell);
-                spell.perform(c, c.player, c.player.ccomp.effect);
+            if (action != null) {
+                c.player.startAttack(action);
+                action.start();
             }
 
         }

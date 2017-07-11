@@ -16,8 +16,6 @@ import java.util.ArrayList;
  */
 public class Animal extends Entity {
 
-    public final AttackMelee attack;
-
     private final float lspeed_base = 0.2f;
     public float lspeed;
 
@@ -26,7 +24,7 @@ public class Animal extends Entity {
     public Animal(Team team, Point location, float angle, SpriteBundleEntity sprites, float atackSpeedMul, float speedMul) {
         super(team, location, angle, sprites);
 
-        attack = new AttackMelee(Team.Bad, atackSpeedMul, 50, 70);
+        actions.add(new AttackMelee(this, 400 / atackSpeedMul, 0, 200 / atackSpeedMul, 0, 50, 70));
 
         lspeed = lspeed_base * speedMul;
 

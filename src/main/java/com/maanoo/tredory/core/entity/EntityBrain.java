@@ -5,6 +5,7 @@ package com.maanoo.tredory.core.entity;
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.entity.attacks.AttackMelee;
 import com.maanoo.tredory.core.entity.entities.Animal;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
@@ -57,8 +58,8 @@ public class EntityBrain implements IUpdate {
 
                 Point vec = target.location.clone().sub(ent.location);
 
-                if (vec.len() < ent.attack.range) {
-                    ent.startAttack(ent.attack);
+                if (vec.len() < ((AttackMelee)ent.actions.get()).range) { // TODO move logic inside AttackMelee
+                    ent.startAttack(ent.actions.get());
                 } else {
                     ent.location.add(vec.norm().mul(ent.lspeed * d));
                 }
@@ -80,7 +81,7 @@ public class EntityBrain implements IUpdate {
 
                     Point vec = target.location.clone().sub(ent.location);
 
-                    if (vec.len() > ent.attack.rangeMax) {
+                    if (vec.len() > ((AttackMelee)ent.actions.get()).rangeMax) {
                         ent.stopAttack();
                     }
 

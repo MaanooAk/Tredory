@@ -51,7 +51,7 @@ public final class Player extends Entity {
 
         takeShield(new Item(ItemType.Shield0, null));
         takeShield(new Item(ItemType.Shield0, null));
-
+        
         updateEffects();
     }
 

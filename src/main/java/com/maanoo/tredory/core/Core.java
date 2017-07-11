@@ -26,6 +26,10 @@ public class Core implements IUpdate {
 
     public static Core c;
 
+    public static void addEntity(Entity ent) {
+    	c.ltoadd.add(ent);
+    }
+    
     public Player player;
     public Map map;
 

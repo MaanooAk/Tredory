@@ -9,7 +9,7 @@ import com.maanoo.tredory.core.utils.Ma;
  */
 public final class Effect {
 
-    public static final Effect empty = new Effect();
+    public static final Effect EMPTY = new Effect();
 
     public static final class Item {
         public float add = 0;
@@ -41,6 +41,7 @@ public final class Effect {
     public final Item crystals = new Item(0);
     public final Item speed = new Item(0);
     public final Item attackspeed = new Item(0);
+    public final Item cooldown = new Item(0);
     public final Item projcount = new Item(1);
     public final Item projangle = new Item(0, 360);
     public final Item projspeed = new Item();
