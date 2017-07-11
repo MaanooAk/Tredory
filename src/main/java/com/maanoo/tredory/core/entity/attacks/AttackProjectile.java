@@ -13,7 +13,7 @@ public abstract class AttackProjectile extends Attack {
 
 	protected final ProjectileType projectile;
 	
-	protected final float count;
+	protected float count; // TODO do final
     protected final float speed;
 	
 	public AttackProjectile(Entity user, float charge_time, float recharge_time, float end_time,

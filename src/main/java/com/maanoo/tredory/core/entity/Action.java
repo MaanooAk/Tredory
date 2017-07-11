@@ -32,6 +32,7 @@ public abstract class Action implements IUpdate{
 	private float state_time;
 	private float time_left;
 	private boolean stop_recharge;
+	protected int perform_count;
 	
 	public Action(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time) {
 		this.user = user;
@@ -47,7 +48,9 @@ public abstract class Action implements IUpdate{
 		state = State.Idle;
 		state_time = 1;
 		time_left = 0;
+		
 		stop_recharge = false;
+		perform_count = 0;
 	}
 
 	public boolean canStart() {
@@ -56,6 +59,9 @@ public abstract class Action implements IUpdate{
 	
 	public void start() {
 		changeState(State.Charging);
+
+		stop_recharge = false;
+		perform_count = 0;
 	}
 	
 	public void stop() {
@@ -111,7 +117,9 @@ public abstract class Action implements IUpdate{
 			case Charging:
 			case Recharging:
 				
-				perform();	
+				perform();
+				perform_count += 1;
+				
 				changeState(recharge && !stop_recharge ? State.Recharging : State.Ending);
 				stop_recharge = false;
 				break;
@@ -140,6 +148,7 @@ public abstract class Action implements IUpdate{
 	/**
 	 * Returns the animation frames where 0,1,2,3 are the charge frames and 4,5 are
 	 * the ending frames.
+	 * TODO remove the limits 
 	 */
 	public int getAnimationFrame() {
 		switch(state) {
@@ -148,7 +157,7 @@ public abstract class Action implements IUpdate{
 		case Ending:
 			return Ma.limit((int) (4 + 2 * (1f - time_left / state_time)), 4, 5);
 		case Recharging:
-			return 4;
+			return 3; //Ma.limit((int) (2 + 2 * (1f - time_left / state_time)), 2, 3);
 		default:
 			return 0;
 		}
@@ -166,6 +175,10 @@ public abstract class Action implements IUpdate{
 		default:
 			return true;
 		}
+	}
+	
+	public boolean isRecharge() {
+		return recharge && !stop_recharge;
 	}
 	
 	public State getState() {

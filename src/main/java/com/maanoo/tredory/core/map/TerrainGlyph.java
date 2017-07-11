@@ -3,7 +3,6 @@
 package com.maanoo.tredory.core.map;
 
 import com.maanoo.tredory.core.utils.Point;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 

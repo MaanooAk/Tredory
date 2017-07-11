@@ -6,8 +6,6 @@ import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Op.Keys;
 import com.maanoo.tredory.core.*;
 import com.maanoo.tredory.core.entity.Action;
-import com.maanoo.tredory.core.entity.Attack;
-import com.maanoo.tredory.core.entity.AttackOld;
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.EntityState;
@@ -23,6 +21,8 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
+ * TODO doc
+ * 
  * @author MaanooAk
  */
 public class StateGame extends State {
@@ -72,9 +72,10 @@ public class StateGame extends State {
             c = new Core();
             Core.c = c;
             c.init();
-
+            
             pa = new PlayerAttacks(c.player, Assets.fireball);
 
+            // TODO revisit 
             c.player.actions.add(pa.spellFireball1);
             c.player.actions.add(pa.spellFireball2);
             c.player.actions.add(pa.spellFireball3);
@@ -82,7 +83,8 @@ public class StateGame extends State {
             c.player.actions.add(pa.spellFireballCyclone2);
             c.player.actions.add(pa.spellTeleport);
             c.player.actions.add(pa.spellSwap);
-            c.player.actions.add(pa.spellChannel);
+            c.player.actions.add(pa.spellChannel1);
+            c.player.actions.add(pa.spellChannel2);
             c.player.actions.add(pa.spellPush);
             
             zoom = 1;
@@ -320,21 +322,21 @@ public class StateGame extends State {
             changeState(game, StateId.Menu);
         }
 
-        if (c.player.state != EntityState.Attack || c.player.sprites.attack.getFrame() >= 4) { // TODO change second coondition
+        if (c.player.state != EntityState.Attack || c.player.actions.getActive().getState() != Action.State.Charging) { // TODO change second coondition
 
             c.player.angle = (float) (-Math.atan2(gc.getInput().getMouseX() - w / 2, gc.getInput().getMouseY() - h / 2) * 360 / (2 * Math.PI));
         }
 
+        Action action = null;
+
+        if (in.isMouseButtonDown(Keys.Attack1)) action = pa.getAttack(0, 0);
+        if (in.isMouseButtonDown(Keys.Attack2)) action = pa.getAttack(0, 1);
+        if (in.isMouseButtonDown(Keys.Attack3)) action = pa.getAttack(0, 2);
+        if (in.isKeyDown(Keys.Attack4)) action = pa.getAttack(0, 3);
+
+        for (int i = 0; i < 7; i++) if (in.isKeyDown(Keys.Spell[i])) action = pa.getAttack(1, i);
+        
         if (c.player.state != EntityState.Attack) {
-
-            Action action = null;
-
-            if (in.isMouseButtonDown(Keys.Attack1)) action = pa.getAttack(0, 0);
-            if (in.isMouseButtonDown(Keys.Attack2)) action = pa.getAttack(0, 1);
-            if (in.isMouseButtonDown(Keys.Attack3)) action = pa.getAttack(0, 2);
-            if (in.isKeyDown(Keys.Attack4)) action = pa.getAttack(0, 3);
-
-            for (int i = 0; i < 7; i++) if (in.isKeyDown(Keys.Spell[i])) action = pa.getAttack(1, i);
 
             if (action != null) {
                 c.player.startAttack(action);
@@ -342,8 +344,14 @@ public class StateGame extends State {
             }
 
         } else {
-        
-        	// TODO check to cansel channel actions
+        	
+        	Action active_action = c.player.actions.getActive();
+        	
+        	if (active_action != null && active_action.isRecharge()) {
+        		if (action != active_action) {
+        			active_action.stopRecharge();
+        		}
+        	}
         
         }
 

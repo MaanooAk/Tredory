@@ -4,7 +4,6 @@ package com.maanoo.tredory.core;
 
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.Entity;
-import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.core.entity.entities.Item;
 import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.entity.entities.Player;

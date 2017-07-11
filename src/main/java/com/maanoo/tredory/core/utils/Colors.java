@@ -4,8 +4,6 @@ package com.maanoo.tredory.core.utils;
 
 import org.newdawn.slick.Color;
 
-import java.nio.FloatBuffer;
-
 /**
  * TODO doc
  *

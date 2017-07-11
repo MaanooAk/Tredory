@@ -3,13 +3,13 @@
 package com.maanoo.tredory.core;
 
 import com.maanoo.tredory.core.entity.Action;
-import com.maanoo.tredory.core.entity.AttackOld;
-import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.ProjectileType;
 import com.maanoo.tredory.core.entity.Spell;
 import com.maanoo.tredory.core.entity.attacks.AttackProjectileArc;
+import com.maanoo.tredory.core.entity.attacks.AttackProjectileBlow;
 import com.maanoo.tredory.core.entity.attacks.AttackProjectileCyclone;
+import com.maanoo.tredory.core.entity.attacks.AttackProjectileLine;
 import com.maanoo.tredory.core.entity.entities.Player;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
@@ -31,7 +31,8 @@ public class PlayerAttacks implements IUpdate {
     public Action spellFireballCyclone2;
     public Action spellTeleport;
     public Action spellSwap;
-    public Action spellChannel;
+    public Action spellChannel1;
+    public Action spellChannel2;
     public Action spellPush;
 
     public PlayerAttacks(Player player, AssetSet<SpriteSheet> projectile) {
@@ -40,11 +41,12 @@ public class PlayerAttacks implements IUpdate {
         this.spellFireball1 = new AttackProjectileArc(player, 400 / 1.5f, 0, 250 / 1.5f, 0, this.projectile, 0.6f, 1, 0);
         this.spellFireball2 = new AttackProjectileArc(player, 400 / 0.9f, 0, 250 / 0.9f, 0, this.projectile, 0.6f, 5, 40);
         this.spellFireball3 = new AttackProjectileArc(player, 400 / 0.6f, 0, 250 / 0.6f, 0, this.projectile, 0.6f, 12, 360);
+        
         this.spellFireballCyclone1 = new AttackProjectileCyclone(player, 400 / 2.0f, 0, 250 / 2.0f, 0, this.projectile, 0.45f, 3, 0.0f, 160, 0.0f);
         this.spellFireballCyclone2 = new AttackProjectileCyclone(player, 400 / 4.0f, 0, 250 / 4.0f, 0, this.projectile, 0.3f, 16, 1.0f, 320, 0.25f);
-
-        //this.spellChannel = new AttackBlow(Team.Good, 0.4f, projectile);
-        this.spellChannel = new AttackProjectileArc(player, 400 / 0.9f, 650 / 0.9f / 2, 250 / 0.9f, 0, this.projectile, 0.6f, 3, 20);
+        
+        this.spellChannel1 = new AttackProjectileBlow(player, 400 / 1.0f, 400 / 1.0f, 250 / 0.9f, 0, this.projectile, 0.6f, 5, 40);
+        this.spellChannel2 = new AttackProjectileLine(player, 400 / 0.9f, 0, 250 / 0.9f, 0, this.projectile, 0.6f, 5, 100);
         
         this.spellTeleport = new Spell(player, 400 * 0.6f, 0, 200 * 0.6f, 0) {
             @Override
@@ -110,13 +112,15 @@ public class PlayerAttacks implements IUpdate {
             case 0:
                 return spellTeleport;
             case 1:
-                return spellSwap;
+                return spellChannel1;
             case 2:
-                return spellChannel;
+                return spellChannel2;
             case 3:
                 return spellPush;
             case 4:
                 return spellFireballCyclone2;
+            case 5:
+                return spellSwap;
             }
             return null;
         }

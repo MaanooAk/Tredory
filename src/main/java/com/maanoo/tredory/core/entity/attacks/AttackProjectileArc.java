@@ -9,6 +9,7 @@ import com.maanoo.tredory.core.entity.ProjectileType;
 import com.maanoo.tredory.core.entity.entities.Projectile;
 import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 
 /**
@@ -61,5 +62,41 @@ public class AttackProjectileArc extends AttackProjectile {
         }
 
 	}
+	
+// TODO use this ? (from old AttackProjectileFlux)
+//	
+//    final float attackspeed = e.attackspeed.apply(this.attackspeed);
+//    final float projcount = e.projcount.apply(this.projcount);
+//    float projangle = e.projangle.apply(this.projangle);
+//    final float projspeed = e.projspeed.apply(this.projspeed);
+//
+//    if (projcount == 1) {
+//
+//        float angle = ent.angle + Ra.range(-projangleflux, projangleflux);
+//
+//        Point start = ent.location.clone().add(new Point(angle).mul(32));
+//
+//        Core.addEntity(Pools.obtain(Projectile.class)
+//                .init(team, start, angle, new SpriteBundleEntity(sprites.get()),
+//                projspeed, 0, attackspeed, 1500));
+//
+//    } else {
+//
+//        if (projangle == 360) projangle -= projangle / projcount;
+//
+//        float toxo = projangle;
+//        for (int i = 0; i < projcount; i += 1) {
+//
+//            float angle = ent.angle + Ra.range(-projangleflux, projangleflux);
+//
+//            float iangle = angle + (i / (projcount - 1)) * toxo - toxo / 2;
+//            Point start = ent.location.clone().add(new Point(iangle).mul(32));
+//
+//            Core.addEntity(Pools.obtain(Projectile.class)
+//                    .init(team, start, iangle, new SpriteBundleEntity(sprites.get()),
+//                    projspeed, 0, attackspeed, 1500));
+//
+//        }
+//    }
 
 }
