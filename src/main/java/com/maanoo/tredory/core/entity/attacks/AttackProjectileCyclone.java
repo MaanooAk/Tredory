@@ -13,6 +13,7 @@ import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 
 /**
+ * TODO rename variables
  * @author MaanooAk
  */
 public class AttackProjectileCyclone extends AttackProjectile {
@@ -37,7 +38,7 @@ public class AttackProjectileCyclone extends AttackProjectile {
 
 		final Effect e = user.getEffect();
 		
-        final float attackspeed = end_time * 0.75f; // TODO ??
+        final float proj_charge_time = param2;
         final float projcount = e.projcount.apply(this.count);
         final float projspeed = e.projspeed.apply(this.speed);
 
@@ -47,7 +48,7 @@ public class AttackProjectileCyclone extends AttackProjectile {
 
             Core.addEntity(Pools.obtain(Projectile.class)
                     .init(user.team, start, angle + 90, new SpriteBundleEntity(projectile.getSpriteSheet()),
-                            projspeed, 0.6f, attackspeed, 500));
+                            projspeed, 0.6f, proj_charge_time, 500));
 
         } else {
 
@@ -66,7 +67,7 @@ public class AttackProjectileCyclone extends AttackProjectile {
                 
 	                Core.addEntity(Pools.obtain(Projectile.class)
 	                        .init(user.team, start, iangle + 90, new SpriteBundleEntity(projectile.getSpriteSheet()),
-	                        projspeed, 0.6f, attackspeed, 500));
+	                        projspeed, 0.6f, proj_charge_time, 500));
                 
                 } else if (param1 == 1.0f) {
                 	
@@ -74,7 +75,7 @@ public class AttackProjectileCyclone extends AttackProjectile {
 
                     Core.addEntity(Pools.obtain(Projectile.class)
                             .init(user.team, start, iangle + sign * 45, new SpriteBundleEntity(projectile.getSpriteSheet()),
-                            projspeed, sign * Ra.range(0.1f, 0.2f), attackspeed / 4, 20 + Ra.range(200)));
+                            projspeed, sign * Ra.range(0.1f, 0.2f), proj_charge_time, 20 + Ra.range(200)));
                 }
 
             }

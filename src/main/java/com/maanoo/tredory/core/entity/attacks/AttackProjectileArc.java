@@ -12,6 +12,7 @@ import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 
 /**
+ * TODO rename variables
  * @author MaanooAk
  */
 public class AttackProjectileArc extends AttackProjectile {
@@ -29,7 +30,7 @@ public class AttackProjectileArc extends AttackProjectile {
 		
 		final Effect e = user.getEffect();
 		
-		final float attackspeed = end_time * 0.75f; // TODO ??
+		final float proj_charge_time = end_time * 0.75f;
         final float projcount = e.projcount.apply(this.count);
         float projangle = e.projangle.apply(this.angle);
         final float projspeed = e.projspeed.apply(this.speed);
@@ -40,7 +41,7 @@ public class AttackProjectileArc extends AttackProjectile {
 
             Core.addEntity(Pools.obtain(Projectile.class)
                     .init(user.team, start, user.angle, new SpriteBundleEntity(projectile.getSpriteSheet()),
-                    projspeed, 0, attackspeed, 1500));
+                    projspeed, 0, proj_charge_time, 1500));
 
         } else {
 
@@ -54,7 +55,7 @@ public class AttackProjectileArc extends AttackProjectile {
 
                 Core.addEntity(Pools.obtain(Projectile.class)
                         .init(user.team, start, iangle, new SpriteBundleEntity(projectile.getSpriteSheet()),
-                        projspeed, 0, attackspeed, 1500));
+                        projspeed, 0, proj_charge_time, 1500));
 
             }
         }

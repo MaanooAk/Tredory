@@ -13,7 +13,7 @@ import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.SpriteSheet;
 
 /**
- * TODO doc
+ * TODO move extend to the new Action base class
  *
  * @author MaanooAk
  */

@@ -341,6 +341,10 @@ public class StateGame extends State {
                 action.start();
             }
 
+        } else {
+        
+        	// TODO check to cansel channel actions
+        
         }
 
         if (c.player.state != EntityState.Attack) {

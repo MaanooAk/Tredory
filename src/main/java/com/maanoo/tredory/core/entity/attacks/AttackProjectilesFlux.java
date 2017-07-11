@@ -16,6 +16,8 @@ import com.maanoo.tredory.face.assets.AssetSet;
 import org.newdawn.slick.SpriteSheet;
 
 /**
+ * TODO move extend to the new Action base class
+ *
  * @author MaanooAk
  */
 public class AttackProjectilesFlux extends AttackOld {

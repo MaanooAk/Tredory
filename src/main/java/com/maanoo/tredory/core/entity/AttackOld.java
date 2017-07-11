@@ -9,12 +9,7 @@ import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.utils.Point;
 
 /**
- * The base class for attacks
- * 
- * Attack life cycle:
- * - start
- * - perform
- * - end
+ * TODO remove
  * 
  * @author MaanooAk
  */

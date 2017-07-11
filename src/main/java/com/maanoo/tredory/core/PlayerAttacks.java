@@ -40,8 +40,8 @@ public class PlayerAttacks implements IUpdate {
         this.spellFireball1 = new AttackProjectileArc(player, 400 / 1.5f, 0, 250 / 1.5f, 0, this.projectile, 0.6f, 1, 0);
         this.spellFireball2 = new AttackProjectileArc(player, 400 / 0.9f, 0, 250 / 0.9f, 0, this.projectile, 0.6f, 5, 40);
         this.spellFireball3 = new AttackProjectileArc(player, 400 / 0.6f, 0, 250 / 0.6f, 0, this.projectile, 0.6f, 12, 360);
-        this.spellFireballCyclone1 = new AttackProjectileCyclone(player, 400 / 2.0f, 0, 250 / 2.0f, 0, this.projectile, 0.45f, 3, 0.0f, 0, 0.0f);
-        this.spellFireballCyclone2 = new AttackProjectileCyclone(player, 400 / 4.0f, 0, 250 / 4.0f, 0, this.projectile, 0.3f, 16, 1.0f, 0, 0.25f);
+        this.spellFireballCyclone1 = new AttackProjectileCyclone(player, 400 / 2.0f, 0, 250 / 2.0f, 0, this.projectile, 0.45f, 3, 0.0f, 160, 0.0f);
+        this.spellFireballCyclone2 = new AttackProjectileCyclone(player, 400 / 4.0f, 0, 250 / 4.0f, 0, this.projectile, 0.3f, 16, 1.0f, 320, 0.25f);
 
         //this.spellChannel = new AttackBlow(Team.Good, 0.4f, projectile);
         this.spellChannel = new AttackProjectileArc(player, 400 / 0.9f, 650 / 0.9f / 2, 250 / 0.9f, 0, this.projectile, 0.6f, 3, 20);
