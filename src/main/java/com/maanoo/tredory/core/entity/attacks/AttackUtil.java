@@ -3,12 +3,12 @@
 package com.maanoo.tredory.core.entity.attacks;
 
 import com.maanoo.tredory.core.Team;
-import com.maanoo.tredory.core.entity.Attack;
+import com.maanoo.tredory.core.entity.AttackOld;
 
 /**
  * @author MaanooAk
  */
-public class AttackUtil extends Attack {
+public class AttackUtil extends AttackOld {
 
     public AttackUtil(Team team, float attackspeed) {
         super(team, attackspeed);

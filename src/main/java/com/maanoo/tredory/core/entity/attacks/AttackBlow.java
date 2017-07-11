@@ -4,7 +4,7 @@ package com.maanoo.tredory.core.entity.attacks;
 
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.Team;
-import com.maanoo.tredory.core.entity.Attack;
+import com.maanoo.tredory.core.entity.AttackOld;
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
@@ -17,7 +17,7 @@ import org.newdawn.slick.SpriteSheet;
  *
  * @author MaanooAk
  */
-public class AttackBlow extends Attack {
+public class AttackBlow extends AttackOld {
 
     private AttackProjectilesFlux attack;
 
@@ -32,8 +32,8 @@ public class AttackBlow extends Attack {
     }
 
     @Override
-    public void activate(Core c, Point p, float angle, Effect effect) {
-        super.activate(c, p, angle, effect);
+    public void activate(Point p, float angle, Effect effect) {
+        super.activate(p, angle, effect);
 
         attack.attackspeed = 1.5f;
         attacks_left = attacks_max;
@@ -47,7 +47,7 @@ public class AttackBlow extends Attack {
 
         if (attacks_left > 0) {
             if (!attack.isActive()) {
-                attack.perform(Core.c, ent, Core.c.player.ccomp.effect);
+                attack.start(ent, Core.c.player.ccomp.effect);
 
                 attacks_left -= 1;
                 attack.attackspeed = Ma.limit(attack.attackspeed * 1.15f, 0f, 20f);

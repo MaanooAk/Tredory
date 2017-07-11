@@ -4,7 +4,7 @@ package com.maanoo.tredory.core.entity.attacks;
 
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.Team;
-import com.maanoo.tredory.core.entity.Attack;
+import com.maanoo.tredory.core.entity.AttackOld;
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.entities.Projectile;
@@ -18,7 +18,7 @@ import org.newdawn.slick.SpriteSheet;
 /**
  * @author MaanooAk
  */
-public class AttackCyclone extends Attack {
+public class AttackCyclone extends AttackOld {
 
     public final AssetSet<SpriteSheet> sprites;
 
@@ -36,8 +36,8 @@ public class AttackCyclone extends Attack {
 
     @Override
     @SuppressWarnings("LocalVariableHidesMemberVariable")
-    public void perform(Core c, Entity ent, Effect e) {
-        super.perform(c, ent, e);
+    public void start(Entity ent, Effect e) {
+        super.start(ent, e);
 
         float angle = Ra.angle();
 
@@ -50,7 +50,7 @@ public class AttackCyclone extends Attack {
 
             Point start = ent.location.clone().add(new Point(angle).mul(32));
 
-            c.ltoadd.add(Pools.obtain(Projectile.class)
+            Core.addEntity(Pools.obtain(Projectile.class)
                     .init(team, start, angle + 90, new SpriteBundleEntity(sprites.get()),
                             projspeed, 0.6f, attackspeed, 500));
 
@@ -64,7 +64,7 @@ public class AttackCyclone extends Attack {
                 float iangle = angle + (i / (projcount - 1)) * toxo - toxo / 2;
                 Point start = ent.location.clone().add(new Point(iangle).mul(32));
 
-                c.ltoadd.add(Pools.obtain(Projectile.class)
+                Core.addEntity(Pools.obtain(Projectile.class)
                         .init(team, start, iangle + 90, new SpriteBundleEntity(sprites.get()),
                         projspeed, 0.6f, attackspeed, 500));
 

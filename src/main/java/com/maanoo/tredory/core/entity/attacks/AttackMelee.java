@@ -2,32 +2,29 @@
 
 package com.maanoo.tredory.core.entity.attacks;
 
-import com.maanoo.tredory.core.Core;
-import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Attack;
-import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
-import com.maanoo.tredory.core.utils.Point;
 
 /**
  * @author MaanooAk
  */
 public class AttackMelee extends Attack {
+	
+	public AttackMelee(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time,
+			float range, float rangeMax) {
+		super(user, charge_time, recharge_time, end_time, cooldown_time);
+		this.range = range;
+		this.rangeMax = rangeMax;
+	}
 
-    public final float range;
+	public final float range;
     public final float rangeMax;
-
-    public AttackMelee(Team team, float attackspeed, float range, float rangeMax) {
-        super(team, attackspeed);
-
-        this.range = range;
-        this.rangeMax = rangeMax;
-    }
-
-    @Override
-    public void perform(Core c, Entity ent, Effect effect) {
-        super.perform(c, ent, effect);
-    }
+    
+	@Override
+	public void perform() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }
