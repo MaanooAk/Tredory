@@ -20,4 +20,5 @@ public final class ProjectileType {
 	public SpriteSheet getSpriteSheet() {
 		return sprites.get();
 	}
+	
 }

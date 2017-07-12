@@ -390,7 +390,6 @@ public class StateGame extends State {
             } else {
                 if (c.player.getState() == EntityState.Move) {
                     c.player.changeState(EntityState.Idle);
-                    System.out.println("Idle");
                 }
             }
 

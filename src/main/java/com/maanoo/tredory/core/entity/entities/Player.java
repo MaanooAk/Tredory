@@ -2,15 +2,19 @@
 
 package com.maanoo.tredory.core.entity.entities;
 
-import com.maanoo.tredory.core.*;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import com.maanoo.tredory.core.Core;
+import com.maanoo.tredory.core.CrystalComp;
+import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.Souls;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundle;
-import java.util.ArrayList;
-import java.util.Collections;
+
 
 /**
  * @author MaanooAk
@@ -49,7 +53,7 @@ public final class Player extends Entity {
 
         takeShield(new Item(ItemType.Shield0, null));
         takeShield(new Item(ItemType.Shield0, null));
-        
+
         updateEffects();
     }
 
@@ -61,9 +65,9 @@ public final class Player extends Entity {
 
         switch (state) {
         case Idle: {
-            ArrayList<Item> l = Core.c.findItems(location, 52);
+            final ArrayList<Item> l = Core.c.findItems(location, 52);
 
-            for (Item i : l) {
+            for (final Item i : l) {
                 if (i.type == ItemType.Copper) {
                     Core.c.removeItem(i);
                     coins += 1;
@@ -84,24 +88,23 @@ public final class Player extends Entity {
                 }
                 break;
             }
-        }
-        {
-            ArrayList<Entity> l = Core.c.findStepables(location, 30);
+        } {
+            final ArrayList<Entity> l = Core.c.findStepables(location, 30);
 
-            for (Entity i : l) {
+            for (final Entity i : l) {
                 i.activate();
             }
         }
 
-        if (selectpressed) {
-            ArrayList<Entity> l = Core.c.findActivatable(location, 50);
+            if (selectpressed) {
+                final ArrayList<Entity> l = Core.c.findActivatable(location, 50);
 
-            for (Entity i : l) {
-                i.activate();
+                for (final Entity i : l) {
+                    i.activate();
+                }
             }
-        }
 
-        break;
+            break;
         }
 
         selectpressed = false;
@@ -156,13 +159,12 @@ public final class Player extends Entity {
             Core.c.dropItem(this, shields.remove(0));
         }
 
-
     }
 
     public void takeCrystal(Item crystal) {
 
         if (crystals.size() == crystals.max) {
-            Item i = crystals.remove(Ra.range(crystals.size()));
+            final Item i = crystals.remove(Ra.range(crystals.size()));
 
             i.unpicablify(1000);
             Core.c.dropItem(this, i);
@@ -177,7 +179,7 @@ public final class Player extends Entity {
 
     public Item giveCrystal() {
 
-        Item crystal = crystals.remove(Ra.range(0, crystals.size()));
+        final Item crystal = crystals.remove(Ra.range(0, crystals.size()));
 
         updateEffects();
         return crystal;
@@ -186,7 +188,7 @@ public final class Player extends Entity {
     public void takeStone(Item stone) {
 
         if (stones.isMax()) {
-            Item it = stones.remove(Ra.range(stones.size()));
+            final Item it = stones.remove(Ra.range(stones.size()));
 
             it.unpicablify(1000);
             Core.c.dropItem(this, it);
@@ -228,10 +230,10 @@ public final class Player extends Entity {
     public void takeDamage() {
         if (shields.isEmpty()) {
             die();
+            System.out.println("Player Death");
         } else {
             shields.remove(0);
         }
     }
-
 
 }

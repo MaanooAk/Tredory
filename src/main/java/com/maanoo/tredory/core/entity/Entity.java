@@ -23,6 +23,8 @@ import com.maanoo.tredory.face.SpriteBundle;
 public class Entity implements IUpdate, IDraw, Poolable {
 
     // TODO fame gain
+    // TODO remove frame depend and add time depend
+    // TODO fix player not dead after die call
 
     /**
      * The duration of its life.
@@ -45,7 +47,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
      * Stores the last vector that was added to the location.
      */
     public Point move;
-    protected EntityState state;
+    public EntityState state;
     public SpriteBundle sprites;
     public int size;
     /**
@@ -144,6 +146,8 @@ public class Entity implements IUpdate, IDraw, Poolable {
                 dead = true;
             }
 
+            break;
+        default:
             break;
         }
     }

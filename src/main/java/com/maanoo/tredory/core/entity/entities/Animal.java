@@ -2,14 +2,17 @@
 
 package com.maanoo.tredory.core.entity.entities;
 
-import com.maanoo.tredory.core.*;
+import java.util.ArrayList;
+
+import com.maanoo.tredory.core.Core;
+import com.maanoo.tredory.core.Stats;
+import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Entity;
-import com.maanoo.tredory.core.entity.Brain;
 import com.maanoo.tredory.core.entity.actions.AttackMelee;
+import com.maanoo.tredory.core.entity.brains.AnimalBrain;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 
-import java.util.ArrayList;
 
 /**
  * @author MaanooAk
@@ -19,16 +22,17 @@ public class Animal extends Entity {
     private final float lspeed_base = 0.2f;
     public float lspeed;
 
-    public final Brain brain;
+    public final AnimalBrain brain;
 
-    public Animal(Team team, Point location, float angle, SpriteBundleEntity sprites, float atackSpeedMul, float speedMul) {
+    public Animal(Team team, Point location, float angle, SpriteBundleEntity sprites, float atackSpeedMul,
+            float speedMul) {
         super(team, location, angle, sprites);
 
         actions.add(new AttackMelee(this, 400 / atackSpeedMul, 0, 200 / atackSpeedMul, 0, 50, 70));
 
         lspeed = lspeed_base * speedMul;
 
-        brain = new Brain(this);
+        brain = new AnimalBrain(this);
     }
 
     @Override
@@ -53,8 +57,8 @@ public class Animal extends Entity {
 
         // alert all near by allies when it takes damage
         // TODO find all allies not teammates
-        ArrayList<Entity> l = Core.c.findAll(this, team, 250);
-        for (Entity i : l) {
+        final ArrayList<Entity> l = Core.c.findAll(this, team, 250);
+        for (final Entity i : l) {
             i.alerted = true;
         }
     }
@@ -71,6 +75,5 @@ public class Animal extends Entity {
             Core.c.player.souls.addSoul();
         }
     }
-
 
 }
