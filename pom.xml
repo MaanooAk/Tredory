@@ -5,7 +5,7 @@
 
 	<groupId>com.maanoo.tredory</groupId>
 	<artifactId>Tredory</artifactId>
-	<version>0.1</version>
+	<version>0.2</version>
 
 	<name>Tredory</name>
 	<description>A 2d topdown randomly generated endless tail of a wizard in a no background world</description>
