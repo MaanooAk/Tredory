@@ -3,9 +3,9 @@
 package com.maanoo.tredory.core.entity.entities;
 
 import com.maanoo.tredory.core.*;
-import com.maanoo.tredory.core.entity.attacks.AttackMelee;
 import com.maanoo.tredory.core.entity.Entity;
-import com.maanoo.tredory.core.entity.EntityBrain;
+import com.maanoo.tredory.core.entity.Brain;
+import com.maanoo.tredory.core.entity.actions.AttackMelee;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 
@@ -19,7 +19,7 @@ public class Animal extends Entity {
     private final float lspeed_base = 0.2f;
     public float lspeed;
 
-    public final EntityBrain brain;
+    public final Brain brain;
 
     public Animal(Team team, Point location, float angle, SpriteBundleEntity sprites, float atackSpeedMul, float speedMul) {
         super(team, location, angle, sprites);
@@ -28,7 +28,7 @@ public class Animal extends Entity {
 
         lspeed = lspeed_base * speedMul;
 
-        brain = new EntityBrain(this);
+        brain = new Brain(this);
     }
 
     @Override

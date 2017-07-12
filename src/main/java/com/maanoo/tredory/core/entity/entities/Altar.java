@@ -41,7 +41,7 @@ public class Altar extends Entity {
                 p.giveItem(i);
             }
             for (ItemType i : rec.out.items) {
-                CoreDrops.dropItem(Core.c, this, 0, 360, 0.2f, 0.25f, i);
+                Drops.dropItem(Core.c, this, 0, 360, 0.2f, 0.25f, i);
             }
 
         }

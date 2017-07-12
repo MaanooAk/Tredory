@@ -163,8 +163,8 @@ public abstract class Action implements IUpdate{
 		}
 	}
 
-	public float getCooldownProgress() {
-		return 1f - time_left / cooldown_time;
+	public float getStateProgress() {
+		return 1f - time_left / state_time;
 	}
 
 	public boolean isActive() {

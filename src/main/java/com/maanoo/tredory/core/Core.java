@@ -216,7 +216,7 @@ public class Core implements IUpdate {
             if (Ra.chance(0.05f)) {
 
                 int value = Ra.range(0, 5) + Ra.range(1, 5);
-                CoreDrops.dropCoins(this, con, 0, 360, .1f, .2f, value);
+                Drops.dropCoins(this, con, 0, 360, .1f, .2f, value);
             }
 
             break;

@@ -5,7 +5,7 @@ package com.maanoo.tredory.core.entity;
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.Team;
-import com.maanoo.tredory.core.entity.attacks.AttackMelee;
+import com.maanoo.tredory.core.entity.actions.AttackMelee;
 import com.maanoo.tredory.core.entity.entities.Animal;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
@@ -13,7 +13,7 @@ import com.maanoo.tredory.face.assets.Assets;
 /**
  * @author MaanooAk
  */
-public class EntityBrain implements IUpdate {
+public class Brain implements IUpdate {
 
     // TODO create inheriting structrue
     // TODO add intelligence parameter
@@ -27,7 +27,7 @@ public class EntityBrain implements IUpdate {
 
     private Entity target;
 
-    public EntityBrain(Animal ent) {
+    public Brain(Animal ent) {
         this.ent = ent;
 
     }

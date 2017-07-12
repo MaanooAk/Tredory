@@ -11,7 +11,7 @@ build:
 
 .phony: clean
 clean:
-	$(MVN) mvn clean
+	$(MVN) clean
 
 # TODO should probably change version detection technique
 # TODO detect if run and debug need build

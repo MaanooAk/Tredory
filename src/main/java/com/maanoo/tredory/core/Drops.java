@@ -11,7 +11,7 @@ import com.maanoo.tredory.core.utils.Ra;
 /**
  * @author MaanooAk
  */
-public class CoreDrops {
+public class Drops {
 
     public static void dropCoins(Core c, Entity ent, float angle, float cone, float speedmin, float speedmax, int value) {
         Item item;

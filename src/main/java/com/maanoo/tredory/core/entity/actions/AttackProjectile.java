@@ -1,8 +1,7 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core.entity.attacks;
+package com.maanoo.tredory.core.entity.actions;
 
-import com.maanoo.tredory.core.entity.Attack;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.ProjectileType;
 
