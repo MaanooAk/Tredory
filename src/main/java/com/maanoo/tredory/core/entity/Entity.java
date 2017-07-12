@@ -2,6 +2,9 @@
 
 package com.maanoo.tredory.core.entity;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.core.IDraw;
 import com.maanoo.tredory.core.IUpdate;
@@ -12,8 +15,7 @@ import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Points;
 import com.maanoo.tredory.core.utils.Rectangle;
 import com.maanoo.tredory.face.SpriteBundle;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
+
 
 /**
  * @author MaanooAk
@@ -43,7 +45,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
      * Stores the last vector that was added to the location.
      */
     public Point move;
-    public EntityState state;
+    protected EntityState state;
     public SpriteBundle sprites;
     public int size;
     /**
@@ -97,6 +99,13 @@ public class Entity implements IUpdate, IDraw, Poolable {
         this.sprites = sprites.copy();
     }
 
+    public void changeState(EntityState new_state) {
+
+        if (state.canInterrupt()) {
+            state = new_state;
+        }
+    }
+
     @Override
     public void update(int d) {
         life += d;
@@ -108,21 +117,21 @@ public class Entity implements IUpdate, IDraw, Poolable {
         switch (state) {
         case Attack:
 
-        	Action action = actions.getActive();
-        	
-        	if (action == null) {
-        		
-        		stopAttack();
-        		
-        	} else {
-        	
-        		sprites.attack.setCurrentFrame(action.getAnimationFrame());	
-        	}
+            final Action action = actions.getActive();
+
+            if (action == null) {
+
+                stopAttack();
+
+            } else {
+
+                sprites.attack.setCurrentFrame(action.getAnimationFrame());
+            }
 
             break;
         case Move:
 
-            //location.add(speed.clone().mul(d));
+            // location.add(speed.clone().mul(d));
             break;
         case Die:
 
@@ -179,9 +188,9 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
         if (!undead && !e.undead) {
 
-            Point vec = Points.create(e.location).sub(location).norm();
-            Point vec1 = Points.create(vec).mul(-1);
-            Point vec2 = Points.create(vec).mul(1);
+            final Point vec = Points.create(e.location).sub(location).norm();
+            final Point vec1 = Points.create(vec).mul(-1);
+            final Point vec2 = Points.create(vec).mul(1);
 
             if (movable) location.add(vec1);
             if (e.movable) e.location.add(vec2);
@@ -193,13 +202,14 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
     // TODO change to start action
     public final void startAttack(Action action) {
-    	
-    	if (action.canStart()) action.start();
-    	
+
+        if (action.canStart()) action.start();
+
         sprites.attack.restart();
-        //sprites.attack.setSpeed(Ma.min(attack.getAttackspeed(getEffect()), 14f)); // TODO 86123 remove min
+        // sprites.attack.setSpeed(Ma.min(attack.getAttackspeed(getEffect()), 14f)); //
+        // TODO 86123 remove min
         state = EntityState.Attack;
-        
+
     }
 
     // TODO remove
@@ -214,9 +224,9 @@ public class Entity implements IUpdate, IDraw, Poolable {
         state = EntityState.Idle;
 
         // TODO revisit
-        Action action = actions.getActive();
+        final Action action = actions.getActive();
         if (action != null) {
-        	action.stop();
+            action.stop();
         }
     }
 
@@ -239,4 +249,11 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public void activate() {
 
     }
+
+    // Getters
+
+    public EntityState getState() {
+        return state;
+    }
+
 }

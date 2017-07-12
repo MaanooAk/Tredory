@@ -7,8 +7,54 @@ package com.maanoo.tredory.core.entity;
  */
 public enum EntityState {
 
-    Idle, Move, Attack, Work, Die, Special;
+    Idle() {
 
-    // TODO add some parameters defined behaviur, eg. canMove, canInterupt
+    },
 
+    Move() {
+
+        @Override
+        public boolean canMove() {
+            return true;
+        }
+    },
+
+    Attack() {
+
+        @Override
+        public boolean canInterrupt() {
+            return false;
+        }
+
+    },
+
+    Work() {
+
+    },
+
+    Die() {
+
+        @Override
+        public boolean canInterrupt() {
+            return false;
+        }
+
+    },
+
+    Special() {
+
+        @Override
+        public boolean canInterrupt() {
+            return false;
+        }
+
+    };
+
+    public boolean canMove() {
+        return false;
+    };
+
+    public boolean canInterrupt() {
+        return true;
+    };
 }

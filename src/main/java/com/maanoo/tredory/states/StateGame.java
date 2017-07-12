@@ -2,9 +2,20 @@
 
 package com.maanoo.tredory.states;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Op.Keys;
-import com.maanoo.tredory.core.*;
+import com.maanoo.tredory.core.Core;
+import com.maanoo.tredory.core.Draws;
+import com.maanoo.tredory.core.PlayerAttacks;
+import com.maanoo.tredory.core.Stats;
+import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.Entity;
@@ -17,12 +28,11 @@ import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Str;
 import com.maanoo.tredory.face.assets.Assets;
-import org.newdawn.slick.*;
-import org.newdawn.slick.state.StateBasedGame;
+
 
 /**
  * TODO doc
- * 
+ *
  * @author MaanooAk
  */
 public class StateGame extends State {
@@ -58,7 +68,6 @@ public class StateGame extends State {
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 
-
     }
 
     @Override
@@ -72,10 +81,10 @@ public class StateGame extends State {
             c = new Core();
             Core.c = c;
             c.init();
-            
+
             pa = new PlayerAttacks(c.player, Assets.fireball);
 
-            // TODO revisit 
+            // TODO revisit
             c.player.actions.add(pa.spellFireball1);
             c.player.actions.add(pa.spellFireball2);
             c.player.actions.add(pa.spellFireball3);
@@ -86,7 +95,7 @@ public class StateGame extends State {
             c.player.actions.add(pa.spellChannel1);
             c.player.actions.add(pa.spellChannel2);
             c.player.actions.add(pa.spellPush);
-            
+
             zoom = 1;
 
             Stats.reset();
@@ -98,7 +107,7 @@ public class StateGame extends State {
         w = gc.getWidth();
         h = gc.getHeight();
 
-        //g.setAntiAlias(true); // TODO can we support aa ?
+        // g.setAntiAlias(true); // TODO can we support aa ?
 
         // ===
         g.pushTransform();
@@ -106,11 +115,12 @@ public class StateGame extends State {
         g.scale(zoom, zoom);
         g.translate(-c.camera.x, -c.camera.y);
 
-        Draws.set(g, c.camera.x - w/2/zoom, c.camera.y - h/2/zoom, w/zoom,  h/zoom);
+        Draws.set(g, c.camera.x - w / 2 / zoom, c.camera.y - h / 2 / zoom, w / zoom, h / zoom);
 
         c.map.pushDraw();
 
-        for (Entity i : c.l) i.pushDraw();
+        for (final Entity i : c.l)
+            i.pushDraw();
 
         c.player.pushDraw();
 
@@ -145,7 +155,6 @@ public class StateGame extends State {
 
             Assets.effect_arrow.draw(-48, -48, 96, 96, Color.gray);
 
-
             g.popTransform();
         }
         // TODO create gui object
@@ -167,11 +176,11 @@ public class StateGame extends State {
         }
         // crystal
         {
-            int count = c.player.crystals.size();
+            final int count = c.player.crystals.size();
             if (count > 0) {
 
-                int pad = 16 - 4;
-                int wi = 20 + count * pad;
+                final int pad = 16 - 4;
+                final int wi = 20 + count * pad;
 
                 g.setColor(Colors.black75);
                 g.fillRect(w - wi, h - 52, wi, 52);
@@ -191,16 +200,16 @@ public class StateGame extends State {
         {
             // stones
 
-            int count = c.player.stones.size();
+            final int count = c.player.stones.size();
             if (count > 0) {
 
-                int pad = 16 - 4 + 6;
-                int wi = 20 + count * pad;
+                final int pad = 16 - 4 + 6;
+                final int wi = 20 + count * pad;
 
                 g.setColor(Colors.black75);
-                g.fillRect(w - wi, h - 52*2, wi, 52);
+                g.fillRect(w - wi, h - 52 * 2, wi, 52);
                 g.setColor(Color.darkGray);
-                g.drawRect(w - wi, h - 52*2, wi, 52);
+                g.drawRect(w - wi, h - 52 * 2, wi, 52);
 
                 int x = w - wi + 10 - pad + 12, y = 2;
                 if (count % 2 == 0) y *= -1;
@@ -212,18 +221,20 @@ public class StateGame extends State {
 
                 // souls
 
-                int barh = 5;
+                final int barh = 5;
 
                 g.setColor(Color.darkGray);
-                g.fillRect(w - wi, h - 52*2 - barh, wi * c.player.souls.getSouls() / c.player.souls.getCapacity(), barh);
+                g.fillRect(w - wi, h - 52 * 2 - barh, wi * c.player.souls.getSouls() / c.player.souls.getCapacity(),
+                        barh);
                 g.setColor(Color.darkGray);
-                g.drawRect(w - wi, h - 52*2 - barh, wi, barh);
+                g.drawRect(w - wi, h - 52 * 2 - barh, wi, barh);
             }
         }
         // coins
         {
             if (c.player.coins > 0) {
-                final int groups = c.player.coins < 400 ? 5 : c.player.coins < 800 ? 10 : c.player.coins < 2000 ? 20 : 30;
+                final int groups = c.player.coins < 400 ? 5
+                        : c.player.coins < 800 ? 10 : c.player.coins < 2000 ? 20 : 30;
 
                 int wi = 16 * (c.player.coins / (groups * 10)) + 16;
                 wi += groups <= 10 ? (10 / groups) * 16 : 16;
@@ -258,9 +269,9 @@ public class StateGame extends State {
         }
         // spells
         {
-            int count = 4;
+            final int count = 4;
 
-            int wi = 16;
+            final int wi = 16;
 
             int x = (int) (-count / 2f * (wi + 10));
             for (int i = 0; i < count; i++) {
@@ -277,33 +288,30 @@ public class StateGame extends State {
             }
         }
 
-
         // debug
         if (Op.debug) {
-            Assets.font1.drawString(10, 10, Str.create(
-                    "fps ", Integer.toString(gc.getFPS()),
-                    " | e ", Integer.toString(c.l.size()),
-                    " | s ", Integer.toString(c.l.size() + c.map.things.size()),
-                    " | dr ", Draws.draws_performed,
-                    " | cd ", Integer.toString(Collision.collision_checks), " ", Integer.toString(Collision.collision_detections),
-                    " | p ", Integer.toString((int) c.player.location.x),
-                    " ", Integer.toString((int) c.player.location.y),
-                    " ", Integer.toString((int) c.player.angle)),
+            Assets.font1.drawString(10, 10,
+                    Str.create("fps ", Integer.toString(gc.getFPS()), " | e ", Integer.toString(c.l.size()), " | s ",
+                            Integer.toString(c.l.size() + c.map.things.size()), " | dr ", Draws.draws_performed,
+                            " | cd ", Integer.toString(Collision.collision_checks), " ",
+                            Integer.toString(Collision.collision_detections), " | p ",
+                            Integer.toString((int) c.player.location.x), " ",
+                            Integer.toString((int) c.player.location.y), " ", Integer.toString((int) c.player.angle)),
                     Color.darkGray);
-            Assets.font1.drawString(10, h - 100, Str.create(
-                    "gcs ", Long.toString(Inspector.instance.getGcs()),
-                    " | am ", Float.toString(Inspector.instance.getAllocatedMemory()),
-                    (Inspector.instance.didGarbageCollect() ? " | Garbage collection performed" : ""))
-                    , Color.darkGray);
+            Assets.font1.drawString(10, h - 100,
+                    Str.create("gcs ", Long.toString(Inspector.instance.getGcs()), " | am ",
+                            Float.toString(Inspector.instance.getAllocatedMemory()),
+                            (Inspector.instance.didGarbageCollect() ? " | Garbage collection performed" : "")),
+                    Color.darkGray);
         }
 
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int d) throws SlickException {
-        //d = d/10;
+        // d = d/10;
 
-        Input in = gc.getInput();
+        final Input in = gc.getInput();
 
         // TODO use this two variables to get mouse position
 
@@ -316,15 +324,16 @@ public class StateGame extends State {
         if (in.isKeyDown(Input.KEY_P)) d = d / 2;
         if (in.isKeyDown(Input.KEY_O)) d = d / 5;
 
-
         if (in.isKeyPressed(Keys.Back)) {
 
             changeState(game, StateId.Menu);
         }
 
-        if (c.player.state != EntityState.Attack || c.player.actions.getActive().getState() != Action.State.Charging) { // TODO change second coondition
+        if (c.player.getState() != EntityState.Attack
+                || c.player.actions.getActive().getState() != Action.State.Charging) { // TODO change second coondition
 
-            c.player.angle = (float) (-Math.atan2(gc.getInput().getMouseX() - w / 2, gc.getInput().getMouseY() - h / 2) * 360 / (2 * Math.PI));
+            c.player.angle = (float) (-Math.atan2(gc.getInput().getMouseX() - w / 2, gc.getInput().getMouseY() - h / 2)
+                    * 360 / (2 * Math.PI));
         }
 
         Action action = null;
@@ -334,9 +343,10 @@ public class StateGame extends State {
         if (in.isMouseButtonDown(Keys.Attack3)) action = pa.getAttack(0, 2);
         if (in.isKeyDown(Keys.Attack4)) action = pa.getAttack(0, 3);
 
-        for (int i = 0; i < 7; i++) if (in.isKeyDown(Keys.Spell[i])) action = pa.getAttack(1, i);
-        
-        if (c.player.state != EntityState.Attack) {
+        for (int i = 0; i < 7; i++)
+            if (in.isKeyDown(Keys.Spell[i])) action = pa.getAttack(1, i);
+
+        if (c.player.getState() != EntityState.Attack) {
 
             if (action != null) {
                 c.player.startAttack(action);
@@ -344,20 +354,20 @@ public class StateGame extends State {
             }
 
         } else {
-        	
-        	Action active_action = c.player.actions.getActive();
-        	
-        	if (active_action != null && active_action.isRecharge()) {
-        		if (action != active_action) {
-        			active_action.stopRecharge();
-        		}
-        	}
-        
+
+            final Action active_action = c.player.actions.getActive();
+
+            if (active_action != null && active_action.isRecharge()) {
+                if (action != active_action) {
+                    active_action.stopRecharge();
+                }
+            }
+
         }
 
-        if (c.player.state != EntityState.Attack) {
+        { // player input movement
 
-            Point vec = new Point();
+            final Point vec = new Point();
             if (!in.isKeyDown(Keys.PickUp)) {
                 if (in.isKeyDown(Keys.MoveU)) vec.y -= 1;
                 if (in.isKeyDown(Keys.MoveD)) vec.y += 1;
@@ -365,27 +375,39 @@ public class StateGame extends State {
                 if (in.isKeyDown(Keys.MoveR)) vec.x += 1;
             }
 
-            // move player
-            if (!vec.isZero()) {
+            boolean perform_move = false;
 
-                // calculate speed multiplier based on movement direction relative to facing angle
+            if (!vec.isZero()) {
+                if (c.player.getState().canMove()) {
+                    perform_move = true;
+
+                } else if (c.player.getState().canInterrupt()) {
+                    c.player.changeState(EntityState.Move);
+                    if (c.player.getState().canMove()) {
+                        perform_move = true;
+                    }
+                }
+            } else {
+                if (c.player.getState() == EntityState.Move) {
+                    c.player.changeState(EntityState.Idle);
+                    System.out.println("Idle");
+                }
+            }
+
+            if (perform_move) {
+
+                // calculate speed multiplier based on movement direction relative to facing
+                // angle
                 float m = Ma.abs(vec.angle() - c.player.angle);
-                while (m > 180) m -= 360;
+                while (m > 180)
+                    m -= 360;
                 m = Ma.abs(m / 180f);
 
-                float speed = (1 - m * .6f) * c.player.lspeed;
+                final float speed = (1 - m * .6f) * c.player.lspeed;
 
                 c.player.location.add(vec.norm().mul(speed * d));
+
             }
-
-
-            if (c.player.state == EntityState.Idle && !vec.isZero()) {
-                c.player.state = EntityState.Move;
-
-            } else if (c.player.state == EntityState.Move && vec.isZero()) {
-                c.player.state = EntityState.Idle;
-            }
-
         }
 
         if (in.isKeyPressed(Keys.Select)) {
@@ -408,8 +430,7 @@ public class StateGame extends State {
         }
         zoom = in.isKeyDown(Input.KEY_TAB) ? 0.1f : 1f;
 
-        if (in.isKeyDown(Input.KEY_1)) Assets.bam.playAt(new Point(
-                in.getMouseX() - (w / 2) + c.player.location.x,
+        if (in.isKeyDown(Input.KEY_1)) Assets.bam.playAt(new Point(in.getMouseX() - (w / 2) + c.player.location.x,
                 in.getMouseY() - (h / 2) + c.player.location.y));
 
         if (in.isKeyPressed(Input.KEY_2)) c.player.takeShield(new Item(ItemType.Shield0, null));

@@ -2,10 +2,11 @@
 
 package com.maanoo.tredory.core;
 
-import com.maanoo.tredory.core.utils.Rectangle;
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
 
-import java.util.ArrayList;
+import com.maanoo.tredory.core.utils.Rectangle;
 
 
 /**
@@ -44,8 +45,8 @@ public final class Draws {
 
     public static void drawAll() {
 
-        for(int layer = 0; layer < 10; layer++) {
-            for (IDraw i : draws) {
+        for (int layer = 0; layer < 10; layer++) {
+            for (final IDraw i : draws) {
                 i.draw(g, layer);
                 draws_performed += 1;
             }

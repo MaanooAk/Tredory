@@ -29,6 +29,14 @@ public class ActionsSimple extends Actions {
 	}
 
 	@Override
+	public Action getReady() {
+		for (Action i : actions) {
+			if (i.canStart()) return i;
+		}
+		return null;
+	}
+
+	@Override
 	public Action getActive() {
 		for (Action i : actions) {
 			if (i.isActive()) return i;

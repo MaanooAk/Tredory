@@ -7,8 +7,7 @@ import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.actions.AttackMelee;
 import com.maanoo.tredory.core.entity.entities.Animal;
-import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.face.assets.Assets;
+
 
 /**
  * @author MaanooAk
@@ -22,8 +21,6 @@ public class Brain implements IUpdate {
 
     private float viewRange = 300;
     private float viewRangeMax = 900;
-
-    private boolean attacked = false;
 
     private Entity target;
 
@@ -46,7 +43,7 @@ public class Brain implements IUpdate {
             }
 
             if (target != null) {
-                ent.state = EntityState.Move;
+                ent.changeState(EntityState.Move);
             }
 
             break;
@@ -56,54 +53,23 @@ public class Brain implements IUpdate {
 
             if (target != null) {
 
-                Point vec = target.location.clone().sub(ent.location);
+                final float distance = target.location.distance(ent.location);
+                final float angle = target.location.distanceAngle(ent.location);
 
-                if (vec.len() < ((AttackMelee)ent.actions.get()).range) { // TODO move logic inside AttackMelee
+                if (distance < ((AttackMelee) ent.actions.get()).range) { // TODO move logic inside AttackMelee
                     ent.startAttack(ent.actions.get());
                 } else {
-                    ent.location.add(vec.norm().mul(ent.lspeed * d));
+                    ent.location.addAngled(angle, ent.lspeed * d);
                 }
 
-                ent.angle = vec.angle();
+                ent.angle = angle;
+
             } else {
-                ent.state = EntityState.Idle;
+                ent.changeState(EntityState.Idle);
             }
 
             break;
-        case Attack:
-
-            if (ent.sprites.attack.getFrame() < 4) {
-                attacked = false;
-
-                target = Core.c.findClossest(ent, Team.Good, viewRangeMax);
-
-                if (target != null) {
-
-                    Point vec = target.location.clone().sub(ent.location);
-
-                    if (vec.len() > ((AttackMelee)ent.actions.get()).rangeMax) {
-                        ent.stopAttack();
-                    }
-
-                    ent.angle = vec.angle();
-                    //ent.location.add(vec.norm().mul(2));
-
-                } else {
-                    ent.stopAttack();
-                }
-
-            } else {
-
-                if (!attacked) {
-                    attacked = true;
-
-                    Assets.hit.playAt(ent.location);
-
-                    target.takeDamage();
-                }
-
-            }
-
+        default:
             break;
         }
 

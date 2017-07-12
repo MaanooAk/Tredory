@@ -4,6 +4,7 @@ package com.maanoo.tredory.core.utils;
 
 import com.maanoo.tredory.core.memory.Poolable;
 
+
 /**
  * @author MaanooAk
  */
@@ -93,11 +94,17 @@ public class Point implements Poolable {
     }
 
     public Point swap(Point v) {
-        float ox = x, oy = y;
+        final float ox = x, oy = y;
         x = v.x;
         y = v.y;
         v.x = ox;
         v.y = oy;
+        return this;
+    }
+
+    public Point addAngled(float angle, float len) {
+        x += len * (float) -Math.sin(Math.toRadians(angle));
+        y += len * (float) Math.cos(Math.toRadians(angle));
         return this;
     }
 
@@ -111,13 +118,19 @@ public class Point implements Poolable {
         return (float) Math.sqrt(pow2(x - p.x) + pow2(y - p.y));
     }
 
+    public float distanceAngle(Point p) {
+        final float x = this.x - p.x;
+        final float y = this.y - p.y;
+        return (float) Math.toDegrees(Math.atan2(x, -y)) + 180;
+    }
+
     // TODO move inside
     private static float pow2(float x) {
         return x * x;
     }
 
     public Point norm() {
-        float len = this.len();
+        final float len = this.len();
         if (len != 0) this.div(len);
         return this;
     }
@@ -127,9 +140,9 @@ public class Point implements Poolable {
     }
 
     public Point rotate(float angle) {
-        float c = (float) Math.cos(Math.toRadians(angle));
-        float s = (float) Math.sin(Math.toRadians(angle));
-        float ox = x, oy = y; // old
+        final float c = (float) Math.cos(Math.toRadians(angle));
+        final float s = (float) Math.sin(Math.toRadians(angle));
+        final float ox = x, oy = y; // old
         x = c * ox - s * oy;
         y = s * ox + c * oy;
         return this;
@@ -137,15 +150,14 @@ public class Point implements Poolable {
 
     public Point rotate(float angle, Point p) {
         this.sub(p);
-        float c = (float) Math.cos(Math.toRadians(angle));
-        float s = (float) Math.sin(Math.toRadians(angle));
-        float ox = x, oy = y; // old
+        final float c = (float) Math.cos(Math.toRadians(angle));
+        final float s = (float) Math.sin(Math.toRadians(angle));
+        final float ox = x, oy = y; // old
         x = c * ox - s * oy;
         y = s * ox + c * oy;
         this.add(p);
         return this;
     }
-
 
     public float angle() {
         return (float) Math.toDegrees(Math.atan2(x, -y)) + 180;
@@ -177,7 +189,7 @@ public class Point implements Poolable {
 
     @Override
     public boolean equals(Object o) {
-        Point other = (Point) o;
+        final Point other = (Point) o;
         return x == other.x && y == other.y;
     }
 

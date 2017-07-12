@@ -10,9 +10,11 @@ import com.maanoo.tredory.core.IUpdate;
 public abstract class Actions implements IUpdate {
 
 	public abstract void add(Action action);
-	
+
 	public abstract Action get();
-	
+
+	public abstract Action getReady();
+
 	public abstract Action getActive();
-	
+
 }
