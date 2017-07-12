@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.entity.Brain;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.actions.AttackMelee;
 import com.maanoo.tredory.core.entity.brains.AnimalBrain;
@@ -32,7 +33,7 @@ public class Animal extends Entity {
 
         lspeed = lspeed_base * speedMul;
 
-        brain = new AnimalBrain(this);
+        brain = new AnimalBrain(Brain.INTELLIGENCE_NORMAL, this);
     }
 
     @Override

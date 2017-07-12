@@ -119,7 +119,7 @@ public class StateGame extends State {
 
         c.map.pushDraw();
 
-        for (final Entity i : c.l)
+        for (final Entity i : c.entities.getAll())
             i.pushDraw();
 
         c.player.pushDraw();
@@ -291,9 +291,9 @@ public class StateGame extends State {
         // debug
         if (Op.debug) {
             Assets.font1.drawString(10, 10,
-                    Str.create("fps ", Integer.toString(gc.getFPS()), " | e ", Integer.toString(c.l.size()), " | s ",
-                            Integer.toString(c.l.size() + c.map.things.size()), " | dr ", Draws.draws_performed,
-                            " | cd ", Integer.toString(Collision.collision_checks), " ",
+                    Str.create("fps ", Integer.toString(gc.getFPS()), " | e ", Integer.toString(c.entities.count()),
+                            " | s ", Integer.toString(c.entities.count() + c.map.things.size()), " | dr ",
+                            Draws.draws_performed, " | cd ", Integer.toString(Collision.collision_checks), " ",
                             Integer.toString(Collision.collision_detections), " | p ",
                             Integer.toString((int) c.player.location.x), " ",
                             Integer.toString((int) c.player.location.y), " ", Integer.toString((int) c.player.angle)),

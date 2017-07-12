@@ -64,7 +64,7 @@ public final class Player extends Entity {
         souls.update(d);
 
         switch (state) {
-        case Idle: {
+        case Idle:
             final ArrayList<Item> l = Core.c.findItems(location, 52);
 
             for (final Item i : l) {
@@ -88,20 +88,11 @@ public final class Player extends Entity {
                 }
                 break;
             }
-        } {
-            final ArrayList<Entity> l = Core.c.findStepables(location, 30);
 
-            for (final Entity i : l) {
-                i.activate();
-            }
-        }
+            Core.c.activateStepables(location, 30);
 
             if (selectpressed) {
-                final ArrayList<Entity> l = Core.c.findActivatable(location, 50);
-
-                for (final Entity i : l) {
-                    i.activate();
-                }
+                Core.c.activateActivatables(location, 50);
             }
 
             break;
@@ -230,7 +221,6 @@ public final class Player extends Entity {
     public void takeDamage() {
         if (shields.isEmpty()) {
             die();
-            System.out.println("Player Death");
         } else {
             shields.remove(0);
         }

@@ -2,6 +2,8 @@
 
 package com.maanoo.tredory.core;
 
+import java.util.ArrayList;
+
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.entities.Item;
@@ -9,31 +11,27 @@ import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.entity.entities.Player;
 import com.maanoo.tredory.core.map.Map;
 import com.maanoo.tredory.core.map.MapMaker;
-import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.Assets;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * @author MaanooAk
  */
 public class Core implements IUpdate {
 
-    public static Core c;
+    public static Core c; // TODO remove this at some point
 
     public static void addEntity(Entity ent) {
-    	c.ltoadd.add(ent);
+        c.entities.add(ent);
     }
-    
+
     public Player player;
     public Map map;
 
-    public ArrayList<Entity> l;
-    public LinkedList<Entity> ltoadd, ltoremove;
+    public final Entities entities;
 
     public Point camera;
 
@@ -41,27 +39,31 @@ public class Core implements IUpdate {
 
     public float arrow_angle;
 
+    public Core() {
+
+        entities = new Entities();
+
+    }
+
     public void init() {
 
-        l = new ArrayList<>();
-        ltoadd = new LinkedList<>();
-        ltoremove = new LinkedList<>();
+        entities.clear();
 
         player = new Player(Team.Good, new Point(2000, 2000), 0, new SpriteBundleEntity(Assets.chara.get()));
-        l.add(player);
+        entities.addPlayer(player);
 
         newMap();
     }
 
     private void newMap() {
 
-        while (l.size() > 1) l.remove(1);
+        entities.clearNonPlayers();
 
         map = MapMaker.make();
 
         player.location.set(map.spawn);
 
-        l.addAll(map.l);
+        entities.addAll(map.l);
     }
 
     public void requestNewMap() {
@@ -87,24 +89,17 @@ public class Core implements IUpdate {
 
         map.update(d);
 
-        for (Entity i : l) {
+        for (final Entity i : entities.getAll()) {
             if (!i.dead) i.update(d);
         }
 
-        for (Entity i : l) {
-            if (i.dead) Pools.give(i);
-        }
-
-        l.removeIf(i -> i.dead);
+        entities.removeDead();
 
         // collision detection
-        Collision.perform(l);
+        Collision.perform(entities.getAll());
 
-        l.addAll(ltoadd);
-        ltoadd.clear();
+        entities.perform();
 
-        l.removeAll(ltoremove);
-        ltoremove.clear();
     }
 
     public Entity findClossest(Entity ent, Team team) {
@@ -116,13 +111,13 @@ public class Core implements IUpdate {
         Entity min = null;
         float min_dis = Float.MAX_VALUE;
 
-        for (Entity i : l) {
+        for (final Entity i : entities.getAll()) {
 
             if (i == ent) continue;
             if (i.team != team) continue;
             if (i.undead) continue;
 
-            float dis = i.location.distance(ent.location);
+            final float dis = i.location.distance(ent.location);
             if (dis <= radius && dis < min_dis) {
                 min_dis = dis;
                 min = i;
@@ -134,17 +129,17 @@ public class Core implements IUpdate {
     }
 
     // TODO stop returning arraylists, pass the list as parameter?
-    
-    public ArrayList<Entity> findAll(Entity ent, Team team, float radius) {
-        ArrayList<Entity> ret = new ArrayList<>();
 
-        for (Entity i : l) {
+    public ArrayList<Entity> findAll(Entity ent, Team team, float radius) {
+        final ArrayList<Entity> ret = new ArrayList<>();
+
+        for (final Entity i : entities.getAll()) {
 
             if (i == ent) continue;
             if (i.team != team) continue;
             if (i.undead) continue;
 
-            float dis = i.location.distance(ent.location);
+            final float dis = i.location.distance(ent.location);
             if (dis <= radius) {
                 ret.add(i);
             }
@@ -155,13 +150,13 @@ public class Core implements IUpdate {
     }
 
     public ArrayList<Item> findItems(Point location, int radius) {
-        ArrayList<Item> ret = new ArrayList<>();
+        final ArrayList<Item> ret = new ArrayList<>();
 
-        for (Entity i : l) {
+        for (final Entity i : entities.getAll()) {
 
             if (!i.pickable) continue;
 
-            float dis = i.location.distance(location);
+            final float dis = i.location.distance(location);
             if (dis <= radius) {
                 ret.add((Item) i);
             }
@@ -171,51 +166,44 @@ public class Core implements IUpdate {
         return ret;
     }
 
-    public ArrayList<Entity> findStepables(Point location, int radius) {
-        ArrayList<Entity> ret = new ArrayList<>();
+    // TODO pass the entity who triggers
+    public void activateStepables(Point location, int radius) {
 
-        for (Entity i : l) {
+        for (final Entity i : entities.getAll()) {
 
             if (!i.stepable) continue;
 
-            float dis = i.location.distance(location);
+            final float dis = i.location.distance(location);
             if (dis <= radius) {
-                ret.add(i);
+                i.activate();
             }
-
         }
-
-        return ret;
     }
 
-    public ArrayList<Entity> findActivatable(Point location, int radius) {
-        ArrayList<Entity> ret = new ArrayList<>();
+    // TODO pass the entity who triggers
+    public void activateActivatables(Point location, int radius) {
 
-        for (Entity i : l) {
+        for (final Entity i : entities.getAll()) {
 
             if (!i.activatable) continue;
 
-            float dis = i.location.distance(location);
+            final float dis = i.location.distance(location);
             if (dis <= radius) {
-                ret.add(i);
+                i.activate();
             }
-
         }
-
-        return ret;
     }
-
 
     public void addItem(Entity con, int tier) {
         Item item;
-        Point p = con.location.clone();
+        final Point p = con.location.clone();
 
         switch (tier) {
         case 0:
 
             if (Ra.chance(0.05f)) {
 
-                int value = Ra.range(0, 5) + Ra.range(1, 5);
+                final int value = Ra.range(0, 5) + Ra.range(1, 5);
                 Drops.dropCoins(this, con, 0, 360, .1f, .2f, value);
             }
 
@@ -224,30 +212,26 @@ public class Core implements IUpdate {
 
             if (Ra.chance(0.75f)) {
 
-                ItemType type = Ra.list(new ItemType[]{
-                        ItemType.Shield0,
-                        ItemType.Shield1, ItemType.Shield1, ItemType.Shield1,
-                        ItemType.Shield2, ItemType.Shield2,
-                        ItemType.Shield3
-                });
+                final ItemType type = Ra.list(new ItemType[] { ItemType.Shield0, ItemType.Shield1, ItemType.Shield1,
+                        ItemType.Shield1, ItemType.Shield2, ItemType.Shield2, ItemType.Shield3 });
 
                 item = new Item(type, p);
                 item.push(con.angle + 180, 0.2f);
-                ltoadd.add(item);
+                entities.add(item);
             } else {
                 int value = Ra.range(2, 22) + Ra.range(2, 22);
 
                 while (value % 10 > 0) {
                     item = new Item(ItemType.Copper, p.clone().add(new Point(Ra.range(-8, 8), Ra.range(-8, 8))));
                     item.push(con.angle + 180 + Ra.range(-40f, 40f), Ra.range(0.1f, 0.4f));
-                    ltoadd.add(item);
+                    entities.add(item);
 
                     value -= 1;
                 }
                 while (value >= 10) {
                     item = new Item(ItemType.Gold, p.clone().add(new Point(Ra.range(-4, 4), Ra.range(-4, 4))));
                     item.push(con.angle + 180 + Ra.range(-40f, 40f), Ra.range(0.1f, 0.4f));
-                    ltoadd.add(item);
+                    entities.add(item);
 
                     value -= 10;
                 }
@@ -256,20 +240,18 @@ public class Core implements IUpdate {
             break;
         case 2:
 
-            ItemType type = Ra.list(new ItemType[]{
-                    ItemType.Crystal1, ItemType.Crystal2, ItemType.Crystal3
-            });
+            final ItemType type = Ra.list(new ItemType[] { ItemType.Crystal1, ItemType.Crystal2, ItemType.Crystal3 });
 
             item = new Item(type, p);
             item.push(con.angle + 180, 0.1f);
-            ltoadd.add(item);
+            entities.add(item);
 
             break;
         case 4:
 
             item = new Item(ItemType.Stone, p);
             item.push(con.angle + 180, 0.1f);
-            ltoadd.add(item);
+            entities.add(item);
 
             break;
         }
@@ -281,14 +263,14 @@ public class Core implements IUpdate {
 
         i.push(ent.angle + Ra.range(-30, 30), 0.3f);
 
-        ltoadd.add(i);
+        entities.add(i);
 
     }
 
     public void removeItem(Item i) {
         i.location = null;
         i.dead = true;
-        ltoremove.add(i);
+        entities.remove(i);
 
         Assets.pick.play();
     }

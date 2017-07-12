@@ -4,8 +4,8 @@ package com.maanoo.tredory.core;
 
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.entities.Item;
+import com.maanoo.tredory.core.entity.entities.Items;
 
-import java.util.ArrayList;
 
 /**
  * @author MaanooAk
@@ -19,17 +19,18 @@ public final class CrystalComp {
     public Effect effect;
 
     public CrystalComp(int c1, int c2, int c3) {
-        count = new int[]{c1, c2, c3};
+        count = new int[] { c1, c2, c3 };
 
         calcEffect();
     }
 
-    public void update(ArrayList<Item>... items) {
+    public void update(Items... items) {
 
-        for (int i = 0; i < count.length; i++) count[i] = 0;
+        for (int i = 0; i < count.length; i++)
+            count[i] = 0;
 
-        for (ArrayList<Item> iitems : items)
-            for (Item i : iitems) {
+        for (final Items iitems : items)
+            for (final Item i : iitems) {
                 switch (i.type) {
                 case Crystal1:
                     count[0] += 1;

@@ -10,6 +10,8 @@ import com.maanoo.tredory.core.IUpdate;
  */
 public abstract class Brain implements IUpdate {
 
+    public static final float INTELLIGENCE_NORMAL = 0.5f;
+
     protected float intelligence;
 
     public Brain(float intelligence) {

@@ -101,11 +101,13 @@ public class Entity implements IUpdate, IDraw, Poolable {
         this.sprites = sprites.copy();
     }
 
-    public void changeState(EntityState new_state) {
+    public boolean changeState(EntityState new_state) {
 
         if (state.canInterrupt()) {
             state = new_state;
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -207,12 +209,11 @@ public class Entity implements IUpdate, IDraw, Poolable {
     // TODO change to start action
     public final void startAttack(Action action) {
 
-        if (action.canStart()) action.start();
+        if (action.canStart() && changeState(EntityState.Attack)) {
+            action.start();
 
-        sprites.attack.restart();
-        // sprites.attack.setSpeed(Ma.min(attack.getAttackspeed(getEffect()), 14f)); //
-        // TODO 86123 remove min
-        state = EntityState.Attack;
+            sprites.attack.restart();
+        }
 
     }
 
@@ -247,7 +248,9 @@ public class Entity implements IUpdate, IDraw, Poolable {
     }
 
     public void die() {
-        state = EntityState.Die;
+        if (state != EntityState.Die) {
+            state = EntityState.Die;
+        }
     }
 
     public void activate() {
