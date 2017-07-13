@@ -7,8 +7,6 @@ package com.maanoo.tredory.states;
  */
 public enum StateId {
 
-    Menu, Game, Over, Options, Gallery;
-
-    // TODO add text name and description
+    Menu, Game, Over, Options, Gallery, Loading;
 
 }

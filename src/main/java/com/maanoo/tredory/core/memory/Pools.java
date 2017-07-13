@@ -4,6 +4,9 @@ package com.maanoo.tredory.core.memory;
 
 import java.util.HashMap;
 
+import com.maanoo.tredory.core.entity.entities.Projectile;
+
+
 /**
  * TODO improve
  *
@@ -14,6 +17,12 @@ public class Pools {
     // TODO change hashmap with something faster
 
     private static HashMap<Class<?>, Pool> map = new HashMap<>();
+
+    public static void load() {
+        for (int i = 0; i < 40; i++) {
+            give(new Projectile());
+        }
+    }
 
     public static <T extends Poolable> T obtain(Class<T> type) {
         map.putIfAbsent(type, new Pool(type));

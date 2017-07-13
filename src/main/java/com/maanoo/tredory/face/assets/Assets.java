@@ -31,6 +31,8 @@ public class Assets {
 
     public static Atlas atlas;
 
+    private static ArrayList<String> imagePaths;
+
     public static Image icon;
     public static SpriteSheet cursor;
     public static SpriteSheetFont font1;
@@ -73,48 +75,82 @@ public class Assets {
     public static SoundBundle bam;
     public static SoundBundle pick;
 
-    public static void load() throws SlickException {
+    public static void load1() {
 
         atlas = new Atlas();
 
-        // TODO automate
-        atlas.add("data/icon.png");
-        atlas.add("data/cursor.png");
-        atlas.add("data/fonts/font1.png");
-        atlas.add("data/sprites/items.png");
-        atlas.add("data/sprites/terrain/small.png");
-        atlas.add("data/sprites/terrain/glyphs.png");
-        atlas.add("data/sprites/terrain/steps.png");
-        atlas.add("data/sprites/effects.png");
-        atlas.add("data/sprites/entities/char1.png");
-        atlas.add("data/sprites/entities/fireball1.png");
-        atlas.add("data/sprites/entities/box1.png");
-        atlas.add("data/sprites/entities/char1.png");
-        atlas.add("data/sprites/entities/box1.png");
-        atlas.add("data/sprites/entities/box2.png");
-        atlas.add("data/sprites/entities/box3.png");
-        atlas.add("data/sprites/entities/boxg1.png");
-        atlas.add("data/sprites/entities/altar1.png");
-        atlas.add("data/sprites/entities/portal1.png");
-        atlas.add("data/sprites/entities/slime1.png");
-        atlas.add("data/sprites/entities/fireball1.png");
-        atlas.add("data/sprites/entities/toxicball1.png");
-        atlas.add("data/sprites/entities/flameblast1.png");
-        atlas.add("data/sprites/entities/axeman1.png");
-        atlas.add("data/sprites/entities/axeman1m.png");
-        atlas.add("data/sprites/entities/axeman2.png");
-        atlas.add("data/sprites/entities/axeman2m.png");
-        atlas.add("data/sprites/entities/maceman1.png");
-        atlas.add("data/sprites/entities/maceman1m.png");
-        atlas.add("data/sprites/entities/maceman2.png");
-        atlas.add("data/sprites/entities/maceman2m.png");
-        atlas.add("data/sprites/entities/swordman1.png");
-        atlas.add("data/sprites/entities/swordman1m.png");
+        // TODO automate;
+        imagePaths = new ArrayList<>();
+        imagePaths.add("data/icon.png");
+        imagePaths.add("data/cursor.png");
+        imagePaths.add("data/fonts/font1.png");
+        imagePaths.add("data/sprites/items.png");
+        imagePaths.add("data/sprites/terrain/small.png");
+        imagePaths.add("data/sprites/terrain/glyphs.png");
+        imagePaths.add("data/sprites/terrain/steps.png");
+        imagePaths.add("data/sprites/effects.png");
+        imagePaths.add("data/sprites/entities/char1.png");
+        imagePaths.add("data/sprites/entities/fireball1.png");
+        imagePaths.add("data/sprites/entities/box1.png");
+        imagePaths.add("data/sprites/entities/char1.png");
+        imagePaths.add("data/sprites/entities/box1.png");
+        imagePaths.add("data/sprites/entities/box2.png");
+        imagePaths.add("data/sprites/entities/box3.png");
+        imagePaths.add("data/sprites/entities/boxg1.png");
+        imagePaths.add("data/sprites/entities/altar1.png");
+        imagePaths.add("data/sprites/entities/portal1.png");
+        imagePaths.add("data/sprites/entities/slime1.png");
+        imagePaths.add("data/sprites/entities/fireball1.png");
+        imagePaths.add("data/sprites/entities/toxicball1.png");
+        imagePaths.add("data/sprites/entities/flameblast1.png");
+        imagePaths.add("data/sprites/entities/axeman1.png");
+        imagePaths.add("data/sprites/entities/axeman1m.png");
+        imagePaths.add("data/sprites/entities/axeman2.png");
+        imagePaths.add("data/sprites/entities/axeman2m.png");
+        imagePaths.add("data/sprites/entities/maceman1.png");
+        imagePaths.add("data/sprites/entities/maceman1m.png");
+        imagePaths.add("data/sprites/entities/maceman2.png");
+        imagePaths.add("data/sprites/entities/maceman2m.png");
+        imagePaths.add("data/sprites/entities/swordman1.png");
+        imagePaths.add("data/sprites/entities/swordman1m.png");
+
+    }
+
+    public static void load2() {
+
+        for (final String i : imagePaths) {
+            atlas.add(i);
+        }
 
         if (USE_ATLAS) {
-            final Image atlas_image = atlas.getAtlas();
-            if (Op.debug) ImageOut.write(atlas_image, "atlas.png");
+            try {
+                final Image atlas_image = atlas.getAtlas();
+                if (Op.debug) ImageOut.write(atlas_image, "atlas.png");
+            } catch (final SlickException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
+
+        // TODO move to load3 when the masks are fixed
+
+        colors = new ArrayList<>();
+        colors.add(new Color(0x715CCE));
+        colors.add(new Color(0xB770FF));
+        colors.add(new Color(0xFF70CF));
+        colors.add(new Color(0xFF7070));
+        colors.add(new Color(0x5DD37A));
+        // TODO add more colors
+        // TODO laod from file
+        // TODO colors based on function
+
+        axeman = loadSpriteSheetSet("axeman");
+        maceman = loadSpriteSheetSet("maceman");
+        swordman = loadSpriteSheetSet("swordman");
+
+    }
+
+    public static void load3() {
 
         icon = atlas.get("data/icon.png");
         cursor = new SpriteSheet(atlas.get("data/cursor.png"), 16, 16);
@@ -134,20 +170,6 @@ public class Assets {
         toxicball = loadSpriteSheetSet("toxicball");
 
         flameblast = loadSpriteSheetSet("flameblast");
-
-        colors = new ArrayList<>();
-        colors.add(new Color(0x715CCE));
-        colors.add(new Color(0xB770FF));
-        colors.add(new Color(0xFF70CF));
-        colors.add(new Color(0xFF7070));
-        colors.add(new Color(0x5DD37A));
-        // TODO add more colors
-        // TODO laod from file
-        // TODO colors based on function
-
-        axeman = loadSpriteSheetSet("axeman");
-        maceman = loadSpriteSheetSet("maceman");
-        swordman = loadSpriteSheetSet("swordman");
 
         items_sheet = new SpriteSheet(atlas.get("data/sprites/items.png"), 16, 16);
         items = new AssetSet[ItemType.values().length];
@@ -209,8 +231,6 @@ public class Assets {
             effect_frenzy = effects_sheet.getSubImage(2, 0);
         }
 
-        // ===
-
         trans = loadSoundSet("trans");
         hit = loadSoundSet("hit");
         bam = loadSoundSet("bam");
@@ -245,7 +265,7 @@ public class Assets {
 
     // ===
 
-    private static AssetSet<SpriteSheet> loadSpriteSheetSet(String name) throws SlickException {
+    private static AssetSet<SpriteSheet> loadSpriteSheetSet(String name) {
         final AssetSet<SpriteSheet> set = new AssetSet<>();
 
         for (int i = 1;; i += 1) {
@@ -268,17 +288,22 @@ public class Assets {
                 // TODO change to two draws one on top of each other
 
                 for (final Color color : colors) {
-                    final Image image = new Image(img.getWidth(), img.getHeight());
+                    try {
+                        final Image image = new Image(img.getWidth(), img.getHeight());
 
-                    final Graphics g = image.getGraphics();
-                    g.setAntiAlias(false);
+                        final Graphics g = image.getGraphics();
+                        g.setAntiAlias(false);
 
-                    g.drawImage(img, 0, 0);
-                    g.drawImage(imgm, 0, 0, color);
+                        g.drawImage(img, 0, 0);
+                        g.drawImage(imgm, 0, 0, color);
 
-                    g.flush();
+                        g.flush();
 
-                    set.add(new SpriteSheet(image, image.getWidth() / 6, image.getHeight() / 6));
+                        set.add(new SpriteSheet(image, image.getWidth() / 6, image.getHeight() / 6));
+                    } catch (final SlickException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -286,7 +311,7 @@ public class Assets {
         return set;
     }
 
-    private static SoundBundle loadSoundSet(String name) throws SlickException {
+    private static SoundBundle loadSoundSet(String name) {
         final AssetSet<Sound> set = new AssetSet<>();
 
         for (int i = 1;; i += 1) {
@@ -294,7 +319,12 @@ public class Assets {
 
             if (!existsRes(path)) break;
 
-            set.add(loadSound(path));
+            try {
+                set.add(loadSound(path));
+            } catch (final SlickException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
 
         return new SoundBundle(set);
