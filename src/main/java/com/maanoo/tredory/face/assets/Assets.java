@@ -2,26 +2,38 @@
 
 package com.maanoo.tredory.face.assets;
 
-import com.maanoo.tredory.Res;
-import com.maanoo.tredory.core.entity.entities.ItemType;
-
-import org.newdawn.slick.*;
-import org.newdawn.slick.util.Log;
-
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
+import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.SpriteSheetFont;
+import org.newdawn.slick.imageout.ImageOut;
+import org.newdawn.slick.util.Log;
+
+import com.maanoo.tredory.Op;
+import com.maanoo.tredory.Res;
+import com.maanoo.tredory.core.entity.entities.ItemType;
+import com.maanoo.tredory.face.assets.atlas.Atlas;
+
 
 /**
  * @author MaanooAk
  */
 public class Assets {
 
+    private static final boolean USE_ATLAS = true;
+
+    public static Atlas atlas;
+
     public static Image icon;
     public static SpriteSheet cursor;
     public static SpriteSheetFont font1;
-
-    // ===
 
     public static AssetSet<SpriteSheet> chara;
     public static AssetSet<SpriteSheet> box;
@@ -54,7 +66,6 @@ public class Assets {
     public static Image effect_arrow;
     public static Image effect_frenzy;
 
-
     // ===
 
     public static SoundBundle trans;
@@ -62,14 +73,52 @@ public class Assets {
     public static SoundBundle bam;
     public static SoundBundle pick;
 
-
     public static void load() throws SlickException {
 
-        // TODO make all of load runnables (Provider)
+        atlas = new Atlas();
 
-        icon = loadImage("data/icon.png");
-        cursor = new SpriteSheet(loadImage("data/cursor.png"), 16, 16);
-        font1 = new SpriteSheetFont(new SpriteSheet(loadImage("data/fonts/font1.png"), 8, 12), '\0');
+        // TODO automate
+        atlas.add("data/icon.png");
+        atlas.add("data/cursor.png");
+        atlas.add("data/fonts/font1.png");
+        atlas.add("data/sprites/items.png");
+        atlas.add("data/sprites/terrain/small.png");
+        atlas.add("data/sprites/terrain/glyphs.png");
+        atlas.add("data/sprites/terrain/steps.png");
+        atlas.add("data/sprites/effects.png");
+        atlas.add("data/sprites/entities/char1.png");
+        atlas.add("data/sprites/entities/fireball1.png");
+        atlas.add("data/sprites/entities/box1.png");
+        atlas.add("data/sprites/entities/char1.png");
+        atlas.add("data/sprites/entities/box1.png");
+        atlas.add("data/sprites/entities/box2.png");
+        atlas.add("data/sprites/entities/box3.png");
+        atlas.add("data/sprites/entities/boxg1.png");
+        atlas.add("data/sprites/entities/altar1.png");
+        atlas.add("data/sprites/entities/portal1.png");
+        atlas.add("data/sprites/entities/slime1.png");
+        atlas.add("data/sprites/entities/fireball1.png");
+        atlas.add("data/sprites/entities/toxicball1.png");
+        atlas.add("data/sprites/entities/flameblast1.png");
+        atlas.add("data/sprites/entities/axeman1.png");
+        atlas.add("data/sprites/entities/axeman1m.png");
+        atlas.add("data/sprites/entities/axeman2.png");
+        atlas.add("data/sprites/entities/axeman2m.png");
+        atlas.add("data/sprites/entities/maceman1.png");
+        atlas.add("data/sprites/entities/maceman1m.png");
+        atlas.add("data/sprites/entities/maceman2.png");
+        atlas.add("data/sprites/entities/maceman2m.png");
+        atlas.add("data/sprites/entities/swordman1.png");
+        atlas.add("data/sprites/entities/swordman1m.png");
+
+        if (USE_ATLAS) {
+            final Image atlas_image = atlas.getAtlas();
+            if (Op.debug) ImageOut.write(atlas_image, "atlas.png");
+        }
+
+        icon = atlas.get("data/icon.png");
+        cursor = new SpriteSheet(atlas.get("data/cursor.png"), 16, 16);
+        font1 = new SpriteSheetFont(new SpriteSheet(atlas.get("data/fonts/font1.png"), 8, 12), '\0');
 
         // ===
 
@@ -100,11 +149,12 @@ public class Assets {
         maceman = loadSpriteSheetSet("maceman");
         swordman = loadSpriteSheetSet("swordman");
 
-        items_sheet = new SpriteSheet(loadImage("data/sprites/items.png"), 16, 16);
+        items_sheet = new SpriteSheet(atlas.get("data/sprites/items.png"), 16, 16);
         items = new AssetSet[ItemType.values().length];
-        for (int i = 0; i < items.length; i++) items[i] = new AssetSet<>();
+        for (int i = 0; i < items.length; i++)
+            items[i] = new AssetSet<>();
 
-        ItemType grid[][] = new ItemType[16][16];
+        final ItemType grid[][] = new ItemType[16][16];
         grid[0][0] = ItemType.Copper;
         grid[1][0] = ItemType.Gold;
         grid[2][0] = grid[2][1] = grid[2][2] = ItemType.Shield0;
@@ -125,9 +175,8 @@ public class Assets {
             }
         }
 
-
         {
-            SpriteSheet sheet = new SpriteSheet(loadImage("data/sprites/terrain/small.png"), 32, 32);
+            final SpriteSheet sheet = new SpriteSheet(atlas.get("data/sprites/terrain/small.png"), 32, 32);
             terrain_small = new AssetSet<>();
             for (int i = 0; i < 4; i++) {
                 terrain_small.add(sheet.getSubImage(0, i));
@@ -136,7 +185,7 @@ public class Assets {
             }
         }
         {
-            SpriteSheet sheet = new SpriteSheet(loadImage("data/sprites/terrain/glyphs.png"), 32, 32);
+            final SpriteSheet sheet = new SpriteSheet(atlas.get("data/sprites/terrain/glyphs.png"), 32, 32);
             terrain_glyphs = new AssetSet<>();
             for (int i1 = 0; i1 < 6; i1++) {
                 for (int i2 = 0; i2 < 1; i2++) {
@@ -145,7 +194,7 @@ public class Assets {
             }
         }
         {
-            SpriteSheet sheet = new SpriteSheet(loadImage("data/sprites/terrain/steps.png"), 32, 32);
+            final SpriteSheet sheet = new SpriteSheet(atlas.get("data/sprites/terrain/steps.png"), 32, 32);
             terrain_steps = new AssetSet<>();
             for (int i1 = 0; i1 < 6; i1++) {
                 for (int i2 = 0; i2 < 6; i2++) {
@@ -155,11 +204,10 @@ public class Assets {
         }
 
         {
-            effects_sheet = new SpriteSheet(loadImage("data/sprites/effects.png"), 96, 96);
+            effects_sheet = new SpriteSheet(atlas.get("data/sprites/effects.png"), 96, 96);
             effect_arrow = effects_sheet.getSubImage(0, 0);
             effect_frenzy = effects_sheet.getSubImage(2, 0);
         }
-
 
         // ===
 
@@ -169,24 +217,24 @@ public class Assets {
         pick = loadSoundSet("pick");
     }
 
-    private static boolean existsRes(String path) {
+    public static boolean existsRes(String path) {
         return Res.class.getResource(path) != null;
     }
 
-    private static InputStream loadRes(String path) {
+    public static InputStream loadRes(String path) {
         return Res.class.getResourceAsStream(path);
     }
 
-    private static InputStream loadResBuffered(String path) {
+    public static InputStream loadResBuffered(String path) {
         return new BufferedInputStream(Res.class.getResourceAsStream(path));
     }
 
-    private static Image loadImage(String path) throws SlickException {
+    public static Image loadImage(String path) throws SlickException {
         Log.info("Assets: " + path + " loading");
         return new Image(loadRes(path), path, false, Image.FILTER_NEAREST);
     }
 
-    private static Sound loadSound(String path) throws SlickException {
+    public static Sound loadSound(String path) throws SlickException {
         Log.info("Assets: " + path + " loading");
         return new Sound(loadResBuffered(path), path);
     }
@@ -198,36 +246,39 @@ public class Assets {
     // ===
 
     private static AssetSet<SpriteSheet> loadSpriteSheetSet(String name) throws SlickException {
-        AssetSet<SpriteSheet> set = new AssetSet<>();
+        final AssetSet<SpriteSheet> set = new AssetSet<>();
 
-        for (int i = 1; ; i += 1) {
-            String path = "data/sprites/entities/" + name + i + ".png";
+        for (int i = 1;; i += 1) {
+            final String path = "data/sprites/entities/" + name + i + ".png";
             if (!existsRes(path)) break;
 
-            String pathm = "data/sprites/entities/" + name + i + "m.png";
+            final String pathm = "data/sprites/entities/" + name + i + "m.png";
             if (!existsRes(pathm)) {
 
-                Image img = loadImage(path);
+                final Image img = atlas.get(path);
 
                 set.add(new SpriteSheet(img, img.getWidth() / 6, img.getHeight() / 6));
 
             } else {
 
-                Image img = loadImage(path);
-                Image imgm = loadImage(pathm);
+                final Image img = atlas.get(path);
+                final Image imgm = atlas.get(pathm);
 
-                for (Color color : colors) {
-                    Image image = img.copy();
+                // TODO don't create a new image
+                // TODO change to two draws one on top of each other
 
-                    Graphics g = image.getGraphics();
+                for (final Color color : colors) {
+                    final Image image = new Image(img.getWidth(), img.getHeight());
+
+                    final Graphics g = image.getGraphics();
                     g.setAntiAlias(false);
 
+                    g.drawImage(img, 0, 0);
                     g.drawImage(imgm, 0, 0, color);
 
                     g.flush();
-                    image.setFilter(Image.FILTER_NEAREST);
 
-                    set.add(new SpriteSheet(image, img.getWidth() / 6, img.getHeight() / 6));
+                    set.add(new SpriteSheet(image, image.getWidth() / 6, image.getHeight() / 6));
                 }
             }
         }
@@ -236,10 +287,10 @@ public class Assets {
     }
 
     private static SoundBundle loadSoundSet(String name) throws SlickException {
-        AssetSet<Sound> set = new AssetSet<>();
+        final AssetSet<Sound> set = new AssetSet<>();
 
-        for (int i = 1; ; i += 1) {
-            String path = "data/sounds/" + name + i + ".wav";
+        for (int i = 1;; i += 1) {
+            final String path = "data/sounds/" + name + i + ".wav";
 
             if (!existsRes(path)) break;
 

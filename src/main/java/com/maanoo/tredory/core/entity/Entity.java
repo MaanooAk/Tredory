@@ -49,6 +49,8 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public Point move;
     public EntityState state;
     public SpriteBundle sprites;
+    public SpriteBundle spritesMask;
+    public Color spritesMaskColor;
     public int size;
     /**
      * Collision circle size.
@@ -99,6 +101,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         this.location = location;
         this.angle = angle;
         this.sprites = sprites.copy();
+        this.spritesMask = null;
     }
 
     public boolean changeState(EntityState new_state) {
@@ -115,6 +118,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         life += d;
 
         sprites.getAnimation(state).update(d);
+        if (spritesMask != null) spritesMask.getAnimation(state).update(d);
 
         actions.update(d);
 
@@ -164,6 +168,8 @@ public class Entity implements IUpdate, IDraw, Poolable {
             g.rotate(0, 0, angle + 180);
 
             sprites.getAnimation(state).draw(-size, -size, 2 * size, 2 * size);
+            if (spritesMask != null)
+                spritesMask.getAnimation(state).draw(-size, -size, 2 * size, 2 * size, spritesMaskColor);
 
             g.popTransform();
         }
@@ -213,19 +219,30 @@ public class Entity implements IUpdate, IDraw, Poolable {
             action.start();
 
             sprites.attack.restart();
+            if (spritesMask != null) spritesMask.attack.restart();
         }
 
     }
 
     // TODO remove
     public final void startAttack(float speed) {
+
         sprites.attack.restart();
         sprites.attack.setSpeed(Ma.min(speed, 14f)); // TODO 86124 remove min
+
+        if (spritesMask != null) {
+            spritesMask.attack.restart();
+            spritesMask.attack.setSpeed(Ma.min(speed, 14f));
+        }
+
         state = EntityState.Attack;
     }
 
     public final void stopAttack() {
+
         sprites.attack.restart();
+        if (spritesMask != null) spritesMask.attack.restart();
+
         state = EntityState.Idle;
 
         // TODO revisit

@@ -89,6 +89,7 @@ public class Atlas {
         atlas = new Image(w, h);
 
         final Graphics graphics = atlas.getGraphics();
+        graphics.setAntiAlias(false);
 
         for (final Entry<String, int[]> entry : locations.entrySet()) {
             final String name = entry.getKey();
@@ -106,6 +107,8 @@ public class Atlas {
 
             images.put(name, atlas.getSubImage(location[0], location[1], imagew, imageh));
         }
+
+        graphics.flush();
 
     }
 
