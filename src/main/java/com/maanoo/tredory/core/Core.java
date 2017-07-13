@@ -13,8 +13,8 @@ import com.maanoo.tredory.core.map.Map;
 import com.maanoo.tredory.core.map.MapMaker;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
-import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.Assets;
+import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 
 /**

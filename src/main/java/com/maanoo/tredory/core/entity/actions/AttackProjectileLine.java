@@ -9,7 +9,7 @@ import com.maanoo.tredory.core.entity.ProjectileType;
 import com.maanoo.tredory.core.entity.entities.Projectile;
 import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.face.SpriteBundleEntity;
+import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 /**
  * TODO doc

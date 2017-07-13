@@ -4,7 +4,7 @@ package com.maanoo.tredory.face.assets;
 
 import com.maanoo.tredory.Res;
 import com.maanoo.tredory.core.entity.entities.ItemType;
-import com.maanoo.tredory.face.SoundBundle;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.util.Log;
 

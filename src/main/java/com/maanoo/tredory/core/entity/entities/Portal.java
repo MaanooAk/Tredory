@@ -6,7 +6,7 @@ import com.maanoo.tredory.core.*;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.face.SpriteBundle;
+import com.maanoo.tredory.face.assets.SpriteBundle;
 
 /**
  * @author MaanooAk

@@ -11,8 +11,8 @@ import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
-import com.maanoo.tredory.face.SpriteBundleEntity;
 import com.maanoo.tredory.face.assets.Assets;
+import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 /**
  * @author MaanooAk

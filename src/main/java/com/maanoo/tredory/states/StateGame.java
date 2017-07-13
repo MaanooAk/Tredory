@@ -18,16 +18,16 @@ import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Collision;
-import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.core.entity.entities.Item;
 import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.memory.Inspector;
-import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Str;
+import com.maanoo.tredory.face.InputHandler;
 import com.maanoo.tredory.face.assets.Assets;
+import com.maanoo.tredory.face.ui.InterfaceMap;
 
 
 /**
@@ -46,23 +46,18 @@ public class StateGame extends State {
     // TODO support multiple players (in the logic)
     private PlayerAttacks pa;
 
-    /**
-     * The mouse position with origin the top left corner of the screen.
-     */
-    private final Point mouse;
+    private final InterfaceMap face;
 
-    /**
-     * The mouse position with origin the center of the screen.
-     */
-    private final Point mouseC;
+    private final InputHandler inhalder;
 
     // TODO add mouse position in the map coordinate system
 
     public StateGame() {
         super(StateId.Game);
 
-        mouse = new Point();
-        mouseC = new Point();
+        face = new InterfaceMap();
+
+        inhalder = new InputHandler();
     }
 
     @Override
@@ -104,191 +99,14 @@ public class StateGame extends State {
 
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-        w = gc.getWidth();
-        h = gc.getHeight();
 
-        // g.setAntiAlias(true); // TODO can we support aa ?
+        face.setSize(gc.getWidth(), gc.getHeight());
+        face.setZoom(zoom);
 
-        // ===
-        g.pushTransform();
-        g.translate(w / 2, h / 2);
-        g.scale(zoom, zoom);
-        g.translate(-c.camera.x, -c.camera.y);
-
-        Draws.set(g, c.camera.x - w / 2 / zoom, c.camera.y - h / 2 / zoom, w / zoom, h / zoom);
-
-        c.map.pushDraw();
-
-        for (final Entity i : c.entities.getAll())
-            i.pushDraw();
-
-        c.player.pushDraw();
-
-        Draws.drawAll();
-
-        g.popTransform();
-
-        // map
-        {
-            g.setColor(Colors.black75);
-            g.fillRect(-1, -1, 10 + 96, 10 + 96);
-            g.setColor(Color.darkGray);
-            g.drawRect(-1, -1, 10 + 96, 10 + 96);
-
-            g.pushTransform();
-            g.translate(5 + 48, 5 + 48);
-
-            {
-                g.pushTransform();
-                g.scale(0.02f, 0.02f);
-                g.translate(-c.camera.x, -c.camera.y);
-
-                c.map.drawMini(g, c.camera, 34f / 0.02f);
-
-                g.popTransform();
-            }
-
-            g.setColor(Color.white);
-            g.fillOval(-1, 1, 2, 2);
-
-            g.rotate(0, 0, Core.c.arrow_angle);
-
-            Assets.effect_arrow.draw(-48, -48, 96, 96, Color.gray);
-
-            g.popTransform();
-        }
-        // TODO create gui object
-        // shields
-        {
-
-            if (c.player.shields.size() > 0) {
-                g.setColor(Colors.black75);
-                g.fillRect(-1, h - 52, 33 + 18 * c.player.shields.max + 1, 52);
-                g.setColor(Color.darkGray);
-                g.drawRect(-1, h - 52, 33 + 18 * c.player.shields.max + 1, 52);
-
-                int x = 10;
-                for (int i = c.player.shields.size() - 1; i >= 0; i--) {
-                    c.player.shields.get(i).sprites.idle.draw(x, h - 42, 32, 32);
-                    x += 18;
-                }
-            }
-        }
-        // crystal
-        {
-            final int count = c.player.crystals.size();
-            if (count > 0) {
-
-                final int pad = 16 - 4;
-                final int wi = 20 + count * pad;
-
-                g.setColor(Colors.black75);
-                g.fillRect(w - wi, h - 52, wi, 52);
-                g.setColor(Color.darkGray);
-                g.drawRect(w - wi, h - 52, wi, 52);
-
-                int x = w - wi + 10 - pad + 2, y = 2;
-                if (count % 2 == 0) y *= -1;
-                for (int i = 0; i < c.player.crystals.size(); i++) {
-                    c.player.crystals.get(i).sprites.idle.draw(x, h - 42 + y, 32, 32);
-                    x += pad;
-                    y *= -1;
-                }
-            }
-        }
-        // stones and souls
-        {
-            // stones
-
-            final int count = c.player.stones.size();
-            if (count > 0) {
-
-                final int pad = 16 - 4 + 6;
-                final int wi = 20 + count * pad;
-
-                g.setColor(Colors.black75);
-                g.fillRect(w - wi, h - 52 * 2, wi, 52);
-                g.setColor(Color.darkGray);
-                g.drawRect(w - wi, h - 52 * 2, wi, 52);
-
-                int x = w - wi + 10 - pad + 12, y = 2;
-                if (count % 2 == 0) y *= -1;
-                for (int i = 0; i < c.player.stones.size(); i++) {
-                    c.player.stones.get(i).sprites.idle.draw(x, h - 42 + y - 52, 32, 32);
-                    x += pad;
-                    y *= -1;
-                }
-
-                // souls
-
-                final int barh = 5;
-
-                g.setColor(Color.darkGray);
-                g.fillRect(w - wi, h - 52 * 2 - barh, wi * c.player.souls.getSouls() / c.player.souls.getCapacity(),
-                        barh);
-                g.setColor(Color.darkGray);
-                g.drawRect(w - wi, h - 52 * 2 - barh, wi, barh);
-            }
-        }
-        // coins
-        {
-            if (c.player.coins > 0) {
-                final int groups = c.player.coins < 400 ? 5
-                        : c.player.coins < 800 ? 10 : c.player.coins < 2000 ? 20 : 30;
-
-                int wi = 16 * (c.player.coins / (groups * 10)) + 16;
-                wi += groups <= 10 ? (10 / groups) * 16 : 16;
-
-                g.setColor(Colors.black75);
-                g.fillRect(w - wi - 10, 0, wi + 20, 28 + 3 * groups);
-                g.setColor(Color.darkGray);
-                g.drawRect(w - wi - 10, -1, wi + 20 + 1, 28 + 3 * groups + 1);
-
-                int x = w - 10 - 16;
-                int y = 0;
-                int left = c.player.coins;
-                while (left >= 10) {
-                    Assets.getItem(ItemType.Gold).get().draw(x, y, 2);
-                    left -= 10;
-                    y = (y + 3) % (3 * groups);
-                    if (y == 0) x -= 16;
-                }
-
-                if (y != 0) {
-                    y = 0;
-                    x -= 16;
-                }
-                while (left >= 1) {
-                    Assets.getItem(ItemType.Copper).get().draw(x, y, 2);
-                    left -= 1;
-                    y = (y + 3) % (3 * groups);
-                    if (y == 0) x -= 16;
-                }
-            }
-
-        }
-        // spells
-        {
-            final int count = 4;
-
-            final int wi = 16;
-
-            int x = (int) (-count / 2f * (wi + 10));
-            for (int i = 0; i < count; i++) {
-
-                g.setColor(Colors.black75);
-                g.fillOval(w / 2 + x, h - wi - 10, wi, wi);
-                g.setColor(Color.darkGray);
-                g.drawOval(w / 2 + x, h - wi - 10, wi, wi);
-
-                g.setColor(Color.darkGray);
-                g.fillArc(w / 2 + x, h - wi - 10, wi, wi, -180, -180);
-
-                x += wi + 10;
-            }
+        for (int layer = 0; layer < 10; layer++) {
+            face.draw(g);
         }
 
-        // debug
         if (Op.debug) {
             Assets.font1.drawString(10, 10,
                     Str.create("fps ", Integer.toString(gc.getFPS()), " | e ", Integer.toString(c.entities.count()),
@@ -309,14 +127,13 @@ public class StateGame extends State {
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int d) throws SlickException {
-        // d = d/10;
 
-        final Input in = gc.getInput();
+        w = gc.getWidth();
+        h = gc.getHeight();
 
-        // TODO use this two variables to get mouse position
+        inhalder.process(gc.getInput(), gc.getWidth(), gc.getHeight());
 
-        mouse.init(in.getMouseX(), in.getMouseY());
-        mouseC.init(in.getMouseX() - w / 2, in.getMouseY() - h / 2);
+        final Input in = gc.getInput(); // TODO remove
 
         // TODO move time handling into core
         // TODO implement time speed
@@ -332,19 +149,14 @@ public class StateGame extends State {
         if (c.player.getState() != EntityState.Attack
                 || c.player.actions.getActive().getState() != Action.State.Charging) { // TODO change second coondition
 
-            c.player.angle = (float) (-Math.atan2(gc.getInput().getMouseX() - w / 2, gc.getInput().getMouseY() - h / 2)
-                    * 360 / (2 * Math.PI));
+            c.player.angle = inhalder.mouseAngle;
         }
 
         Action action = null;
 
-        if (in.isMouseButtonDown(Keys.Attack1)) action = pa.getAttack(0, 0);
-        if (in.isMouseButtonDown(Keys.Attack2)) action = pa.getAttack(0, 1);
-        if (in.isMouseButtonDown(Keys.Attack3)) action = pa.getAttack(0, 2);
-        if (in.isKeyDown(Keys.Attack4)) action = pa.getAttack(0, 3);
-
-        for (int i = 0; i < 7; i++)
-            if (in.isKeyDown(Keys.Spell[i])) action = pa.getAttack(1, i);
+        if (inhalder.isSelectedAttack) {
+            action = pa.getAttack(inhalder.selectedAttackGroup, inhalder.selectedAttack);
+        }
 
         if (c.player.getState() != EntityState.Attack) {
 
@@ -367,17 +179,9 @@ public class StateGame extends State {
 
         { // player input movement
 
-            final Point vec = new Point();
-            if (!in.isKeyDown(Keys.PickUp)) {
-                if (in.isKeyDown(Keys.MoveU)) vec.y -= 1;
-                if (in.isKeyDown(Keys.MoveD)) vec.y += 1;
-                if (in.isKeyDown(Keys.MoveL)) vec.x -= 1;
-                if (in.isKeyDown(Keys.MoveR)) vec.x += 1;
-            }
-
             boolean perform_move = false;
 
-            if (!vec.isZero()) {
+            if (!inhalder.direction.isZero()) {
                 if (c.player.getState().canMove()) {
                     perform_move = true;
 
@@ -395,16 +199,17 @@ public class StateGame extends State {
 
             if (perform_move) {
 
+                // TODO move to entity
                 // calculate speed multiplier based on movement direction relative to facing
                 // angle
-                float m = Ma.abs(vec.angle() - c.player.angle);
+                float m = Ma.abs(inhalder.direction.angle() - c.player.angle);
                 while (m > 180)
                     m -= 360;
                 m = Ma.abs(m / 180f);
 
                 final float speed = (1 - m * .6f) * c.player.lspeed;
 
-                c.player.location.add(vec.norm().mul(speed * d));
+                c.player.location.add(inhalder.direction.norm().mul(speed * d));
 
             }
         }
@@ -436,13 +241,13 @@ public class StateGame extends State {
 
         if (in.isKeyPressed(Input.KEY_3)) c.player.coins += 10;
 
-        if (in.isKeyPressed(Input.KEY_4)) Core.c.addItem(c.player, 4);
+        if (in.isKeyPressed(Input.KEY_4)) c.addItem(c.player, 4);
 
         if (in.isKeyPressed(Input.KEY_7)) c.player.team = c.player.team == Team.Good ? Team.Bad : Team.Good;
 
-        if (in.isKeyPressed(Input.KEY_8)) Core.c.addItem(c.player, 2);
+        if (in.isKeyPressed(Input.KEY_8)) c.addItem(c.player, 2);
 
-        if (in.isKeyPressed(Input.KEY_9)) Core.c.requestNewMap();
+        if (in.isKeyPressed(Input.KEY_9)) c.requestNewMap();
 
         if (in.isKeyPressed(Input.KEY_0)) c.player.takeDamage();
 

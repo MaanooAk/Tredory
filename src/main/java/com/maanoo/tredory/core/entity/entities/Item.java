@@ -5,8 +5,8 @@ package com.maanoo.tredory.core.entity.entities;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.Team;
-import com.maanoo.tredory.face.SpriteBundleStatic;
 import com.maanoo.tredory.face.assets.Assets;
+import com.maanoo.tredory.face.assets.SpriteBundleStatic;
 
 /**
  * @author MaanooAk

@@ -13,7 +13,7 @@ import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.Souls;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
-import com.maanoo.tredory.face.SpriteBundle;
+import com.maanoo.tredory.face.assets.SpriteBundle;
 
 
 /**

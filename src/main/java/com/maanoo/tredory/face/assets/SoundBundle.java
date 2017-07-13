@@ -1,11 +1,11 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.face;
+package com.maanoo.tredory.face.assets;
 
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.face.assets.AssetSet;
+
 import org.newdawn.slick.Sound;
 
 /**

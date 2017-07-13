@@ -14,7 +14,7 @@ import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Points;
 import com.maanoo.tredory.core.utils.Rectangle;
-import com.maanoo.tredory.face.SpriteBundle;
+import com.maanoo.tredory.face.assets.SpriteBundle;
 
 
 /**

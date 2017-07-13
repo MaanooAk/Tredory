@@ -12,7 +12,7 @@ import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.actions.AttackMelee;
 import com.maanoo.tredory.core.entity.brains.AnimalBrain;
 import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.face.SpriteBundleEntity;
+import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 
 /**
