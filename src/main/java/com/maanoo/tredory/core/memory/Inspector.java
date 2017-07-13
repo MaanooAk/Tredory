@@ -29,11 +29,11 @@ public class Inspector {
     }
 
     public float getAllocatedMemory() {
-        return (100L * runtime.freeMemory() / runtime.totalMemory()) / 100f;
+        return (1000L * runtime.freeMemory() / runtime.totalMemory()) / 1000f;
     }
 
     public boolean didGarbageCollect() {
-        boolean did = runtime.freeMemory() > lastFreeMemory;
+        final boolean did = runtime.freeMemory() > lastFreeMemory;
         if (did) gcs += 1;
         lastFreeMemory = runtime.freeMemory();
         return did;

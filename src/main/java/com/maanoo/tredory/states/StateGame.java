@@ -97,8 +97,17 @@ public class StateGame extends State {
         }
     }
 
+    private long timeRenderS = 0;
+    private long timeRenderE = 1;
+    private long timeRender = 1;
+    private long timeUpdateS = 0;
+    private long timeUpdateE = 1;
+    private long timeUpdate = 1;
+
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
+
+        timeRenderS = System.nanoTime();
 
         face.setSize(gc.getWidth(), gc.getHeight());
         face.setZoom(zoom);
@@ -111,22 +120,43 @@ public class StateGame extends State {
             Assets.font1.drawString(10, 10,
                     Str.create("fps ", Integer.toString(gc.getFPS()), " | e ", Integer.toString(c.entities.count()),
                             " | s ", Integer.toString(c.entities.count() + c.map.things.size()), " | dr ",
-                            Draws.draws_performed, " | cd ", Integer.toString(Collision.collision_checks), " ",
+                            Draws.draws_performed, " | tb ", Draws.texture_binds, " | cd ",
+                            Integer.toString(Collision.collision_checks), " ",
                             Integer.toString(Collision.collision_detections), " | p ",
                             Integer.toString((int) c.player.location.x), " ",
                             Integer.toString((int) c.player.location.y), " ", Integer.toString((int) c.player.angle)),
                     Color.darkGray);
-            Assets.font1.drawString(10, h - 100,
+            Assets.font1.drawString(10, h - 200, Str.create(Long.toString(timeRender / 100000), " ",
+                    Long.toString(timeUpdate / 100000), " ", Long.toString(160 - (timeRender - timeUpdate) / 100000)),
+                    Color.darkGray);
+            Assets.font1.drawString(10, h - 120,
                     Str.create("gcs ", Long.toString(Inspector.instance.getGcs()), " | am ",
                             Float.toString(Inspector.instance.getAllocatedMemory()),
                             (Inspector.instance.didGarbageCollect() ? " | Garbage collection performed" : "")),
                     Color.darkGray);
         }
+        if (Op.debug || Op.debugBare) {
+
+            g.setColor(Color.darkGray);
+
+            g.fillRect(10, h - 180, 10000f / 60f, 2f);
+            g.fillRect(10, h - 183, (timeRender + timeUpdate) / 100000f, 2f);
+            g.fillRect(10, h - 186, timeUpdate / 100000f, 2f);
+
+            g.fillRect(10, h - 100, 160f, 2f);
+            g.fillRect(10, h - 103, Inspector.instance.getAllocatedMemory() * 160f, 2f);
+            if (Inspector.instance.didGarbageCollect()) g.fillRect(10, h - 106, 160f, 2f);
+        }
+
+        timeRenderE = System.nanoTime();
+        timeRender = timeRenderE - timeRenderS;
 
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int d) throws SlickException {
+
+        timeUpdateS = System.nanoTime();
 
         w = gc.getWidth();
         h = gc.getHeight();
@@ -251,11 +281,17 @@ public class StateGame extends State {
 
         if (in.isKeyPressed(Input.KEY_0)) c.player.takeDamage();
 
-        if (in.isKeyPressed(Input.KEY_F1)) Op.debug = !Op.debug;
+        if (in.isKeyPressed(Input.KEY_F1)) {
+            if (in.isKeyDown(Input.KEY_LSHIFT)) Op.debugBare = !Op.debugBare;
+            else Op.debug = !Op.debug;
+        }
 
         if (c.player.dead) {
             changeState(game, StateId.Over);
         }
+
+        timeUpdateE = System.nanoTime();
+        timeUpdate = timeUpdateE - timeUpdateS;
     }
 
 }

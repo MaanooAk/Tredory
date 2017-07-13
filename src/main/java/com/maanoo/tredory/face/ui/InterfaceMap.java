@@ -48,8 +48,9 @@ public class InterfaceMap extends Interface {
 
         c.map.pushDraw();
 
-        for (final Entity i : c.entities.getAll())
+        for (final Entity i : c.entities.getAll()) {
             i.pushDraw();
+        }
 
         c.player.pushDraw();
 

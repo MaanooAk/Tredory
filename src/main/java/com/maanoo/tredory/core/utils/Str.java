@@ -10,19 +10,26 @@ package com.maanoo.tredory.core.utils;
 public class Str {
 
     public static String create(String... l) {
-        StringBuilder sb = new StringBuilder();
-        for (String i : l) {
+        final StringBuilder sb = new StringBuilder();
+        for (final String i : l) {
             sb.append(i);
         }
         return sb.toString();
     }
 
     public static String create(Object... l) {
-        StringBuilder sb = new StringBuilder();
-        for (Object i : l) {
+        final StringBuilder sb = new StringBuilder();
+        for (final Object i : l) {
             sb.append(i.toString());
         }
         return sb.toString();
     }
 
+    public static String repeat(String text, int repeat) {
+        final StringBuilder sb = new StringBuilder();
+        while (repeat-- > 0) {
+            sb.append(text);
+        }
+        return sb.toString();
+    }
 }
