@@ -90,6 +90,7 @@ public class StateGame extends State {
             c.player.actions.add(pa.spellChannel1);
             c.player.actions.add(pa.spellChannel2);
             c.player.actions.add(pa.spellPush);
+            c.player.actions.add(pa.spellHoming);
 
             zoom = 1;
 
@@ -179,7 +180,8 @@ public class StateGame extends State {
         if (c.player.getState() != EntityState.Attack
                 || c.player.actions.getActive().getState() != Action.State.Charging) { // TODO change second coondition
 
-            c.player.angle = inhalder.mouseAngle;
+//            c.player.angle = inhalder.mouseAngle;
+            c.player.changeAngle(inhalder.mouseAngle, 1, d);
         }
 
         Action action = null;

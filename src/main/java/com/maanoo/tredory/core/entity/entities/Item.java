@@ -2,11 +2,12 @@
 
 package com.maanoo.tredory.core.entity.entities;
 
+import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.face.assets.Assets;
 import com.maanoo.tredory.face.assets.SpriteBundleStatic;
+
 
 /**
  * @author MaanooAk
@@ -16,8 +17,6 @@ public class Item extends Entity implements Comparable<Item> {
     public final ItemType type;
     public final ItemTag tag;
 
-    public float speedm;
-
     // TODO change into time diff based not absolute values
     private int unpicable;
 
@@ -25,7 +24,7 @@ public class Item extends Entity implements Comparable<Item> {
         super(Team.Neutral, location, 180, new SpriteBundleStatic(Assets.getItem(type).get()));
 
         this.type = type;
-        this.speedm = 0;
+        this.speed = 0;
 
         tag = ItemType.getTag(type);
 
@@ -39,12 +38,12 @@ public class Item extends Entity implements Comparable<Item> {
 
     public void push(float angle, float speed) {
 
-        this.speedm = speed;
-        this.speed = new Point(angle);
+        this.speed = speed;
+        this.angle = angle;
     }
 
     /**
-     * Make the item unpicable for a given duration.
+     * Make the item un pickable for a given duration.
      */
     public void unpicablify(int duration) {
         pickable = false;
@@ -55,10 +54,10 @@ public class Item extends Entity implements Comparable<Item> {
     public void update(int d) {
         super.update(d);
 
-        if (speedm > 0) {
-            move.init(speed).mul(speedm * d);
+        if (speed > 0) {
+            move.init(angle).mul(speed * d);
             location.add(move);
-            speedm -= d / 500f;
+            speed -= d / 500f;
         }
 
         if (unpicable > 0) {

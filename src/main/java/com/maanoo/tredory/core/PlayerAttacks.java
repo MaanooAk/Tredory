@@ -10,6 +10,7 @@ import com.maanoo.tredory.core.entity.ProjectileType;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileArc;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileBlow;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileCyclone;
+import com.maanoo.tredory.core.entity.actions.AttackProjectileHoming;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileLine;
 import com.maanoo.tredory.core.entity.actions.Spell;
 import com.maanoo.tredory.core.entity.entities.Player;
@@ -36,6 +37,7 @@ public class PlayerAttacks implements IUpdate {
     public Action spellChannel1;
     public Action spellChannel2;
     public Action spellPush;
+    public Action spellHoming;
 
     public PlayerAttacks(Player player, AssetSet<SpriteSheet> projectile_sprite) {
         this.projectile = new ProjectileType(projectile_sprite);
@@ -98,6 +100,9 @@ public class PlayerAttacks implements IUpdate {
 
         };
 
+        spellHoming = new AttackProjectileHoming(player, 400 / 1.5f, 400 / 10.5f, 250 / 1.5f, 0, projectile, 0.6f, 10,
+                0.25f);
+
     }
 
     public Action getAttack(int group, int index) {
@@ -128,6 +133,8 @@ public class PlayerAttacks implements IUpdate {
                 return spellFireballCyclone2;
             case 5:
                 return spellSwap;
+            case 6:
+                return spellHoming;
             }
             return null;
         }

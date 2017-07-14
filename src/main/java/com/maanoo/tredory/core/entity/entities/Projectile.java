@@ -2,43 +2,44 @@
 
 package com.maanoo.tredory.core.entity.entities;
 
+import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Action.State;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.face.assets.Assets;
 import com.maanoo.tredory.face.assets.SpriteBundleEntity;
+
 
 /**
  * @author MaanooAk
  */
 public class Projectile extends Entity {
 
-	public static final class AttackProjectile extends Action {
+    public static final class AttackProjectile extends Action {
 
-		public AttackProjectile(Entity user, float charge_time) {
-			super(user, charge_time, 0, 0, 0);
-		}
+        public AttackProjectile(Entity user, float charge_time) {
+            super(user, charge_time, 0, 0, 0);
+        }
 
-		@Override
-		public void perform() {
-			// nothing
-		}
+        @Override
+        public void perform() {
+            // nothing
+        }
 
-		@Override
-		public void end() {
-			// end
-		}
+        @Override
+        public void end() {
+            // end
+        }
 
-		@Override
-		public void cooldown() {
-			// nothing
-		}
-		
-	}
-	
+        @Override
+        public void cooldown() {
+            // nothing
+        }
+
+    }
+
     public boolean damaging;
 
     public float rota;
@@ -49,18 +50,19 @@ public class Projectile extends Entity {
     public Projectile() {
     }
 
-    public Projectile init(Team team, Point location, float angle, SpriteBundleEntity sprites, float speed, float rota, float charge_time, float lifetime) {
+    public Projectile init(Team team, Point location, float angle, SpriteBundleEntity sprites, float speed, float rota,
+            float charge_time, float lifetime) {
         init(team, location, angle, sprites);
         this.rota = rota;
         this.lifetime = lifetime;
 
-        this.speed.init(angle).mul(speed);
+        this.speed = speed;
 
         undead = true;
 
         damaging = false;
 
-        AttackProjectile attack = new AttackProjectile(this, charge_time);
+        final AttackProjectile attack = new AttackProjectile(this, charge_time);
         actions.add(attack);
         startAttack(attack);
 
@@ -74,20 +76,19 @@ public class Projectile extends Entity {
         switch (state) {
         case Attack:
 
-        	if (actions.get().getState() == State.Ending) {
-        		state = EntityState.Move;
-        		damaging = true;
+            if (actions.get().getState() == State.Ending) {
+                state = EntityState.Move;
+                damaging = true;
                 lifetime += life;
-        	}
+            }
 
             break;
         case Move:
 
             if (rota != 0) {
                 angle += rota * d;
-                speed.rotate(rota * d);
             }
-            move.init(speed).mul(d);
+            move.init(angle).mul(speed * d);
             location.add(move);
 
             if (life >= lifetime) {
@@ -97,7 +98,7 @@ public class Projectile extends Entity {
 
             break;
         }
-    	
+
 //    	life += d;
 //
 //        sprites.getAnimation(state).update(d);
@@ -153,6 +154,5 @@ public class Projectile extends Entity {
             e.takeDamage();
         }
     }
-
 
 }

@@ -41,7 +41,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public boolean movable;
     public Team team;
     public Point location;
-    public Point speed;
+    public float speed;
     public float angle;
     /**
      * Stores the last vector that was added to the location.
@@ -65,13 +65,11 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public Actions actions;
 
     public Entity() {
-        speed = new Point();
         move = new Point();
         targetlayer = 5;
     }
 
     public Entity(Team team, Point location, float angle, SpriteBundle sprites) {
-        speed = new Point();
         move = new Point();
         init(team, location, angle, sprites);
         targetlayer = 5;
@@ -91,7 +89,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         alerted = false;
         shieldsSum = 0;
         actions = new ActionsSimple();
-        speed.init();
+        speed = 0;
         move.init();
     }
 
@@ -156,6 +154,10 @@ public class Entity implements IUpdate, IDraw, Poolable {
         default:
             break;
         }
+    }
+
+    public final void changeAngle(float angle, float max, int d) {
+        this.angle = (this.angle + Ma.limit(Ma.anglesub(angle, this.angle), max * d) + 360) % 360;
     }
 
     @Override

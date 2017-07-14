@@ -26,6 +26,7 @@ public class Inspector {
         runtime = Runtime.getRuntime();
         lastFreeMemory = runtime.freeMemory();
         gcs = 0;
+        System.out.println("runtime.totalMemory = " + runtime.totalMemory());
     }
 
     public float getAllocatedMemory() {

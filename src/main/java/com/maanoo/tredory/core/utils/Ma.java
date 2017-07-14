@@ -19,7 +19,7 @@ public final class Ma {
     }
 
     public static int looparound(int x, int a, int b) {
-        int len = b - a;
+        final int len = b - a;
         return ((x - a) % len + len) % len + a;
     }
 
@@ -31,6 +31,10 @@ public final class Ma {
         return x < a ? a : x > b ? b : x;
     }
 
+    public static float limit(float x, float b) {
+        return x < -b ? -b : x > b ? b : x;
+    }
+
     public static float min(float a, float b) {
         return a < b ? a : b;
     }
@@ -39,12 +43,18 @@ public final class Ma {
         return a > b ? a : b;
     }
 
+    public static float zeroer(float a, float b) {
+        return abs(a) < abs(b) ? a : b;
+    }
+
     public static final float pow2(float x) {
         return x * x;
     }
+
     public static final float pow3(float x) {
         return x * x * x;
     }
+
     public static final float pow4(float x) {
         return pow2(x * x);
     }
@@ -53,4 +63,7 @@ public final class Ma {
         return (int) (x + 0.5f);
     }
 
+    public static final float anglesub(float a, float b) {
+        return zeroer(zeroer(a - b, a - 360 - b), a + 360 - b);
+    }
 }
