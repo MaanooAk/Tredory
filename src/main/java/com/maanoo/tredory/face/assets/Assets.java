@@ -11,14 +11,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.SpriteSheetFont;
 import org.newdawn.slick.imageout.ImageOut;
-import org.newdawn.slick.util.Log;
 
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Res;
 import com.maanoo.tredory.core.entity.entities.ItemType;
+import com.maanoo.tredory.engine.Logger;
+import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.face.assets.atlas.Atlas;
 
 
@@ -154,7 +154,7 @@ public class Assets {
 
         icon = atlas.get("data/icon.png");
         cursor = new SpriteSheet(atlas.get("data/cursor.png"), 16, 16);
-        font1 = new SpriteSheetFont(new SpriteSheet(atlas.get("data/fonts/font1.png"), 8, 12), '\0');
+        font1 = new SpriteSheetFont(new org.newdawn.slick.SpriteSheet(atlas.get("data/fonts/font1.png"), 8, 12), '\0');
 
         // ===
 
@@ -193,7 +193,7 @@ public class Assets {
             for (int i2 = 0; i2 < grid[i1].length; i2++) {
                 if (grid[i1][i2] == null) continue;
 
-                items[grid[i1][i2].ordinal()].add(items_sheet.getSubImage(i1, i2));
+                items[grid[i1][i2].ordinal()].add(items_sheet.getImage(i1, i2));
             }
         }
 
@@ -201,9 +201,9 @@ public class Assets {
             final SpriteSheet sheet = new SpriteSheet(atlas.get("data/sprites/terrain/small.png"), 32, 32);
             terrain_small = new AssetSet<>();
             for (int i = 0; i < 4; i++) {
-                terrain_small.add(sheet.getSubImage(0, i));
-                terrain_small.add(sheet.getSubImage(1, i));
-                terrain_small.add(sheet.getSubImage(2, i));
+                terrain_small.add(sheet.getImage(0, i));
+                terrain_small.add(sheet.getImage(1, i));
+                terrain_small.add(sheet.getImage(2, i));
             }
         }
         {
@@ -211,7 +211,7 @@ public class Assets {
             terrain_glyphs = new AssetSet<>();
             for (int i1 = 0; i1 < 6; i1++) {
                 for (int i2 = 0; i2 < 1; i2++) {
-                    terrain_glyphs.add(sheet.getSubImage(i1, i2));
+                    terrain_glyphs.add(sheet.getImage(i1, i2));
                 }
             }
         }
@@ -220,15 +220,15 @@ public class Assets {
             terrain_steps = new AssetSet<>();
             for (int i1 = 0; i1 < 6; i1++) {
                 for (int i2 = 0; i2 < 6; i2++) {
-                    terrain_steps.add(sheet.getSubImage(i1, i2));
+                    terrain_steps.add(sheet.getImage(i1, i2));
                 }
             }
         }
 
         {
             effects_sheet = new SpriteSheet(atlas.get("data/sprites/effects.png"), 96, 96);
-            effect_arrow = effects_sheet.getSubImage(0, 0);
-            effect_frenzy = effects_sheet.getSubImage(2, 0);
+            effect_arrow = effects_sheet.getImage(0, 0);
+            effect_frenzy = effects_sheet.getImage(2, 0);
         }
 
         trans = loadSoundSet("trans");
@@ -250,12 +250,12 @@ public class Assets {
     }
 
     public static Image loadImage(String path) throws SlickException {
-        Log.info("Assets: " + path + " loading");
+        Logger.log("Assets", path + " loading");
         return new Image(loadRes(path), path, false, Image.FILTER_NEAREST);
     }
 
     public static Sound loadSound(String path) throws SlickException {
-        Log.info("Assets: " + path + " loading");
+        Logger.log("Assets", path + " loading");
         return new Sound(loadResBuffered(path), path);
     }
 

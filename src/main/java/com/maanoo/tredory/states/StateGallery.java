@@ -9,11 +9,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.maanoo.tredory.Op.Keys;
 import com.maanoo.tredory.core.utils.Ma;
+import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.face.assets.AssetSet;
 import com.maanoo.tredory.face.assets.Assets;
 
@@ -49,7 +49,7 @@ public class StateGallery extends State {
     private void addImages(AssetSet<SpriteSheet> set) {
 
         for (int i = 0; i < set.getCount(); i++) {
-            images.add(set.get(i).getSubImage(0, 0));
+            images.add(set.get(i).getImage(0, 0));
         }
     }
 

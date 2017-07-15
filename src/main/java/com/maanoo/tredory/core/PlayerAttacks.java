@@ -2,8 +2,6 @@
 
 package com.maanoo.tredory.core;
 
-import org.newdawn.slick.SpriteSheet;
-
 import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.ProjectileType;
@@ -17,6 +15,7 @@ import com.maanoo.tredory.core.entity.entities.Player;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Points;
+import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.face.assets.AssetSet;
 
 

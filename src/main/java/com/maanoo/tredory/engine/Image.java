@@ -2,10 +2,9 @@
 
 package com.maanoo.tredory.engine;
 
-
 /**
  * TODO doc
- * 
+ *
  * @author MaanooAk
  */
 public class Image {

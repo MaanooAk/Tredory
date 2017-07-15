@@ -2,10 +2,9 @@
 
 package com.maanoo.tredory.face.assets;
 
-import org.newdawn.slick.SpriteSheet;
-
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.engine.Animation;
+import com.maanoo.tredory.engine.SpriteSheet;
 
 
 /**

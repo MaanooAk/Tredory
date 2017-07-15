@@ -3,7 +3,6 @@
 package com.maanoo.tredory.engine;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SpriteSheet;
 
 
 /**
@@ -16,7 +15,7 @@ public class Animation {
     public static Image[] framesFromSpriteSheet(SpriteSheet sheet, int[] frames) {
         final Image array[] = new Image[frames.length / 2];
         for (int i = 0; i < array.length; i++) {
-            array[i] = sheet.getSubImage(frames[2 * i], frames[2 * i + 1]);
+            array[i] = sheet.getImage(frames[2 * i], frames[2 * i + 1]);
         }
         return array;
     }

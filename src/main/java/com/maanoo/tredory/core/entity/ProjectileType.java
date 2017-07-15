@@ -2,23 +2,23 @@
 
 package com.maanoo.tredory.core.entity;
 
-import org.newdawn.slick.SpriteSheet;
-
+import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.face.assets.AssetSet;
+
 
 /**
  * @author MaanooAk
  */
 public final class ProjectileType {
 
-	private final AssetSet<SpriteSheet> sprites;
+    private final AssetSet<SpriteSheet> sprites;
 
-	public ProjectileType(AssetSet<SpriteSheet> sprites) {
-		this.sprites = sprites;
-	}
-	
-	public SpriteSheet getSpriteSheet() {
-		return sprites.get();
-	}
-	
+    public ProjectileType(AssetSet<SpriteSheet> sprites) {
+        this.sprites = sprites;
+    }
+
+    public SpriteSheet getSpriteSheet() {
+        return sprites.get();
+    }
+
 }

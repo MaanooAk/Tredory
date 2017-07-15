@@ -12,6 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.core.utils.Ra;
+import com.maanoo.tredory.engine.Logger;
 import com.maanoo.tredory.face.assets.Assets;
 
 
@@ -89,7 +90,7 @@ public class StateLoading extends State {
             return false;
         }
 
-        System.out.println("Loading >> " + ls.name);
+        Logger.log("Loading", ls.name);
 
         startLoading(ls);
 
@@ -179,7 +180,7 @@ public class StateLoading extends State {
                 gc.setDefaultFont(Assets.font1);
 
                 try {
-                    gc.setMouseCursor(Assets.cursor.getSubImage(0, 0).getScaledCopy(2), 0, 0);
+                    gc.setMouseCursor(Assets.cursor.getImage(0, 0).getScaledCopy(2), 0, 0);
                 } catch (final SlickException e) {
                     e.printStackTrace();
                 }
