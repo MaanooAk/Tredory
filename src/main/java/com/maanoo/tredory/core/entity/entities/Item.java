@@ -34,6 +34,8 @@ public class Item extends Entity implements Comparable<Item> {
         sizecol = 16;
 
         unpicable = 0;
+
+        spriteRotate = false;
     }
 
     public void push(float angle, float speed) {

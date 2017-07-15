@@ -26,6 +26,10 @@ public final class Ra {
         return r.nextFloat() * max;
     }
 
+    public static float unit() {
+        return r.nextFloat();
+    }
+
     public static float angle() {
         return r.nextFloat() * 360;
     }

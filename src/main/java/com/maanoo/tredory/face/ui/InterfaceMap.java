@@ -108,7 +108,7 @@ public class InterfaceMap extends Interface {
 
             int x = 10;
             for (int i = shields.size() - 1; i >= 0; i--) {
-                shields.get(i).sprites.idle.draw(x, h - 42, 32, 32);
+                shields.get(i).sprites.idle.getSprite().draw(x, h - 42, 32, 32);
                 x += 18;
             }
         }
@@ -130,7 +130,7 @@ public class InterfaceMap extends Interface {
             int x = w - wi + 10 - pad + 2, y = 2;
             if (count % 2 == 0) y *= -1;
             for (int i = 0; i < crystals.size(); i++) {
-                crystals.get(i).sprites.idle.draw(x, h - 42 + y, 32, 32);
+                crystals.get(i).sprites.idle.getSprite().draw(x, h - 42 + y, 32, 32);
                 x += pad;
                 y *= -1;
             }
@@ -153,7 +153,7 @@ public class InterfaceMap extends Interface {
             int x = w - wi + 10 - pad + 12, y = 2;
             if (count % 2 == 0) y *= -1;
             for (int i = 0; i < stones.size(); i++) {
-                stones.get(i).sprites.idle.draw(x, h - 42 + y - 52, 32, 32);
+                stones.get(i).sprites.idle.getSprite().draw(x, h - 42 + y - 52, 32, 32);
                 x += pad;
                 y *= -1;
             }

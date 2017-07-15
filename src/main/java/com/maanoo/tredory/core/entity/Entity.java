@@ -49,8 +49,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public Point move;
     public EntityState state;
     public SpriteBundle sprites;
-    public SpriteBundle spritesMask;
-    public Color spritesMaskColor;
+    public boolean spriteRotate;
     public int size;
     /**
      * Collision circle size.
@@ -90,6 +89,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         shieldsSum = 0;
         actions = new ActionsSimple();
         speed = 0;
+        spriteRotate = true;
         move.init();
     }
 
@@ -99,7 +99,6 @@ public class Entity implements IUpdate, IDraw, Poolable {
         this.location = location;
         this.angle = angle;
         this.sprites = sprites.copy();
-        this.spritesMask = null;
     }
 
     public boolean changeState(EntityState new_state) {
@@ -115,8 +114,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public void update(int d) {
         life += d;
 
-        sprites.getAnimation(state).update(d);
-        if (spritesMask != null) spritesMask.getAnimation(state).update(d);
+        sprites.getAnimation(state).addProgress(d);
 
         actions.update(d);
 
@@ -131,7 +129,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
             } else {
 
-                sprites.attack.setCurrentFrame(action.getAnimationFrame());
+                sprites.attack.setSprite(action.getAnimationFrame());
             }
 
             break;
@@ -146,7 +144,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
                 drops();
             }
 
-            if (sprites.die.isStopped()) {
+            if (!sprites.die.isActive()) {
                 dead = true;
             }
 
@@ -167,11 +165,9 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
             g.pushTransform();
             g.translate(location.x, location.y);
-            g.rotate(0, 0, angle + 180);
+            if (spriteRotate) g.rotate(0, 0, angle + 180);
 
-            sprites.getAnimation(state).draw(-size, -size, 2 * size, 2 * size);
-            if (spritesMask != null)
-                spritesMask.getAnimation(state).draw(-size, -size, 2 * size, 2 * size, spritesMaskColor);
+            sprites.getAnimation(state).getSprite().draw(-size, -size, 2 * size, 2 * size);
 
             g.popTransform();
         }
@@ -179,7 +175,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         if (Op.debug && layer == 9) {
             g.pushTransform();
             g.translate(location.x, location.y);
-            g.rotate(0, 0, angle + 180);
+            if (spriteRotate) g.rotate(0, 0, angle + 180);
 
             g.setColor(Color.red);
             g.drawOval(-sizecol, -sizecol, 2 * sizecol, 2 * sizecol);
@@ -220,30 +216,28 @@ public class Entity implements IUpdate, IDraw, Poolable {
         if (action.canStart() && changeState(EntityState.Attack)) {
             action.start();
 
-            sprites.attack.restart();
-            if (spritesMask != null) spritesMask.attack.restart();
+            sprites.attack.reset();
         }
 
     }
 
-    // TODO remove
-    public final void startAttack(float speed) {
-
-        sprites.attack.restart();
-        sprites.attack.setSpeed(Ma.min(speed, 14f)); // TODO 86124 remove min
-
-        if (spritesMask != null) {
-            spritesMask.attack.restart();
-            spritesMask.attack.setSpeed(Ma.min(speed, 14f));
-        }
-
-        state = EntityState.Attack;
-    }
+//    // TODO remove
+//    public final void startAttack(float speed) {
+//
+//        sprites.attack.reset();
+//        sprites.attack.setSpeed(Ma.min(speed, 14f)); // TODO 86124 remove min
+//
+//        if (spritesMask != null) {
+//            spritesMask.attack.restart();
+//            spritesMask.attack.setSpeed(Ma.min(speed, 14f));
+//        }
+//
+//        state = EntityState.Attack;
+//    }
 
     public final void stopAttack() {
 
-        sprites.attack.restart();
-        if (spritesMask != null) spritesMask.attack.restart();
+        sprites.attack.reset();
 
         state = EntityState.Idle;
 

@@ -2,8 +2,10 @@
 
 package com.maanoo.tredory.face.assets;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
+
+import com.maanoo.tredory.engine.Animation;
+
 
 /**
  * @author MaanooAk
@@ -16,7 +18,7 @@ public class SpriteBundleStatic extends SpriteBundle {
 
         this.image = image;
 
-        this.idle = new Animation(new Image[]{image}, 1000);
+        this.idle = new Animation(new Image[] { image }, new float[] { 1000 }, true);
 
     }
 

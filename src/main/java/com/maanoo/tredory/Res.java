@@ -5,6 +5,9 @@ package com.maanoo.tredory;
 /**
  * @author MaanooAk
  */
-public class Res {
+public final class Res {
+
+    private Res() {
+    }
 
 }
