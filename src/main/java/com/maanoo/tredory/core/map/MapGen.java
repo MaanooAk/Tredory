@@ -28,7 +28,7 @@ public class MapGen {
         center.color = Colors.c202020;
 
         for (int i = 0; i < 20; i++) {
-            Point p = center.clone();
+            final Point p = center.clone();
 
             p.add(new Point(Ra.angle()).mul(Ra.range(15, 60) + Ra.range(15, 60)));
 
@@ -40,9 +40,9 @@ public class MapGen {
         int man = range(2, 8, m.type.population);
 
         for (; man > 0; man--) {
-            Point p = center.clone();
+            final Point p = center.clone();
 
-            float angle = Ra.angle();
+            final float angle = Ra.angle();
             p.add(new Point(angle).mul(20 + Ra.range(15, 60) + Ra.range(15, 60)));
 
             genManTier1(m, p, angle + 180);
@@ -54,7 +54,7 @@ public class MapGen {
         center.color = Colors.c202020;
 
         for (int i = 0; i < 20; i++) {
-            Point p = center.clone();
+            final Point p = center.clone();
 
             p.add(new Point(Ra.angle()).mul(Ra.range(15, 60) + Ra.range(15, 60)));
 
@@ -64,9 +64,9 @@ public class MapGen {
         int man = range(4, 9, m.type.population);
 
         for (; man > 0; man--) {
-            Point p = center.clone();
+            final Point p = center.clone();
 
-            float angle = Ra.angle();
+            final float angle = Ra.angle();
             p.add(new Point(angle).mul(20 + Ra.range(15, 80) + Ra.range(15, 80)));
 
             genManTier1(m, p, Ra.angle());
@@ -77,14 +77,14 @@ public class MapGen {
     public static final void genSquad(Map m, Spot center) {
         center.color = Colors.c202020;
 
-        int man = range(2, 8, m.type.population);
+        final int man = range(2, 8, m.type.population);
 
-        float pad = 64;
+        final float pad = 64;
 
-        float angle = Ra.angle();
-        Point pos = center.clone().sub(new Point(man * pad / 4, pad));
+        final float angle = Ra.angle();
+        final Point pos = center.clone().sub(new Point(man * pad / 4, pad));
 
-        int tier = Ra.range(1, 3);
+        final int tier = Ra.range(1, 3);
 
         for (int i = 0; i < man - 1; i += 2) {
             Point p;
@@ -117,7 +117,7 @@ public class MapGen {
 
         genStepsAround(m, center, 40, 80, 300);
 
-        Container con = new Container(Team.Bad, 2, center.clone(), Ra.angle(),
+        final Container con = new Container(Team.Bad, 2, center.clone(), Ra.angle(),
                 new SpriteBundleEntity(Assets.boxg.get()));
         m.l.add(con);
         m.hotspots.add(con);
@@ -131,7 +131,7 @@ public class MapGen {
 
         genStepsAround(m, center, 40, 80, 300);
 
-        Altar con = new Altar(Team.Bad, center.clone(), Ra.angle());
+        final Altar con = new Altar(Team.Bad, center.clone(), Ra.angle());
         m.l.add(con);
         m.hotspots.add(con);
 
@@ -146,8 +146,10 @@ public class MapGen {
 
         genStepsAround(m, center, 10, 32, 200);
 
-        // m.things.add(new TerrainGlyph(center.clone(), 0,
-        // Assets.terrain_glyphs.get()));
+//         m.things.add(new TerrainGlyph(center.clone(), 0,
+//         Assets.terrain_glyphs.get()));
+
+//         m.l.add(new Container(Team.Bad, 2, center.clone(), Ra.angle(), new SpriteBundleEntity(Assets.boxg.get())));
 
     }
 
@@ -155,7 +157,8 @@ public class MapGen {
 
         genStepsAround(m, center, 50, 80, 300);
 
-        Portal po = new Portal(Team.Neutral, center.clone(), Ra.angle(), new SpriteBundleEntity(Assets.portal.get()));
+        final Portal po = new Portal(Team.Neutral, center.clone(), Ra.angle(),
+                new SpriteBundleEntity(Assets.portal.get()));
         m.l.add(po);
         m.hotspots.add(po);
     }
@@ -167,7 +170,7 @@ public class MapGen {
         max /= 2;
 
         for (int i = 0; i < count; i++) {
-            Point p = center.clone();
+            final Point p = center.clone();
 
             p.add(new Point(Ra.angle()).mul(Ra.range(min, max) + Ra.range(min, max)));
 
@@ -179,12 +182,12 @@ public class MapGen {
     public static final void genCircleGuard(Map m, Point center, int r, int rd, int count, int tier) {
         rd /= 2;
 
-        float toxo = 360f / count;
-        float toxooff = Ra.range(0, toxo);
+        final float toxo = 360f / count;
+        final float toxooff = Ra.range(0, toxo);
         for (int i = 0; i < count; i++) {
-            Point p = center.clone();
+            final Point p = center.clone();
 
-            float angle = toxooff + i * toxo + toxo + Ra.range(-10, 10);
+            final float angle = toxooff + i * toxo + toxo + Ra.range(-10, 10);
             p.add(new Point(angle).mul(r + Ra.range(-rd, rd) + Ra.range(-rd, rd)));
 
             genManTier(tier, m, p, angle);

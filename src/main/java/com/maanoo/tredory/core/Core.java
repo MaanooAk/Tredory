@@ -258,11 +258,15 @@ public class Core implements IUpdate {
             break;
         case 2:
 
-            final ItemType type = Ra.list(new ItemType[] { ItemType.Crystal1, ItemType.Crystal2, ItemType.Crystal3 });
+            for (int i = 0; i < 3; i++) {
 
-            item = new Item(type, p);
-            item.push(con.angle + 180, 0.1f);
-            entities.add(item);
+                final ItemType type = Ra
+                        .list(new ItemType[] { ItemType.Crystal1, ItemType.Crystal2, ItemType.Crystal3 });
+
+                item = new Item(type, p.clone());
+                item.push(con.angle + i * 120, 0.2f);
+                entities.add(item);
+            }
 
             break;
         case 4:

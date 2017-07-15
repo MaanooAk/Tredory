@@ -41,7 +41,7 @@ public class Item extends Entity implements Comparable<Item> {
     public void push(float angle, float speed) {
 
         this.speed = speed;
-        this.angle = angle;
+        this.angle = angle % 360;
     }
 
     /**
