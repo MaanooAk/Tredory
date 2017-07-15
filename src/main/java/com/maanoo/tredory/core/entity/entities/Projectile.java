@@ -24,19 +24,16 @@ public class Projectile extends Entity {
         }
 
         @Override
-        public void perform() {
-            // nothing
-        }
+        public void perform() {}
 
         @Override
-        public void end() {
-            // end
-        }
+        public void recharge() {}
 
         @Override
-        public void cooldown() {
-            // nothing
-        }
+        public void end() {}
+
+        @Override
+        public void cooldown() {}
 
     }
 
@@ -47,8 +44,7 @@ public class Projectile extends Entity {
 
     private float tmp;
 
-    public Projectile() {
-    }
+    public Projectile() {}
 
     public Projectile init(Team team, Point location, float angle, SpriteBundleEntity sprites, float speed, float rota,
             float charge_time, float lifetime) {

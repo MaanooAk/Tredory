@@ -28,7 +28,10 @@ public class Core implements IUpdate {
         c.entities.add(ent);
     }
 
+    // TODO support multiple players (in the logic)
     public Player player;
+    public ActionsPlayer pa;
+
     public Map map;
 
     public final Entities entities;
@@ -51,6 +54,21 @@ public class Core implements IUpdate {
 
         player = new Player(Team.Good, new Point(2000, 2000), 0, new SpriteBundleEntity(Assets.chara.get()));
         entities.addPlayer(player);
+
+        pa = new ActionsPlayer(c.player, Assets.fireball);
+
+        // TODO revisit
+        c.player.actions.add(pa.spellFireball1);
+        c.player.actions.add(pa.spellFireball2);
+        c.player.actions.add(pa.spellFireball3);
+        c.player.actions.add(pa.spellFireballCyclone1);
+        c.player.actions.add(pa.spellFireballCyclone2);
+        c.player.actions.add(pa.spellTeleport);
+        c.player.actions.add(pa.spellSwap);
+        c.player.actions.add(pa.spellChannel1);
+        c.player.actions.add(pa.spellChannel2);
+        c.player.actions.add(pa.spellPush);
+        c.player.actions.add(pa.spellHoming);
 
         newMap();
     }
@@ -102,11 +120,11 @@ public class Core implements IUpdate {
 
     }
 
-    public Entity findClossest(Entity ent, Team team) {
-        return findClossest(ent, team, Float.MAX_VALUE);
+    public Entity findClossestEnemy(Entity ent, Team team) {
+        return findClossestEnemy(ent, team, Float.MAX_VALUE);
     }
 
-    public Entity findClossest(Entity ent, Team team, float radius) {
+    public Entity findClossestEnemy(Entity ent, Team team, float radius) {
 
         Entity min = null;
         float min_dis = Float.MAX_VALUE;
@@ -114,8 +132,8 @@ public class Core implements IUpdate {
         for (final Entity i : entities.getAll()) {
 
             if (i == ent) continue;
-            if (i.team != team) continue;
             if (i.undead) continue;
+            if (!team.isEnemy(i.team)) continue;
 
             final float dis = i.location.distance(ent.location);
             if (dis <= radius && dis < min_dis) {

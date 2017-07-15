@@ -33,13 +33,12 @@ public abstract class Attack extends Action {
     }
 
     @Override
-    public void end() {
-        // nothing
-    }
+    public void recharge() {}
 
     @Override
-    public void cooldown() {
-        // nothing
-    }
+    public void end() {}
+
+    @Override
+    public void cooldown() {}
 
 }

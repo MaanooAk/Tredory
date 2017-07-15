@@ -2,9 +2,9 @@
 
 package com.maanoo.tredory.core.entity;
 
+import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.entity.entities.Items;
-import com.maanoo.tredory.core.utils.Ra;
 
 
 /**
@@ -12,7 +12,10 @@ import com.maanoo.tredory.core.utils.Ra;
  */
 public final class Souls implements IUpdate {
 
+    private static final int STONE_CAPACITY = 30;
+
     private int souls;
+    private int stones;
     private int capacity;
 
     public Souls() {
@@ -23,6 +26,9 @@ public final class Souls implements IUpdate {
     public void addSoul() {
         if (souls < capacity) {
             souls += 1;
+        } else if (stones > 0) {
+            souls -= 3 * stones;
+            Core.c.pa.soulAttacks[stones - 1].perform();
         }
     }
 
@@ -37,15 +43,16 @@ public final class Souls implements IUpdate {
     @Override
     public void update(int d) {
 
-        if (souls > capacity / 2) {
-            if (Ra.chance(0.001f * d)) { // TODO this is not math correct
-                souls -= 1;
-            }
-        }
+//        if (souls > capacity / 2) {
+//            if (Ra.chance(0.0001f * d)) { // TODO this is not math correct
+//                souls -= 1;
+//            }
+//        }
     }
 
     public void updateStones(Items stones) {
-        capacity = stones.size() * 33; // TODO move multiplier elsewhere
+        this.stones = stones.size();
+        this.capacity = stones.size() * STONE_CAPACITY; // TODO move multiplier elsewhere
     }
 
     public int getSouls() {

@@ -8,9 +8,9 @@ import com.maanoo.tredory.core.utils.Ma;
 
 /**
  * The base class for actions
- * 
+ *
  * Action life cycle: start, perform, cool down (optional), end
- * 
+ *
  * @author MaanooAk
  */
 public abstract class Action implements IUpdate {
@@ -75,6 +75,8 @@ public abstract class Action implements IUpdate {
 
     public abstract void perform();
 
+    public abstract void recharge();
+
     public abstract void end();
 
     public abstract void cooldown();
@@ -114,8 +116,11 @@ public abstract class Action implements IUpdate {
             // the state has ended, find the next state
 
             switch (state) {
-            case Charging:
             case Recharging:
+
+                recharge();
+
+            case Charging:
 
                 perform();
                 perform_count += 1;

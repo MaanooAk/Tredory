@@ -3,7 +3,6 @@
 package com.maanoo.tredory.core.entity.actions;
 
 import com.maanoo.tredory.core.Core;
-import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.face.assets.Assets;
 
@@ -29,7 +28,7 @@ public class AttackMelee extends Attack {
     public void start() {
         super.start();
 
-        target = Core.c.findClossest(user, Team.Good); // TODO revisit
+        target = Core.c.findClossestEnemy(user, user.team); // TODO revisit
 
         if (target == null) {
             stop();

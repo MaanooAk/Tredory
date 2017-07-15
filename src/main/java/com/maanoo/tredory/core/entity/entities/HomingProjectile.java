@@ -20,8 +20,7 @@ public class HomingProjectile extends Projectile {
     protected float angleSpeed;
     protected Entity target;
 
-    public HomingProjectile() {
-    }
+    public HomingProjectile() {}
 
     public HomingProjectile init(Team team, Point location, float angle, SpriteBundleEntity sprites, float speed,
             float rota, float charge_time, float lifetime, float angleSpeed, Entity target) {
@@ -50,7 +49,7 @@ public class HomingProjectile extends Projectile {
             }
 
         } else {
-            target = Core.c.findClossest(this, Team.Bad);
+            target = Core.c.findClossestEnemy(this, team);
         }
     }
 

@@ -3,7 +3,6 @@
 package com.maanoo.tredory.core.entity.brains;
 
 import com.maanoo.tredory.core.Core;
-import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Brain;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.EntityState;
@@ -43,9 +42,9 @@ public class AnimalBrain extends Brain {
 
             if (ent.alerted) {
                 ent.alerted = false;
-                target = Core.c.findClossest(ent, Team.Good, viewRangeMax);
+                target = Core.c.findClossestEnemy(ent, ent.team, viewRangeMax);
             } else {
-                target = Core.c.findClossest(ent, Team.Good, viewRange);
+                target = Core.c.findClossestEnemy(ent, ent.team, viewRange);
             }
 
             if (target != null) {
@@ -55,7 +54,7 @@ public class AnimalBrain extends Brain {
             break;
         case Move:
 
-            target = Core.c.findClossest(ent, Team.Good, viewRangeMax);
+            target = Core.c.findClossestEnemy(ent, ent.team, viewRangeMax);
 
             if (target != null) {
 

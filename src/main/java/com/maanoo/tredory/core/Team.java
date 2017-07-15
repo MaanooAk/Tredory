@@ -9,7 +9,31 @@ public enum Team {
 
     // TODO split into team and factions and rename holder something else
 
-    Neutral, Good, Bad, Evil, Pure;
+    Neutral,
+
+    Good,
+
+    Bad,
+
+    Evil,
+
+    Pure;
+
+    public final boolean isEnemy(Team team) {
+        final Team[] enemies = getEnemies(this);
+        for (int i = 0; i < enemies.length; i++) {
+            if (enemies[i] == team) return true;
+        }
+        return false;
+    }
+
+    public final boolean isAllie(Team team) {
+        final Team[] allies = getAllies(this);
+        for (int i = 0; i < allies.length; i++) {
+            if (allies[i] == team) return true;
+        }
+        return false;
+    }
 
     // TODO change
     // TODO use in logic
@@ -37,13 +61,13 @@ public enum Team {
         case Neutral:
             return new Team[] { Neutral, Pure };
         case Good:
-            return new Team[] { Neutral, Pure };
+            return new Team[] { Good, Neutral, Pure };
         case Bad:
             return new Team[] { Bad, Pure };
         case Evil:
             return new Team[] { Evil };
         case Pure:
-            return new Team[] { Neutral, Good, Bad, Evil, Pure };
+            return new Team[] { Pure, Neutral, Good, Bad, Evil };
         default:
             return new Team[] { Pure };
         }

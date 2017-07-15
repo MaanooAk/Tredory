@@ -13,7 +13,6 @@ import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Op.Keys;
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.Draws;
-import com.maanoo.tredory.core.PlayerAttacks;
 import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Action;
@@ -41,10 +40,6 @@ public class StateGame extends State {
     private float zoom;
 
     private Core c;
-
-    // TODO to core
-    // TODO support multiple players (in the logic)
-    private PlayerAttacks pa;
 
     private final InterfaceMap face;
 
@@ -76,21 +71,6 @@ public class StateGame extends State {
             c = new Core();
             Core.c = c;
             c.init();
-
-            pa = new PlayerAttacks(c.player, Assets.fireball);
-
-            // TODO revisit
-            c.player.actions.add(pa.spellFireball1);
-            c.player.actions.add(pa.spellFireball2);
-            c.player.actions.add(pa.spellFireball3);
-            c.player.actions.add(pa.spellFireballCyclone1);
-            c.player.actions.add(pa.spellFireballCyclone2);
-            c.player.actions.add(pa.spellTeleport);
-            c.player.actions.add(pa.spellSwap);
-            c.player.actions.add(pa.spellChannel1);
-            c.player.actions.add(pa.spellChannel2);
-            c.player.actions.add(pa.spellPush);
-            c.player.actions.add(pa.spellHoming);
 
             zoom = 1;
 
@@ -177,8 +157,9 @@ public class StateGame extends State {
             changeState(game, StateId.Menu);
         }
 
-        if (c.player.getState() != EntityState.Attack
-                || c.player.actions.getActive().getState() != Action.State.Charging) { // TODO change second coondition
+        if ((c.player.getState() != EntityState.Attack
+                || c.player.actions.getActive().getState() != Action.State.Charging)
+                && c.player.getState() != EntityState.Die) { // TODO change second coondition
 
 //            c.player.angle = inhalder.mouseAngle;
             c.player.changeAngle(inhalder.mouseAngle, 1, d);
@@ -187,7 +168,7 @@ public class StateGame extends State {
         Action action = null;
 
         if (inhalder.isSelectedAttack) {
-            action = pa.getAttack(inhalder.selectedAttackGroup, inhalder.selectedAttack);
+            action = Core.c.pa.getAttack(inhalder.selectedAttackGroup, inhalder.selectedAttack);
         }
 
         if (c.player.getState() != EntityState.Attack) {
@@ -253,7 +234,6 @@ public class StateGame extends State {
         // ====
 
         c.update(d);
-        pa.update(d);
 
         // ====
 
