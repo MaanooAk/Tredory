@@ -8,7 +8,7 @@ import com.maanoo.tredory.core.memory.Poolable;
 /**
  * @author MaanooAk
  */
-public class Point implements Poolable {
+public class Point implements Cloneable, Poolable {
 
     public float x, y;
 

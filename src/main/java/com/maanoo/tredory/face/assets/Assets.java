@@ -16,7 +16,6 @@ import org.newdawn.slick.imageout.ImageOut;
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Res;
 import com.maanoo.tredory.core.entity.entities.ItemType;
-import com.maanoo.tredory.engine.Logger;
 import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.engine.SpriteSheetMasked;
 import com.maanoo.tredory.engine.SpriteSheetSingle;
@@ -76,7 +75,7 @@ public class Assets {
     public static SoundBundle bam;
     public static SoundBundle pick;
 
-    public static void load1() {
+    public static void loadImages() {
 
         atlas = new Atlas();
 
@@ -117,7 +116,7 @@ public class Assets {
 
     }
 
-    public static void load2() {
+    public static void loadAtlas() {
 
         for (final String i : imagePaths) {
             atlas.add(i);
@@ -125,8 +124,9 @@ public class Assets {
 
         if (USE_ATLAS) {
             try {
-                final Image atlas_image = atlas.getAtlas();
-                if (Op.debug) ImageOut.write(atlas_image, "atlas.png");
+
+                atlas.generate();
+
             } catch (final SlickException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -135,7 +135,36 @@ public class Assets {
 
     }
 
-    public static void load3() {
+    public static void loadAtlasStore() {
+
+        if (USE_ATLAS && Op.debug) {
+            try {
+
+                ImageOut.write(atlas.getAtlas(), "atlas.png", true);
+
+            } catch (final SlickException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public static void loadColors() {
+
+        colors = new ArrayList<>();
+        colors.add(new Color(0x715CCE));
+        colors.add(new Color(0xB770FF));
+        colors.add(new Color(0xFF70CF));
+        colors.add(new Color(0xFF7070));
+        colors.add(new Color(0x5DD37A));
+        // TODO add more colors
+        // TODO laod from file
+        // TODO colors based on function
+
+    }
+
+    public static void loadSprites() {
 
         icon = atlas.get("data/icon.png");
         cursor = new SpriteSheetSingle(atlas.get("data/cursor.png"), 16, 16);
@@ -216,26 +245,18 @@ public class Assets {
             effect_frenzy = effects_sheet.getImage(2, 0);
         }
 
-        // TODO move to load3 when the masks are fixed
-
-        colors = new ArrayList<>();
-        colors.add(new Color(0x715CCE));
-        colors.add(new Color(0xB770FF));
-        colors.add(new Color(0xFF70CF));
-        colors.add(new Color(0xFF7070));
-        colors.add(new Color(0x5DD37A));
-        // TODO add more colors
-        // TODO laod from file
-        // TODO colors based on function
-
         axeman = loadSpriteSheetSet("axeman");
         maceman = loadSpriteSheetSet("maceman");
         swordman = loadSpriteSheetSet("swordman");
+    }
+
+    public static void loadSounds() {
 
         trans = loadSoundSet("trans");
         hit = loadSoundSet("hit");
         bam = loadSoundSet("bam");
         pick = loadSoundSet("pick");
+
     }
 
     public static boolean existsRes(String path) {
@@ -251,12 +272,12 @@ public class Assets {
     }
 
     public static Image loadImage(String path) throws SlickException {
-        Logger.log("Assets", path + " loading");
+//        Logger.log("Assets", path + " loading");
         return new Image(loadRes(path), path, false, Image.FILTER_NEAREST);
     }
 
     public static Sound loadSound(String path) throws SlickException {
-        Logger.log("Assets", path + " loading");
+//        Logger.log("Assets", path + " loading");
         return new Sound(loadResBuffered(path), path);
     }
 

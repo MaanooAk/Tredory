@@ -87,6 +87,7 @@ public class Atlas {
         if (atlas != null) atlas.destroy();
 
         atlas = new Image(w, h);
+        atlasImageCount = locations.size();
 
         final Graphics graphics = atlas.getGraphics();
         graphics.setAntiAlias(false);
