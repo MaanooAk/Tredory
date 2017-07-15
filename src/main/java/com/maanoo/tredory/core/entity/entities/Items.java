@@ -4,20 +4,21 @@ package com.maanoo.tredory.core.entity.entities;
 
 import java.util.ArrayList;
 
+
 /**
  * @author MaanooAk
  */
- public final class Items extends ArrayList<Item> {
-     
-     public int max;
-     public int max_base;
+public final class Items extends ArrayList<Item> {
 
-     public Items(int max) {
-         this.max = max;
-         this.max_base = max;
-     }
+    public int max;
+    public int max_base;
 
-     public boolean isMax() {
-         return size() >= max;
-     }
- }
+    public Items(int max) {
+        this.max = max;
+        this.max_base = max;
+    }
+
+    public boolean isMax() {
+        return size() >= max;
+    }
+}

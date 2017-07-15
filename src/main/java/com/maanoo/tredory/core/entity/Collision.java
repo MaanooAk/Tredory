@@ -6,6 +6,7 @@ import com.maanoo.tredory.core.utils.Point;
 
 import java.util.ArrayList;
 
+
 /**
  * TODO doc
  *
@@ -15,7 +16,6 @@ public class Collision {
 
     public static int collision_checks = 0;
     public static int collision_detections = 0;
-
 
     public static void perform(ArrayList<Entity> l) {
 

@@ -13,6 +13,7 @@ import org.newdawn.slick.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 /**
  * @author MaanooAk
  */
@@ -48,7 +49,7 @@ public class Map implements IUpdate, IDraw {
     @Override
     public void update(int d) {
 
-        for (Iterator<Entity> it = hotspots.iterator(); it.hasNext(); ) {
+        for (Iterator<Entity> it = hotspots.iterator(); it.hasNext();) {
             Entity i = it.next();
 
             if (i.dead) it.remove();

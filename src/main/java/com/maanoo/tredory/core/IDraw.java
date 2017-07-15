@@ -5,6 +5,7 @@ package com.maanoo.tredory.core;
 import com.maanoo.tredory.core.utils.Rectangle;
 import org.newdawn.slick.Graphics;
 
+
 /**
  * @author MaanooAk
  */

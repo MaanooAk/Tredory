@@ -8,6 +8,7 @@ import com.maanoo.tredory.face.assets.Assets;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
+
 /**
  * @author MaanooAk
  */
@@ -35,20 +36,12 @@ public class StateMenu extends State {
 
         gc.getInput().clearKeyPressedRecord();
 
-        menu = new String[]{
-                "Press SPACE to start",
-                "Press SPACE to enter the gallery",
-                "Press SPACE to enter the options"
-        };
-        menuInd = new String[]{
-                "",
-                "- O -",
-                "- - O"
-        };
+        menu = new String[] { "Press SPACE to start", "Press SPACE to enter the gallery",
+                "Press SPACE to enter the options" };
+        menuInd = new String[] { "", "- O -", "- - O" };
         menu_index = 0;
 
     }
-
 
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
@@ -95,13 +88,13 @@ public class StateMenu extends State {
         if (gc.getInput().isKeyPressed(Op.Keys.MoveR)) menu_index += 1;
         menu_index = Ma.looparound(menu_index, menu.length);
 
-
         if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
             gc.exit();
         }
 
         if (gc.getInput().isKeyPressed(Input.KEY_F)) {
-            //setDisplayMode(Display.getDesktopDisplayMode().getWidth(), Display.getDesktopDisplayMode().getHeight(), true);
+            // setDisplayMode(Display.getDesktopDisplayMode().getWidth(),
+            // Display.getDesktopDisplayMode().getHeight(), true);
         }
 
     }

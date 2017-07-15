@@ -8,6 +8,7 @@ import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 import com.maanoo.tredory.core.Team;
 
+
 /**
  * @author MaanooAk
  */
@@ -15,7 +16,7 @@ public class Container extends Entity {
 
     public int tier;
 
-    private static final int shieldsSumPerTier[] = new int[]{0, 0, 3, 8};
+    private static final int shieldsSumPerTier[] = new int[] { 0, 0, 3, 8 };
 
     public Container(Team team, int tier, Point location, float angle, SpriteBundleEntity sprites) {
         super(team, location, angle, sprites);
@@ -32,6 +33,5 @@ public class Container extends Entity {
 
         Core.c.addItem(this, tier);
     }
-
 
 }

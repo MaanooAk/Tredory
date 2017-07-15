@@ -5,6 +5,7 @@ package com.maanoo.tredory.states;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+
 /**
  * @author MaanooAk
  */
@@ -24,6 +25,5 @@ public abstract class State extends BasicGameState {
     public int getID() {
         return stateid.ordinal();
     }
-
 
 }

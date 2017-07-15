@@ -4,17 +4,18 @@ package com.maanoo.tredory.core.entity;
 
 import com.maanoo.tredory.core.IUpdate;
 
+
 /**
  * @author MaanooAk
  */
 public abstract class Actions implements IUpdate {
 
-	public abstract void add(Action action);
+    public abstract void add(Action action);
 
-	public abstract Action get();
+    public abstract Action get();
 
-	public abstract Action getReady();
+    public abstract Action getReady();
 
-	public abstract Action getActive();
+    public abstract Action getActive();
 
 }

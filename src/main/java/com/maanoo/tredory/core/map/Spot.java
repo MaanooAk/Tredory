@@ -5,6 +5,7 @@ package com.maanoo.tredory.core.map;
 import com.maanoo.tredory.core.utils.Point;
 import org.newdawn.slick.Color;
 
+
 /**
  * TODO doc
  *

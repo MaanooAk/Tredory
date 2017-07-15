@@ -9,9 +9,7 @@ package com.maanoo.tredory.core.map;
  */
 public enum MapType {
 
-    Plain(1, 1f),
-    Altar(2, 1f),
-    Overpop(1, 2f);
+    Plain(1, 1f), Altar(2, 1f), Overpop(1, 2f);
 
     // TODO store more things here
     // TODO store parts of the map gen ?

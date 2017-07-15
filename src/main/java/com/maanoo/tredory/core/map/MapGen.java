@@ -14,6 +14,7 @@ import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.assets.Assets;
 import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
+
 /**
  * @author MaanooAk
  */
@@ -116,7 +117,8 @@ public class MapGen {
 
         genStepsAround(m, center, 40, 80, 300);
 
-        Container con = new Container(Team.Bad, 2, center.clone(), Ra.angle(), new SpriteBundleEntity(Assets.boxg.get()));
+        Container con = new Container(Team.Bad, 2, center.clone(), Ra.angle(),
+                new SpriteBundleEntity(Assets.boxg.get()));
         m.l.add(con);
         m.hotspots.add(con);
 
@@ -138,14 +140,14 @@ public class MapGen {
 
     }
 
-
     // === Special ===
 
     public static final void genSpawn(Map m, Spot center) {
 
         genStepsAround(m, center, 10, 32, 200);
 
-        //m.things.add(new TerrainGlyph(center.clone(), 0, Assets.terrain_glyphs.get()));
+        // m.things.add(new TerrainGlyph(center.clone(), 0,
+        // Assets.terrain_glyphs.get()));
 
     }
 

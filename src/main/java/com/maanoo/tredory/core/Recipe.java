@@ -2,9 +2,10 @@
 
 package com.maanoo.tredory.core;
 
+import java.util.ArrayList;
+
 import com.maanoo.tredory.core.entity.entities.ItemType;
 
-import java.util.ArrayList;
 
 /**
  * @author MaanooAk
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public final class Recipe {
 
     public static final class Bundle {
+
         public int coins;
         public ArrayList<ItemType> items;
 
@@ -22,16 +24,14 @@ public final class Recipe {
         public Bundle(int coins, ItemType... items) {
             this.coins = coins;
             this.items = new ArrayList<>(items.length);
-            for (ItemType i : items) this.items.add(i);
+            for (final ItemType i : items)
+                this.items.add(i);
         }
     }
 
-
-    public final float rarity;
     public final Bundle in, out;
 
-    public Recipe(float rarity, Bundle in, Bundle out) {
-        this.rarity = rarity;
+    public Recipe(Bundle in, Bundle out) {
         this.in = in;
         this.out = out;
     }

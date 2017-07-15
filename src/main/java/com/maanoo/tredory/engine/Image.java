@@ -2,7 +2,6 @@
 
 package com.maanoo.tredory.engine;
 
-
 /**
  * TODO doc
  * 

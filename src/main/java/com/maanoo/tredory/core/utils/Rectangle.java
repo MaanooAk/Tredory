@@ -4,6 +4,7 @@ package com.maanoo.tredory.core.utils;
 
 import com.maanoo.tredory.core.memory.Poolable;
 
+
 /**
  * TODO doc
  *
@@ -23,8 +24,8 @@ public class Rectangle implements Poolable {
         this.w = w;
         this.h = h;
 
-        cx = x + w/2;
-        cy = y + h/2;
+        cx = x + w / 2;
+        cy = y + h / 2;
         ex = x + w;
         ey = y + h;
 

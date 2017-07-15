@@ -45,7 +45,7 @@ public final class Player extends Entity {
 
         shields = new Items(2);
         crystals = new Items(15);
-        stones = new Items(5);
+        stones = new Items(4);
 
         souls = new Souls();
 

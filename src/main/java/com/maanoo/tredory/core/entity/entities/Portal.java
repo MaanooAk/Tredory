@@ -8,6 +8,7 @@ import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.SpriteBundle;
 
+
 /**
  * @author MaanooAk
  */
@@ -28,13 +29,11 @@ public class Portal extends Entity {
 
     }
 
-
     @Override
     public void activate() {
         super.activate();
 
         Core.c.requestNewMap();
     }
-
 
 }

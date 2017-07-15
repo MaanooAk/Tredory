@@ -4,6 +4,7 @@ package com.maanoo.tredory.core.utils;
 
 import org.newdawn.slick.Color;
 
+
 /**
  * TODO doc
  *

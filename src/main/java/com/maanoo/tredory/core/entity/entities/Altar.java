@@ -9,6 +9,7 @@ import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
 import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
+
 /**
  * TODO activate somehow
  *

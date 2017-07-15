@@ -4,6 +4,7 @@ package com.maanoo.tredory.core.utils;
 
 import com.maanoo.tredory.core.memory.Pool;
 
+
 /**
  * TODO doc
  *
@@ -16,12 +17,15 @@ public class Points {
     public static Point create() {
         return pool.obtain().init();
     }
+
     public static Point create(float x, float y) {
         return pool.obtain().init(x, y);
     }
+
     public static Point create(float angle) {
         return pool.obtain().init(angle);
     }
+
     public static Point create(Point point) {
         return pool.obtain().init(point);
     }

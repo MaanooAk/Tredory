@@ -8,6 +8,7 @@ import com.maanoo.tredory.core.utils.Rectangle;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Graphics;
 
+
 /**
  * TODO doc
  *
@@ -36,7 +37,7 @@ public class TerrainThing implements IDraw {
     public void draw(Graphics g, int layer) {
         if (layer != 3) return;
 
-        img.draw(p.x - w, p.y -h, 2);
+        img.draw(p.x - w, p.y - h, 2);
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+
 /**
  * @author MaanooAk
  */
@@ -25,13 +26,12 @@ public class StateOptions extends State {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        ; // TODO implement       
+        ; // TODO implement
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input in = container.getInput();
-
 
         if (in.isKeyPressed(Op.Keys.Select) || in.isKeyPressed(Op.Keys.Back)) {
             changeState(game, StateId.Menu);

@@ -4,6 +4,7 @@ package com.maanoo.tredory.core.entity;
 
 import com.maanoo.tredory.core.utils.Ma;
 
+
 /**
  * @author MaanooAk
  */
@@ -12,6 +13,7 @@ public final class Effect {
     public static final Effect EMPTY = new Effect();
 
     public static final class Item {
+
         public float add = 0;
         public float mul = 0;
         public float min;
@@ -46,9 +48,7 @@ public final class Effect {
     public final Item projangle = new Item(0, 360);
     public final Item projspeed = new Item();
 
-    public final Item[] all = new Item[]{
-            shields, speed, attackspeed, projcount, projangle, projspeed
-    };
+    public final Item[] all = new Item[] { shields, speed, attackspeed, projcount, projangle, projspeed };
 
     public final Effect combine(Effect e) {
         Effect ne = new Effect();

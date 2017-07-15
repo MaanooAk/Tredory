@@ -8,12 +8,14 @@ import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 
+
 /**
  * @author MaanooAk
  */
 public class Drops {
 
-    public static void dropCoins(Core c, Entity ent, float angle, float cone, float speedmin, float speedmax, int value) {
+    public static void dropCoins(Core c, Entity ent, float angle, float cone, float speedmin, float speedmax,
+            int value) {
         Item item;
         Point p = ent.location.clone();
 
@@ -34,7 +36,8 @@ public class Drops {
 
     }
 
-    public static void dropItem(Core c, Entity ent, float angle, float cone, float speedmin, float speedmax, ItemType type) {
+    public static void dropItem(Core c, Entity ent, float angle, float cone, float speedmin, float speedmax,
+            ItemType type) {
         Point p = ent.location.clone();
 
         Item item = new Item(type, p);
