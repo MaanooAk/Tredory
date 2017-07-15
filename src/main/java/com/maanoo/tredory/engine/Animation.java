@@ -2,9 +2,6 @@
 
 package com.maanoo.tredory.engine;
 
-import org.newdawn.slick.Image;
-
-
 /**
  * TODO doc
  *
@@ -12,15 +9,15 @@ import org.newdawn.slick.Image;
  */
 public class Animation {
 
-    public static Image[] framesFromSpriteSheet(SpriteSheet sheet, int[] frames) {
-        final Image array[] = new Image[frames.length / 2];
+    public static Sprite[] framesFromSpriteSheet(SpriteSheet sheet, int[] frames) {
+        final Sprite array[] = new Sprite[frames.length / 2];
         for (int i = 0; i < array.length; i++) {
-            array[i] = sheet.getImage(frames[2 * i], frames[2 * i + 1]);
+            array[i] = sheet.getSprite(frames[2 * i], frames[2 * i + 1]);
         }
         return array;
     }
 
-    private final Image[] sprites;
+    private final Sprite[] sprites;
     private final float[] durations;
     private final boolean loop;
 
@@ -36,7 +33,7 @@ public class Animation {
         this(framesFromSpriteSheet(sheet, frames), durations, loop);
     }
 
-    public Animation(Image[] sprites, float[] durations, boolean loop) {
+    public Animation(Sprite[] sprites, float[] durations, boolean loop) {
         this.sprites = sprites;
         this.durations = durations;
         this.loop = loop;
@@ -108,15 +105,15 @@ public class Animation {
         }
     }
 
-    public Image getSprite() {
+    public Sprite getSprite() {
         return sprites[sprite];
     }
 
-    public Image getSprite(int index) {
+    public Sprite getSprite(int index) {
         return sprites[index];
     }
 
-    public Image[] getSprites() {
+    public Sprite[] getSprites() {
         return sprites;
     }
 

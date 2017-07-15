@@ -2,11 +2,12 @@
 
 package com.maanoo.tredory.face.assets;
 
+import org.newdawn.slick.Sound;
+
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.utils.Point;
 
-import org.newdawn.slick.Sound;
 
 /**
  * @author MaanooAk
@@ -24,11 +25,10 @@ public class SoundBundle {
     }
 
     public void playAt(Point p) {
-        float dx = p.x - Core.c.camera.x, dy = p.y - Core.c.camera.y;
-        float a = limit(1f - sigma(abs(dx) + abs(dy)), 0, 1);
-        float x = sigma(dx), y = sigma(dy), z = a * 1;
+        final float dx = p.x - Core.c.camera.x, dy = p.y - Core.c.camera.y;
+        final float a = limit(1f - sigma(abs(dx) + abs(dy)), 0, 1);
+        final float x = sigma(dx), y = sigma(dy), z = a * 1;
 
-        //System.out.println((int)(100*x) + " - " + (int)(100*y) + " ( " + (int)(100*a) + " )");
         sound.get().playAt(1f, a * Op.sound, x, y, z);
     }
 

@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.maanoo.tredory.Op.Keys;
 import com.maanoo.tredory.core.utils.Ma;
+import com.maanoo.tredory.engine.Sprite;
 import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.face.assets.AssetSet;
 import com.maanoo.tredory.face.assets.Assets;
@@ -27,7 +27,7 @@ public class StateGallery extends State {
         super(StateId.Gallery);
     }
 
-    private ArrayList<Image> images;
+    private ArrayList<Sprite> sprites;
     private int index;
 
     @Override
@@ -39,7 +39,7 @@ public class StateGallery extends State {
     public void enter(GameContainer container, StateBasedGame game) throws SlickException {
         super.enter(container, game);
 
-        images = new ArrayList<>();
+        sprites = new ArrayList<>();
         addImages(Assets.axeman);
         addImages(Assets.maceman);
         addImages(Assets.swordman);
@@ -49,7 +49,7 @@ public class StateGallery extends State {
     private void addImages(AssetSet<SpriteSheet> set) {
 
         for (int i = 0; i < set.getCount(); i++) {
-            images.add(set.get(i).getImage(0, 0));
+            sprites.add(set.get(i).getSprite(0, 0));
         }
     }
 
@@ -62,12 +62,12 @@ public class StateGallery extends State {
         int x = w / 2 - pres;
         final int y = h - h / 4 - pres;
         x -= index * xstep;
-        for (int i = 0; i < images.size(); i++) {
-            images.get(i).draw(x, y, pres / 16);
+        for (int i = 0; i < sprites.size(); i++) {
+            sprites.get(i).draw(x, y, pres / 16);
             x += xstep;
         }
 
-        images.get(index).draw(w / 2 - 32, h / 2 - 32, 2);
+        sprites.get(index).draw(w / 2 - 32, h / 2 - 32, 2);
 
         final String message = "Press SPACE to exit";
         Assets.font1.drawString(w / 2 - Assets.font1.getWidth(message) / 2, h - 50, message);
@@ -93,7 +93,7 @@ public class StateGallery extends State {
             }
         }
 
-        index = Ma.limit(index, 0, images.size() - 1);
+        index = Ma.limit(index, 0, sprites.size() - 1);
 
         if (in.isKeyPressed(Keys.Select) || in.isKeyPressed(Keys.Back)) {
             changeState(game, StateId.Menu);

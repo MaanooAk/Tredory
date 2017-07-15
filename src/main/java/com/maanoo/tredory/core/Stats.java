@@ -2,11 +2,12 @@
 
 package com.maanoo.tredory.core;
 
+import java.util.ArrayList;
+
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.map.Map;
-import org.newdawn.slick.Image;
+import com.maanoo.tredory.engine.Sprite;
 
-import java.util.ArrayList;
 
 /**
  * @author MaanooAk
@@ -18,7 +19,7 @@ public class Stats {
 
     // TODO add life, networth, kills per sec, fame
 
-    public static ArrayList<Image> killed;
+    public static ArrayList<Sprite> killed;
 
     public static void reset() {
         kills = 0;
@@ -29,7 +30,7 @@ public class Stats {
 
     public static void addKilled(Entity ent) {
         kills += 1;
-        killed.add(ent.sprites.getStaticImage());
+        killed.add(ent.sprites.getStaticSprite());
     }
 
     public static void exitMap(Map m) {

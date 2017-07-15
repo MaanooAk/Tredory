@@ -2,10 +2,9 @@
 
 package com.maanoo.tredory.face.assets;
 
-import org.newdawn.slick.Image;
-
 import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.engine.Animation;
+import com.maanoo.tredory.engine.Sprite;
 
 
 /**
@@ -31,7 +30,7 @@ public abstract class SpriteBundle {
         return null;
     }
 
-    public Image getStaticImage() {
+    public Sprite getStaticSprite() {
         return idle.getSprite(0);
     }
 

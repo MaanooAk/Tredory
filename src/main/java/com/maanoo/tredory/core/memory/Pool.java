@@ -4,6 +4,7 @@ package com.maanoo.tredory.core.memory;
 
 import java.util.Stack;
 
+
 /**
  * @author MaanooAk
  */
@@ -20,20 +21,21 @@ public class Pool<T extends Poolable> {
 
     public T create() {
         try {
+//            Logger.log("Pool", "Pool of " + type.getName() + ": create: " + pool.size());
             return type.newInstance();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return null;
         }
     }
 
     public T obtain() {
-        //System.out.println("Pool of " + type.getName() + ": obtain: " + pool.size());
+//        Logger.log("Pool", "Pool of " + type.getName() + ": obtain: " + pool.size());
         return pool.empty() ? create() : pool.pop();
     }
 
     public void give(T object) {
         pool.push(object);
-        //System.out.println("Pool of " + type.getName() + ": give: " + pool.size());
+//        Logger.log("Pool", "Pool of " + type.getName() + ": give: " + pool.size());
     }
 
 }

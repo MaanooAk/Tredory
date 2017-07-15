@@ -23,19 +23,14 @@ public class SpriteBundleEntity extends SpriteBundle {
 
     public SpriteBundleEntity(SpriteSheet sheet) {
 
-        idle = loadAnimation(sheet, frames[0], duration6i, true);
-        move = loadAnimation(sheet, frames[1], duration6, true);
-        attack = loadAnimation(sheet, frames[2], duration6, false);
-        die = loadAnimation(sheet, frames[3], duration6, false);
-        special = loadAnimation(sheet, frames[4], duration12, true);
+        idle = new Animation(sheet, frames[0], duration6i, true);
+        move = new Animation(sheet, frames[1], duration6, true);
+        attack = new Animation(sheet, frames[2], duration6, false);
+        die = new Animation(sheet, frames[3], duration6, false);
+        special = new Animation(sheet, frames[4], duration12, true);
 
         idle.setProgress(Ra.unit());
 
-    }
-
-    private static Animation loadAnimation(SpriteSheet sheet, int[] frames, float[] duration, boolean loop) {
-        final Animation a = new Animation(sheet, frames, duration, loop);
-        return a;
     }
 
     public SpriteBundleEntity(SpriteBundleEntity other) {

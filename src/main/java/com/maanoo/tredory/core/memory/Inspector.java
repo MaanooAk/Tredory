@@ -2,6 +2,9 @@
 
 package com.maanoo.tredory.core.memory;
 
+import com.maanoo.tredory.engine.Logger;
+
+
 /**
  * @author MaanooAk
  */
@@ -26,7 +29,7 @@ public class Inspector {
         runtime = Runtime.getRuntime();
         lastFreeMemory = runtime.freeMemory();
         gcs = 0;
-        System.out.println("runtime.totalMemory = " + runtime.totalMemory());
+        Logger.log("Inspector", "runtime.totalMemory: " + runtime.totalMemory());
     }
 
     public float getAllocatedMemory() {
@@ -35,7 +38,10 @@ public class Inspector {
 
     public boolean didGarbageCollect() {
         final boolean did = runtime.freeMemory() > lastFreeMemory;
-        if (did) gcs += 1;
+        if (did) {
+            gcs += 1;
+            Logger.log("Inspector", "gcs: " + gcs);
+        }
         lastFreeMemory = runtime.freeMemory();
         return did;
     }

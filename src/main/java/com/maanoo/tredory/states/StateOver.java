@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -16,6 +15,7 @@ import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
+import com.maanoo.tredory.engine.Sprite;
 import com.maanoo.tredory.face.assets.Assets;
 
 
@@ -37,7 +37,7 @@ public class StateOver extends State {
     private int t;
     private String stats[];
 
-    public ArrayList<Image> killed;
+    public ArrayList<Sprite> killed;
     private ArrayList<Point> killedp;
     private float killedph;
 

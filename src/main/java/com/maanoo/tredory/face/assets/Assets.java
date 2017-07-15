@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
@@ -19,6 +18,8 @@ import com.maanoo.tredory.Res;
 import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.engine.Logger;
 import com.maanoo.tredory.engine.SpriteSheet;
+import com.maanoo.tredory.engine.SpriteSheetMasked;
+import com.maanoo.tredory.engine.SpriteSheetSingle;
 import com.maanoo.tredory.face.assets.atlas.Atlas;
 
 
@@ -34,7 +35,7 @@ public class Assets {
     private static ArrayList<String> imagePaths;
 
     public static Image icon;
-    public static SpriteSheet cursor;
+    public static SpriteSheetSingle cursor;
     public static SpriteSheetFont font1;
 
     public static AssetSet<SpriteSheet> chara;
@@ -57,14 +58,14 @@ public class Assets {
 
     public static AssetSet<SpriteSheet> slime;
 
-    public static SpriteSheet items_sheet;
+    public static SpriteSheetSingle items_sheet;
     public static AssetSet<Image> items[];
 
     public static AssetSet<Image> terrain_small;
     public static AssetSet<Image> terrain_glyphs;
     public static AssetSet<Image> terrain_steps;
 
-    public static SpriteSheet effects_sheet;
+    public static SpriteSheetSingle effects_sheet;
     public static Image effect_arrow;
     public static Image effect_frenzy;
 
@@ -132,28 +133,12 @@ public class Assets {
             }
         }
 
-        // TODO move to load3 when the masks are fixed
-
-        colors = new ArrayList<>();
-        colors.add(new Color(0x715CCE));
-        colors.add(new Color(0xB770FF));
-        colors.add(new Color(0xFF70CF));
-        colors.add(new Color(0xFF7070));
-        colors.add(new Color(0x5DD37A));
-        // TODO add more colors
-        // TODO laod from file
-        // TODO colors based on function
-
-        axeman = loadSpriteSheetSet("axeman");
-        maceman = loadSpriteSheetSet("maceman");
-        swordman = loadSpriteSheetSet("swordman");
-
     }
 
     public static void load3() {
 
         icon = atlas.get("data/icon.png");
-        cursor = new SpriteSheet(atlas.get("data/cursor.png"), 16, 16);
+        cursor = new SpriteSheetSingle(atlas.get("data/cursor.png"), 16, 16);
         font1 = new SpriteSheetFont(new org.newdawn.slick.SpriteSheet(atlas.get("data/fonts/font1.png"), 8, 12), '\0');
 
         // ===
@@ -171,7 +156,7 @@ public class Assets {
 
         flameblast = loadSpriteSheetSet("flameblast");
 
-        items_sheet = new SpriteSheet(atlas.get("data/sprites/items.png"), 16, 16);
+        items_sheet = new SpriteSheetSingle(atlas.get("data/sprites/items.png"), 16, 16);
         items = new AssetSet[ItemType.values().length];
         for (int i = 0; i < items.length; i++)
             items[i] = new AssetSet<>();
@@ -198,7 +183,7 @@ public class Assets {
         }
 
         {
-            final SpriteSheet sheet = new SpriteSheet(atlas.get("data/sprites/terrain/small.png"), 32, 32);
+            final SpriteSheetSingle sheet = new SpriteSheetSingle(atlas.get("data/sprites/terrain/small.png"), 32, 32);
             terrain_small = new AssetSet<>();
             for (int i = 0; i < 4; i++) {
                 terrain_small.add(sheet.getImage(0, i));
@@ -207,7 +192,7 @@ public class Assets {
             }
         }
         {
-            final SpriteSheet sheet = new SpriteSheet(atlas.get("data/sprites/terrain/glyphs.png"), 32, 32);
+            final SpriteSheetSingle sheet = new SpriteSheetSingle(atlas.get("data/sprites/terrain/glyphs.png"), 32, 32);
             terrain_glyphs = new AssetSet<>();
             for (int i1 = 0; i1 < 6; i1++) {
                 for (int i2 = 0; i2 < 1; i2++) {
@@ -216,7 +201,7 @@ public class Assets {
             }
         }
         {
-            final SpriteSheet sheet = new SpriteSheet(atlas.get("data/sprites/terrain/steps.png"), 32, 32);
+            final SpriteSheetSingle sheet = new SpriteSheetSingle(atlas.get("data/sprites/terrain/steps.png"), 32, 32);
             terrain_steps = new AssetSet<>();
             for (int i1 = 0; i1 < 6; i1++) {
                 for (int i2 = 0; i2 < 6; i2++) {
@@ -226,10 +211,26 @@ public class Assets {
         }
 
         {
-            effects_sheet = new SpriteSheet(atlas.get("data/sprites/effects.png"), 96, 96);
+            effects_sheet = new SpriteSheetSingle(atlas.get("data/sprites/effects.png"), 96, 96);
             effect_arrow = effects_sheet.getImage(0, 0);
             effect_frenzy = effects_sheet.getImage(2, 0);
         }
+
+        // TODO move to load3 when the masks are fixed
+
+        colors = new ArrayList<>();
+        colors.add(new Color(0x715CCE));
+        colors.add(new Color(0xB770FF));
+        colors.add(new Color(0xFF70CF));
+        colors.add(new Color(0xFF7070));
+        colors.add(new Color(0x5DD37A));
+        // TODO add more colors
+        // TODO laod from file
+        // TODO colors based on function
+
+        axeman = loadSpriteSheetSet("axeman");
+        maceman = loadSpriteSheetSet("maceman");
+        swordman = loadSpriteSheetSet("swordman");
 
         trans = loadSoundSet("trans");
         hit = loadSoundSet("hit");
@@ -277,33 +278,18 @@ public class Assets {
 
                 final Image img = atlas.get(path);
 
-                set.add(new SpriteSheet(img, img.getWidth() / 6, img.getHeight() / 6));
+                set.add(new SpriteSheetSingle(img, img.getWidth() / 6, img.getHeight() / 6));
 
             } else {
 
                 final Image img = atlas.get(path);
                 final Image imgm = atlas.get(pathm);
 
-                // TODO don't create a new image
-                // TODO change to two draws one on top of each other
+                final SpriteSheetSingle sheet = new SpriteSheetSingle(img, img.getWidth() / 6, img.getHeight() / 6);
+                final SpriteSheetSingle sheetm = new SpriteSheetSingle(imgm, imgm.getWidth() / 6, imgm.getHeight() / 6);
 
                 for (final Color color : colors) {
-                    try {
-                        final Image image = new Image(img.getWidth(), img.getHeight());
-
-                        final Graphics g = image.getGraphics();
-                        g.setAntiAlias(false);
-
-                        g.drawImage(img, 0, 0);
-                        g.drawImage(imgm, 0, 0, color);
-
-                        g.flush();
-
-                        set.add(new SpriteSheet(image, image.getWidth() / 6, image.getHeight() / 6));
-                    } catch (final SlickException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                    set.add(new SpriteSheetMasked(sheet, sheetm, color));
                 }
             }
         }
