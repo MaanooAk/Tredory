@@ -54,7 +54,7 @@ public class StateLoading extends State {
             running = false;
             done = false;
 
-            y = Ra.range(1f);
+            y = Ra.global.range(1f);
         }
 
         public boolean isRunning() {

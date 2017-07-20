@@ -22,10 +22,10 @@ public class MapMaker {
 
         // choose a map type at random
         MapType type = MapType.Plain;
-        if (Ra.chance(0.2f)) {
+        if (Ra.global.chance(0.2f)) {
             type = MapType.Altar;
         }
-        if (Ra.chance(0.1f)) {
+        if (Ra.global.chance(0.1f)) {
             type = MapType.Overpop;
         }
 
@@ -34,10 +34,12 @@ public class MapMaker {
 
     public static Map make(Point size, MapType type) {
 
-        Logger.log("Map", "Map making (" + type + ")");
-
         final Map map = new Map(size);
         map.type = type;
+        map.seed = Ra.global.seed();
+        map.ra = new Ra(map.seed);
+
+        Logger.log("Map", "Map making (" + type + ":" + size.x + "x" + size.y + ":" + Long.toHexString(map.seed) + ")");
 
         map.bigs = type.bigs;
 
@@ -46,9 +48,9 @@ public class MapMaker {
         map.spawn.init(map.spots.get(0).x, map.spots.get(0).y);
 
         for (int i = 0; i < 20; i++) {
-            map.things.add(
-                    new TerrainThingAngled(new Point(Ra.range(32, (int) size.x - 32), Ra.range(32, (int) size.y - 32)),
-                            Ra.angle(), Assets.terrain_small.get(Ra.range(0, 2))));
+            map.things.add(new TerrainThingAngled(
+                    new Point(map.ra.range(32, (int) size.x - 32), map.ra.range(32, (int) size.y - 32)), map.ra.angle(),
+                    Assets.terrain_small.get(map.ra.range(0, 2))));
         }
 
         MapGen.genSpawn(map, map.spots.get(0));
@@ -65,9 +67,9 @@ public class MapMaker {
 
         final int count_nonbox = (int) (count * 0.50f);
         for (int i = 0; i < count_nonbox; i++) {
-            if (Ra.chance(1f / 3f)) {
+            if (map.ra.chance(1f / 3f)) {
                 MapGen.genSquad(map, emptyPoint(map));
-            } else if (Ra.chance(1f / 2f)) {
+            } else if (map.ra.chance(1f / 2f)) {
                 MapGen.genGroup(map, emptyPoint(map));
             } else {
                 MapGen.genFireplace(map, emptyPoint(map));
@@ -79,8 +81,8 @@ public class MapMaker {
             // SpriteBundleEntity(Assets.box.get())));
         }
         for (int i = 0; i < 200; i++) {
-            // MapGen.genManTier(1, map, new Point(Ra.range(32, (int) size.x - 32),
-            // Ra.range(32, (int) size.y - 32)), Ra.angle());
+            // MapGen.genManTier(1, map, new Point(map.ra.range(32, (int) size.x - 32),
+            // map.ra.range(32, (int) size.y - 32)), map.ra.angle());
         }
 
         return map;
@@ -102,7 +104,7 @@ public class MapMaker {
         final int count = (int) (area / (Math.PI * r * r));
 
         for (int i = 0; i < count; i++) {
-            map.spots.add(new Spot(Ra.range(r, (int) map.size.x - r), Ra.range(r, (int) map.size.y - r), r));
+            map.spots.add(new Spot(map.ra.range(r, (int) map.size.x - r), map.ra.range(r, (int) map.size.y - r), r));
         }
 
         for (int i = 0; i < 150; i++) {
@@ -113,7 +115,7 @@ public class MapMaker {
     }
 
     private static float addSpot(Map map, float r) {
-        map.spots.add(new Spot(Ra.range(r, (int) map.size.x - r), Ra.range(r, (int) map.size.y - r), r));
+        map.spots.add(new Spot(map.ra.range(r, (int) map.size.x - r), map.ra.range(r, (int) map.size.y - r), r));
         return Ma.PI * r * r;
     }
 
@@ -157,7 +159,8 @@ public class MapMaker {
     }
 
     private static Spot emptyPoint(Map map) {
-        // return new Point(Ra.range(32, (int)size.x-32), Ra.range(32, (int)size.y-32));
+        // return new Point(map.ra.range(32, (int)size.x-32), map.ra.range(32,
+        // (int)size.y-32));
         return map.spots.get(map.spots_index++);
     }
 

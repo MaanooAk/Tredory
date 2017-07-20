@@ -10,7 +10,6 @@ import com.maanoo.tredory.core.entity.entities.Portal;
 import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.assets.Assets;
 import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
@@ -20,8 +19,8 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntity;
  */
 public class MapGen {
 
-    private static int range(int min, int max, float ampl) {
-        return Ma.round(Ra.range(min, max) * ampl);
+    private static int range(Map m, int min, int max, float ampl) {
+        return Ma.round(m.ra.range(min, max) * ampl);
     }
 
     public static final void genFireplace(Map m, Spot center) {
@@ -30,20 +29,20 @@ public class MapGen {
         for (int i = 0; i < 20; i++) {
             final Point p = center.clone();
 
-            p.add(new Point(Ra.angle()).mul(Ra.range(15, 60) + Ra.range(15, 60)));
+            p.add(new Point(m.ra.angle()).mul(m.ra.range(15, 60) + m.ra.range(15, 60)));
 
             m.things.add(new TerrainThing(p, Assets.terrain_steps.get()));
         }
 
         m.things.add(new TerrainThing(center.clone(), Assets.terrain_small.get(10)));
 
-        int man = range(2, 8, m.type.population);
+        int man = range(m, 2, 8, m.type.population);
 
         for (; man > 0; man--) {
             final Point p = center.clone();
 
-            final float angle = Ra.angle();
-            p.add(new Point(angle).mul(20 + Ra.range(15, 60) + Ra.range(15, 60)));
+            final float angle = m.ra.angle();
+            p.add(new Point(angle).mul(20 + m.ra.range(15, 60) + m.ra.range(15, 60)));
 
             genManTier1(m, p, angle + 180);
         }
@@ -56,20 +55,20 @@ public class MapGen {
         for (int i = 0; i < 20; i++) {
             final Point p = center.clone();
 
-            p.add(new Point(Ra.angle()).mul(Ra.range(15, 60) + Ra.range(15, 60)));
+            p.add(new Point(m.ra.angle()).mul(m.ra.range(15, 60) + m.ra.range(15, 60)));
 
             m.things.add(new TerrainThing(p, Assets.terrain_steps.get()));
         }
 
-        int man = range(4, 9, m.type.population);
+        int man = range(m, 4, 9, m.type.population);
 
         for (; man > 0; man--) {
             final Point p = center.clone();
 
-            final float angle = Ra.angle();
-            p.add(new Point(angle).mul(20 + Ra.range(15, 80) + Ra.range(15, 80)));
+            final float angle = m.ra.angle();
+            p.add(new Point(angle).mul(20 + m.ra.range(15, 80) + m.ra.range(15, 80)));
 
-            genManTier1(m, p, Ra.angle());
+            genManTier1(m, p, m.ra.angle());
         }
 
     }
@@ -77,14 +76,14 @@ public class MapGen {
     public static final void genSquad(Map m, Spot center) {
         center.color = Colors.c202020;
 
-        final int man = range(2, 8, m.type.population);
+        final int man = range(m, 2, 8, m.type.population);
 
         final float pad = 64;
 
-        final float angle = Ra.angle();
+        final float angle = m.ra.angle();
         final Point pos = center.clone().sub(new Point(man * pad / 4, pad));
 
-        final int tier = Ra.range(1, 3);
+        final int tier = m.ra.range(1, 3);
 
         for (int i = 0; i < man - 1; i += 2) {
             Point p;
@@ -106,9 +105,9 @@ public class MapGen {
     public static final void genBoxguards(Map m, Spot center) {
         center.color = Colors.c404040;
 
-        m.l.add(new Container(Team.Bad, 1, center.clone(), Ra.angle(), new SpriteBundleEntity(Assets.box.get())));
+        m.l.add(new Container(Team.Bad, 1, center.clone(), m.ra.angle(), new SpriteBundleEntity(Assets.box.get())));
 
-        genCircleGuard(m, center, 70, 10, range(3, 7, m.type.population), 1);
+        genCircleGuard(m, center, 70, 10, range(m, 3, 7, m.type.population), 1);
     }
 
     // === Big ===
@@ -117,13 +116,13 @@ public class MapGen {
 
         genStepsAround(m, center, 40, 80, 300);
 
-        final Container con = new Container(Team.Bad, 2, center.clone(), Ra.angle(),
+        final Container con = new Container(Team.Bad, 2, center.clone(), m.ra.angle(),
                 new SpriteBundleEntity(Assets.boxg.get()));
         m.l.add(con);
         m.hotspots.add(con);
 
-        genCircleGuard(m, center, 240, 30, range(10, 15, m.type.population), 1);
-        genCircleGuard(m, center, 120, 30, range(4, 5, m.type.population), 2);
+        genCircleGuard(m, center, 240, 30, range(m, 10, 15, m.type.population), 1);
+        genCircleGuard(m, center, 120, 30, range(m, 4, 5, m.type.population), 2);
 
     }
 
@@ -131,12 +130,12 @@ public class MapGen {
 
         genStepsAround(m, center, 40, 80, 300);
 
-        final Altar con = new Altar(Team.Bad, center.clone(), Ra.angle());
+        final Altar con = new Altar(Team.Bad, center.clone(), m.ra.angle());
         m.l.add(con);
         m.hotspots.add(con);
 
-        genCircleGuard(m, center, 240, 30, range(10, 15, m.type.population), 1);
-        genCircleGuard(m, center, 120, 30, range(4, 5, m.type.population), 2);
+        genCircleGuard(m, center, 240, 30, range(m, 10, 15, m.type.population), 1);
+        genCircleGuard(m, center, 120, 30, range(m, 4, 5, m.type.population), 2);
 
     }
 
@@ -149,7 +148,7 @@ public class MapGen {
 //         m.things.add(new TerrainGlyph(center.clone(), 0,
 //         Assets.terrain_glyphs.get()));
 
-//         m.l.add(new Container(Team.Bad, 2, center.clone(), Ra.angle(), new SpriteBundleEntity(Assets.boxg.get())));
+//         m.l.add(new Container(Team.Bad, 2, center.clone(), m.ra.angle(), new SpriteBundleEntity(Assets.boxg.get())));
 
     }
 
@@ -157,7 +156,7 @@ public class MapGen {
 
         genStepsAround(m, center, 50, 80, 300);
 
-        final Portal po = new Portal(Team.Neutral, center.clone(), Ra.angle(),
+        final Portal po = new Portal(Team.Neutral, center.clone(), m.ra.angle(),
                 new SpriteBundleEntity(Assets.portal.get()));
         m.l.add(po);
         m.hotspots.add(po);
@@ -172,7 +171,7 @@ public class MapGen {
         for (int i = 0; i < count; i++) {
             final Point p = center.clone();
 
-            p.add(new Point(Ra.angle()).mul(Ra.range(min, max) + Ra.range(min, max)));
+            p.add(new Point(m.ra.angle()).mul(m.ra.range(min, max) + m.ra.range(min, max)));
 
             m.things.add(new TerrainThing(p, Assets.terrain_steps.get()));
         }
@@ -183,12 +182,12 @@ public class MapGen {
         rd /= 2;
 
         final float toxo = 360f / count;
-        final float toxooff = Ra.range(0, toxo);
+        final float toxooff = m.ra.range(0, toxo);
         for (int i = 0; i < count; i++) {
             final Point p = center.clone();
 
-            final float angle = toxooff + i * toxo + toxo + Ra.range(-10, 10);
-            p.add(new Point(angle).mul(r + Ra.range(-rd, rd) + Ra.range(-rd, rd)));
+            final float angle = toxooff + i * toxo + toxo + m.ra.range(-10, 10);
+            p.add(new Point(angle).mul(r + m.ra.range(-rd, rd) + m.ra.range(-rd, rd)));
 
             genManTier(tier, m, p, angle);
         }
@@ -208,7 +207,7 @@ public class MapGen {
 
     public static final void genManTier1(Map m, Point p, float angle) {
 
-        switch (Ra.range(2)) {
+        switch (m.ra.range(2)) {
         case 0:
             m.l.add(new Animal(Team.Bad, p, angle, new SpriteBundleEntity(Assets.axeman.get()), 1, 1));
             return;
@@ -220,7 +219,7 @@ public class MapGen {
 
     public static final void genManTier2(Map m, Point p, float angle) {
 
-        switch (Ra.range(1)) {
+        switch (m.ra.range(1)) {
         case 0:
             m.l.add(new Animal(Team.Bad, p, angle, new SpriteBundleEntity(Assets.swordman.get()), 1.2f, 1));
             return;

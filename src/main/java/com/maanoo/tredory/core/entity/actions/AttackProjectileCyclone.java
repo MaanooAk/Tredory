@@ -15,7 +15,7 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 /**
  * TODO rename variables
- * 
+ *
  * @author MaanooAk
  */
 public class AttackProjectileCyclone extends AttackProjectile {
@@ -36,7 +36,7 @@ public class AttackProjectileCyclone extends AttackProjectile {
     @Override
     public void perform() {
 
-        float angle = Ra.angle();
+        final float angle = Ra.global.angle();
 
         final Effect e = user.getEffect();
 
@@ -46,7 +46,7 @@ public class AttackProjectileCyclone extends AttackProjectile {
 
         if (projcount == 1) {
 
-            Point start = user.location.clone().add(new Point(angle).mul(32));
+            final Point start = user.location.clone().add(new Point(angle).mul(32));
 
             Core.addEntity(Pools.obtain(Projectile.class).init(user.team, start, angle + 90,
                     new SpriteBundleEntity(projectile.getSpriteSheet()), projspeed, 0.6f, proj_charge_time, 500));
@@ -56,13 +56,13 @@ public class AttackProjectileCyclone extends AttackProjectile {
             float projangle = 360;
             if (projangle == 360) projangle -= projangle / projcount;
 
-            float toxo = projangle;
+            final float toxo = projangle;
             for (int i = 0; i < projcount; i += 1) {
 
-                if (Ra.chance(param3)) continue;
+                if (Ra.global.chance(param3)) continue;
 
-                float iangle = angle + (i / (projcount - 1)) * toxo - toxo / 2;
-                Point start = user.location.clone().add(new Point(iangle).mul(32));
+                final float iangle = angle + (i / (projcount - 1)) * toxo - toxo / 2;
+                final Point start = user.location.clone().add(new Point(iangle).mul(32));
 
                 if (param1 == 0.0f) {
 
@@ -72,11 +72,11 @@ public class AttackProjectileCyclone extends AttackProjectile {
 
                 } else if (param1 == 1.0f) {
 
-                    float sign = Ra.sign();
+                    final float sign = Ra.global.sign();
 
                     Core.addEntity(Pools.obtain(Projectile.class).init(user.team, start, iangle + sign * 45,
-                            new SpriteBundleEntity(projectile.getSpriteSheet()), projspeed, sign * Ra.range(0.1f, 0.2f),
-                            proj_charge_time, 20 + Ra.range(200)));
+                            new SpriteBundleEntity(projectile.getSpriteSheet()), projspeed,
+                            sign * Ra.global.range(0.1f, 0.2f), proj_charge_time, 20 + Ra.global.range(200)));
                 }
 
             }

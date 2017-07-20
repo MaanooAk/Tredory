@@ -7,6 +7,7 @@ import java.util.Collections;
 
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.CrystalComp;
+import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
@@ -36,6 +37,8 @@ public final class Player extends Entity {
 
     public boolean selectpressed = false;
 
+    public final Stats stats;
+
     public Player(Team team, Point location, float angle, SpriteBundle sprites) {
         super(team, location, angle, sprites);
 
@@ -50,6 +53,8 @@ public final class Player extends Entity {
         souls = new Souls();
 
         ccomp = new CrystalComp(0, 0, 0);
+
+        stats = new Stats();
 
         takeShield(new Item(ItemType.Shield0, null));
         takeShield(new Item(ItemType.Shield0, null));
@@ -155,7 +160,7 @@ public final class Player extends Entity {
     public void takeCrystal(Item crystal) {
 
         if (crystals.size() == crystals.max) {
-            final Item i = crystals.remove(Ra.range(crystals.size()));
+            final Item i = crystals.remove(Ra.global.range(crystals.size()));
 
             i.unpicablify(1000);
             Core.c.dropItem(this, i);
@@ -170,7 +175,7 @@ public final class Player extends Entity {
 
     public Item giveCrystal() {
 
-        final Item crystal = crystals.remove(Ra.range(0, crystals.size()));
+        final Item crystal = crystals.remove(Ra.global.range(0, crystals.size()));
 
         updateEffects();
         return crystal;
@@ -179,7 +184,7 @@ public final class Player extends Entity {
     public void takeStone(Item stone) {
 
         if (stones.isMax()) {
-            final Item it = stones.remove(Ra.range(stones.size()));
+            final Item it = stones.remove(Ra.global.range(stones.size()));
 
             it.unpicablify(1000);
             Core.c.dropItem(this, it);

@@ -8,6 +8,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 import com.maanoo.tredory.states.StateGallery;
 import com.maanoo.tredory.states.StateGame;
@@ -28,12 +29,12 @@ public class Main extends StateBasedGame {
      */
     public static void main(String[] args) throws SlickException {
 
-        final AppGameContainer game = new AppGameContainer(new Main());
-        game.setIcon("com/maanoo/tredory/data/icon.png");
-
         Op.load(args);
 
-        // Log.setVerbose(Op.debug);
+        Log.setVerbose(Op.debug);
+
+        final AppGameContainer game = new AppGameContainer(new Main());
+        game.setIcon("com/maanoo/tredory/data/icon.png");
 
         if (Op.fullscreen) {
             final DisplayMode ddm = Display.getDesktopDisplayMode();

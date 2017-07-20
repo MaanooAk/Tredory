@@ -64,7 +64,7 @@ public class Recipes {
 //        for (int i = 0; i < accepted_index; i++)
 //            rasum += accepted[i].rarity;
 //
-//        float raval = Ra.range(rasum);
+//        float raval = Ra.global.range(rasum);
 //        for (int i = 0; i < accepted_index; i++) {
 //            raval -= accepted[i].rarity;
 //

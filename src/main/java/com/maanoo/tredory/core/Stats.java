@@ -14,26 +14,33 @@ import com.maanoo.tredory.engine.Sprite;
  */
 public class Stats {
 
-    public static int kills;
-    public static int maps;
+    public int kills;
+    public int maps;
+    public int coins;
 
     // TODO add life, networth, kills per sec, fame
 
-    public static ArrayList<Sprite> killed;
+    public final ArrayList<Sprite> killed;
 
-    public static void reset() {
+    public Stats() {
         kills = 0;
         maps = 0;
+        coins = 0;
 
         killed = new ArrayList<>();
     }
 
-    public static void addKilled(Entity ent) {
+    public void addKilled(Entity ent) {
         kills += 1;
         killed.add(ent.sprites.getStaticSprite());
     }
 
-    public static void exitMap(Map m) {
+    public void exitMap(Map m) {
         maps += 1;
+    }
+
+    // TODO use
+    public void getCoins(int count) {
+        coins += count;
     }
 }

@@ -94,7 +94,7 @@ public class Core implements IUpdate {
         if (request_newMap) {
             request_newMap = false;
 
-            Stats.exitMap(map);
+            player.stats.exitMap(map);
 
             Assets.trans.play();
 
@@ -219,36 +219,38 @@ public class Core implements IUpdate {
         switch (tier) {
         case 0:
 
-            if (Ra.chance(0.05f)) {
+            if (Ra.global.chance(0.05f)) {
 
-                final int value = Ra.range(0, 5) + Ra.range(1, 5);
+                final int value = Ra.global.range(0, 5) + Ra.global.range(1, 5);
                 Drops.dropCoins(this, con, 0, 360, .1f, .2f, value);
             }
 
             break;
         case 1:
 
-            if (Ra.chance(0.75f)) {
+            if (Ra.global.chance(0.75f)) {
 
-                final ItemType type = Ra.list(new ItemType[] { ItemType.Shield0, ItemType.Shield1, ItemType.Shield1,
-                        ItemType.Shield1, ItemType.Shield2, ItemType.Shield2, ItemType.Shield3 });
+                final ItemType type = Ra.global.list(new ItemType[] { ItemType.Shield0, ItemType.Shield1,
+                        ItemType.Shield1, ItemType.Shield1, ItemType.Shield2, ItemType.Shield2, ItemType.Shield3 });
 
                 item = new Item(type, p);
                 item.push(con.angle + 180, 0.2f);
                 entities.add(item);
             } else {
-                int value = Ra.range(2, 22) + Ra.range(2, 22);
+                int value = Ra.global.range(2, 22) + Ra.global.range(2, 22);
 
                 while (value % 10 > 0) {
-                    item = new Item(ItemType.Copper, p.clone().add(new Point(Ra.range(-8, 8), Ra.range(-8, 8))));
-                    item.push(con.angle + 180 + Ra.range(-40f, 40f), Ra.range(0.1f, 0.4f));
+                    item = new Item(ItemType.Copper,
+                            p.clone().add(new Point(Ra.global.range(-8, 8), Ra.global.range(-8, 8))));
+                    item.push(con.angle + 180 + Ra.global.range(-40f, 40f), Ra.global.range(0.1f, 0.4f));
                     entities.add(item);
 
                     value -= 1;
                 }
                 while (value >= 10) {
-                    item = new Item(ItemType.Gold, p.clone().add(new Point(Ra.range(-4, 4), Ra.range(-4, 4))));
-                    item.push(con.angle + 180 + Ra.range(-40f, 40f), Ra.range(0.1f, 0.4f));
+                    item = new Item(ItemType.Gold,
+                            p.clone().add(new Point(Ra.global.range(-4, 4), Ra.global.range(-4, 4))));
+                    item.push(con.angle + 180 + Ra.global.range(-40f, 40f), Ra.global.range(0.1f, 0.4f));
                     entities.add(item);
 
                     value -= 10;
@@ -260,7 +262,7 @@ public class Core implements IUpdate {
 
             for (int i = 0; i < 3; i++) {
 
-                final ItemType type = Ra
+                final ItemType type = Ra.global
                         .list(new ItemType[] { ItemType.Crystal1, ItemType.Crystal2, ItemType.Crystal3 });
 
                 item = new Item(type, p.clone());
@@ -283,7 +285,7 @@ public class Core implements IUpdate {
         i.dead = false;
         i.location = ent.location.clone();
 
-        i.push(ent.angle + Ra.range(-30, 30), 0.3f);
+        i.push(ent.angle + Ra.global.range(-30, 30), 0.3f);
 
         entities.add(i);
 

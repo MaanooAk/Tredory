@@ -29,7 +29,7 @@ public class SpriteBundleEntity extends SpriteBundle {
         die = new Animation(sheet, frames[3], duration6, false);
         special = new Animation(sheet, frames[4], duration12, true);
 
-        idle.setProgress(Ra.unit());
+        idle.setProgress(Ra.global.unit());
 
     }
 
@@ -40,7 +40,7 @@ public class SpriteBundleEntity extends SpriteBundle {
         this.die = resetAnimation(other.die.copy());
         this.special = resetAnimation(other.special.copy());
 
-        idle.setProgress(Ra.unit());
+        idle.setProgress(Ra.global.unit());
     }
 
     public static Animation resetAnimation(Animation a) {

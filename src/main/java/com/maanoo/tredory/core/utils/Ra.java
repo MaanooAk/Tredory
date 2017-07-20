@@ -10,63 +10,78 @@ import java.util.Random;
  */
 public final class Ra {
 
-    private static Random r = new Random();
+    public static Ra global = new Ra();
 
-    // TODO split in deterministic and not
+    private Random r;
 
-    public static int range(int max) {
+    /**
+     * Used only for the global instance
+     */
+    private Ra() {
+        r = new Random();
+    }
+
+    public Ra(long seed) {
+        r = new Random(seed);
+    }
+
+    public int range(int max) {
         return r.nextInt(max);
     }
 
-    public static int range(int min, int max) {
+    public int range(int min, int max) {
         return min + r.nextInt(max - min);
     }
 
-    public static float range(float max) {
+    public float range(float max) {
         return r.nextFloat() * max;
     }
 
-    public static float unit() {
+    public float unit() {
         return r.nextFloat();
     }
 
-    public static float angle() {
+    public float angle() {
         return r.nextFloat() * 360;
     }
 
-    public static float range(float min, float max) {
+    public float range(float min, float max) {
         return min + r.nextFloat() * (max - min);
     }
 
-    public static float rangeTriangle(float min, float max) {
+    public float rangeTriangle(float min, float max) {
         min /= 2;
         max /= 2;
         return range(min, max) + range(min, max);
     }
 
-    public static float rangeNormal(float min, float max) {
+    public float rangeNormal(float min, float max) {
         min /= 3;
         max /= 3;
         return range(min, max) + range(min, max) + range(min, max);
     }
 
-    public static boolean bool() {
+    public boolean bool() {
         return r.nextBoolean();
     }
 
-    public static float sign() {
+    public float sign() {
         return r.nextBoolean() ? -1 : 1;
     }
 
-    public static boolean chance(float value) {
+    public boolean chance(float value) {
         return r.nextFloat() < value;
     }
 
-    public static int list(int[] array) {
+    public int list(int[] array) {
         return array[r.nextInt(array.length)];
     }
 
-    public static <T> T list(T[] array) {
+    public <T> T list(T[] array) {
         return array[r.nextInt(array.length)];
+    }
+
+    public long seed() {
+        return r.nextLong();
     }
 }

@@ -44,7 +44,7 @@ public final class Souls implements IUpdate {
     public void update(int d) {
 
 //        if (souls > capacity / 2) {
-//            if (Ra.chance(0.0001f * d)) { // TODO this is not math correct
+//            if (Ra.global.chance(0.0001f * d)) { // TODO this is not math correct
 //                souls -= 1;
 //            }
 //        }

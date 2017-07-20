@@ -14,7 +14,7 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 /**
  * TODO rename variables
- * 
+ *
  * @author MaanooAk
  */
 public class AttackProjectileArc extends AttackProjectile {
@@ -71,7 +71,7 @@ public class AttackProjectileArc extends AttackProjectile {
 //
 //    if (projcount == 1) {
 //
-//        float angle = ent.angle + Ra.range(-projangleflux, projangleflux);
+//        float angle = ent.angle + Ra.global.range(-projangleflux, projangleflux);
 //
 //        Point start = ent.location.clone().add(new Point(angle).mul(32));
 //
@@ -86,7 +86,7 @@ public class AttackProjectileArc extends AttackProjectile {
 //        float toxo = projangle;
 //        for (int i = 0; i < projcount; i += 1) {
 //
-//            float angle = ent.angle + Ra.range(-projangleflux, projangleflux);
+//            float angle = ent.angle + Ra.global.range(-projangleflux, projangleflux);
 //
 //            float iangle = angle + (i / (projcount - 1)) * toxo - toxo / 2;
 //            Point start = ent.location.clone().add(new Point(iangle).mul(32));

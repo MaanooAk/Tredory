@@ -12,7 +12,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.maanoo.tredory.core.Core;
-import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.engine.Sprite;
@@ -54,15 +53,16 @@ public class StateOver extends State {
         // Stats.kills = 478;
 
         stats = new String[] { "" + Core.c.player.life / 60000 + "'" + (Core.c.player.life / 1000) % 60 + "\" old", "",
-                "" + Core.c.player.coins + " coins", "" + Stats.maps + " maps", "" + Stats.kills + " kills" };
+                "" + Core.c.player.coins + " coins", "" + Core.c.player.stats.maps + " maps",
+                "" + Core.c.player.stats.kills + " kills" };
 
-        killed = Stats.killed;
+        killed = Core.c.player.stats.killed;
         killedp = new ArrayList<>();
 
         final int xm = w / 2, xM = w - 64, ym = 0, yM = h - 64;
         int x = xm, y = ym;
-        for (int i = 0; i < Stats.kills; i++) {
-            killedp.add(new Point(Ra.range(x - 2, x + 2), Ra.range(y - 2, y + 2)));
+        for (int i = 0; i < Core.c.player.stats.kills; i++) {
+            killedp.add(new Point(Ra.global.range(x - 2, x + 2), Ra.global.range(y - 2, y + 2)));
 
             x += 32;
             if (x > xM) {

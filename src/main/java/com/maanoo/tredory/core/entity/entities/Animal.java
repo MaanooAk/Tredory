@@ -5,7 +5,6 @@ package com.maanoo.tredory.core.entity.entities;
 import java.util.ArrayList;
 
 import com.maanoo.tredory.core.Core;
-import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Brain;
 import com.maanoo.tredory.core.entity.Entity;
@@ -70,7 +69,7 @@ public class Animal extends Entity {
 
         // TODO credit the killing blow giver not the player
         if (team != Team.Good) {
-            Stats.addKilled(this);
+            Core.c.player.stats.addKilled(this);
 
             // TODO give soul to the clossest soul collector
             Core.c.player.souls.addSoul();

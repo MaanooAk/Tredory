@@ -36,21 +36,33 @@ public enum Team {
     }
 
     // TODO change
+    private static final Team[] TEAMS_EMPTY = new Team[] {};
+    private static final Team[] TEAMS_1 = new Team[] { Bad, Evil };
+    private static final Team[] TEAMS_2 = new Team[] { Good, Evil };
+    private static final Team[] TEAMS_3 = new Team[] { Neutral, Good, Bad };
+    private static final Team[] TEAMS_4 = new Team[] { Neutral, Pure };
+    private static final Team[] TEAMS_5 = new Team[] { Good, Neutral, Pure };
+    private static final Team[] TEAMS_6 = new Team[] { Bad, Pure };
+    private static final Team[] TEAMS_7 = new Team[] { Evil };
+    private static final Team[] TEAMS_8 = new Team[] { Pure, Neutral, Good, Bad, Evil };
+    private static final Team[] TEAMS_9 = new Team[] { Pure };
+
+    // TODO change
     // TODO use in logic
     public static final Team[] getEnemies(Team team) {
         switch (team) {
         case Neutral:
-            return new Team[] {};
+            return TEAMS_EMPTY;
         case Good:
-            return new Team[] { Bad, Evil };
+            return TEAMS_1;
         case Bad:
-            return new Team[] { Good, Evil };
+            return TEAMS_2;
         case Evil:
-            return new Team[] { Neutral, Good, Bad };
+            return TEAMS_3;
         case Pure:
-            return new Team[] {};
+            return TEAMS_EMPTY;
         default:
-            return new Team[] {};
+            return TEAMS_EMPTY;
         }
     }
 
@@ -59,17 +71,17 @@ public enum Team {
     public static final Team[] getAllies(Team team) {
         switch (team) {
         case Neutral:
-            return new Team[] { Neutral, Pure };
+            return TEAMS_4;
         case Good:
-            return new Team[] { Good, Neutral, Pure };
+            return TEAMS_5;
         case Bad:
-            return new Team[] { Bad, Pure };
+            return TEAMS_6;
         case Evil:
-            return new Team[] { Evil };
+            return TEAMS_7;
         case Pure:
-            return new Team[] { Pure, Neutral, Good, Bad, Evil };
+            return TEAMS_8;
         default:
-            return new Team[] { Pure };
+            return TEAMS_9;
         }
     }
 

@@ -2,9 +2,9 @@
 
 package com.maanoo.tredory.face.assets;
 
-import com.maanoo.tredory.core.utils.Ra;
-
 import java.util.ArrayList;
+
+import com.maanoo.tredory.core.utils.Ra;
 
 
 /**
@@ -23,7 +23,7 @@ public class AssetSet<T> {
     }
 
     public T get() {
-        return l.get(Ra.range(l.size()));
+        return l.get(Ra.global.range(l.size()));
     }
 
     public T get(int index) {

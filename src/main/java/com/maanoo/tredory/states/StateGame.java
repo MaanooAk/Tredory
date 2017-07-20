@@ -13,7 +13,6 @@ import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Op.Keys;
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.Draws;
-import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Collision;
@@ -73,8 +72,6 @@ public class StateGame extends State {
             c.init();
 
             zoom = 1;
-
-            Stats.reset();
         }
     }
 
