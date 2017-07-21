@@ -12,6 +12,8 @@ import com.maanoo.tredory.core.entity.Souls;
 import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.entity.entities.Items;
 import com.maanoo.tredory.core.map.Map;
+import com.maanoo.tredory.core.quest.QuestProgress;
+import com.maanoo.tredory.core.quest.QuestsTracker;
 import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
@@ -64,6 +66,7 @@ public class InterfaceMap extends Interface {
         drawStones(g, c.player.stones, c.player.souls);
         drawCoins(g, c.player.coins);
         drawSpells(g);
+        drawQuests(g, c.player.quests);
 
     }
 
@@ -224,6 +227,28 @@ public class InterfaceMap extends Interface {
 
             x += wi + 10;
         }
+    }
+
+    private void drawQuests(Graphics g, QuestsTracker quests) {
+
+        final int barh = 6;
+        final int barw = 30;
+
+        for (int i = 0; i < quests.quests.size(); i++) {
+            final QuestProgress q = quests.quests.get(i);
+
+            if (!q.isActive()) continue;
+
+            g.setColor(Color.darkGray);
+            g.fillRect(-1, h / 2 + (barh + 10) * i, barw * q.getProgress(), barh);
+            if (q.quest.hasDuration()) {
+                g.setColor(Color.gray);
+                g.drawRect(-1, h / 2 + (barh + 10) * i, barw * (1f - q.getTimeProgress()), barh);
+            }
+            g.setColor(Color.darkGray);
+            g.drawRect(-1, h / 2 + (barh + 10) * i, barw, barh);
+        }
+
     }
 
 }

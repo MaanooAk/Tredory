@@ -99,6 +99,8 @@ public class Core implements IUpdate {
             Assets.trans.play();
 
             newMap();
+
+            player.quests.increaseCapacity();
         }
 
         camera = player.location;
@@ -112,6 +114,11 @@ public class Core implements IUpdate {
         }
 
         entities.removeDead();
+
+        // quests
+        if (player.quests.canAddQuest() && Ra.global.chance(0.01f)) {
+            player.quests.addQuest(Makers.quest.make(player).start(player));
+        }
 
         // collision detection
         Collision.perform(entities.getAll());

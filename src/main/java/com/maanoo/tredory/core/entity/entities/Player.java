@@ -12,6 +12,7 @@ import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.Souls;
+import com.maanoo.tredory.core.quest.QuestsTracker;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.assets.SpriteBundle;
@@ -39,6 +40,8 @@ public final class Player extends Entity {
 
     public final Stats stats;
 
+    public final QuestsTracker quests;
+
     public Player(Team team, Point location, float angle, SpriteBundle sprites) {
         super(team, location, angle, sprites);
 
@@ -55,6 +58,7 @@ public final class Player extends Entity {
         ccomp = new CrystalComp(0, 0, 0);
 
         stats = new Stats();
+        quests = new QuestsTracker();
 
         takeShield(new Item(ItemType.Shield0, null));
         takeShield(new Item(ItemType.Shield0, null));
@@ -104,6 +108,8 @@ public final class Player extends Entity {
         }
 
         selectpressed = false;
+
+        quests.update(d);
     }
 
     public void updateEffects() {

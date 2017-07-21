@@ -19,17 +19,20 @@ public class MapMaker {
     private static Point basicSize = new Point(4000, 4000);
 
     public static Map make() {
+        return make(basicSize, getRandomType());
+    }
 
-        // choose a map type at random
-        MapType type = MapType.Plain;
-        if (Ra.global.chance(0.2f)) {
-            type = MapType.Altar;
-        }
-        if (Ra.global.chance(0.1f)) {
-            type = MapType.Overpop;
-        }
+    // TODO use map type commones field
+    public static MapType getRandomType() {
+        final int value = Ra.global.range(100);
 
-        return make(basicSize, type);
+        if (value < 10) { // 10%
+            return MapType.Overpop;
+        } else if (value < 30) { // 20%
+            return MapType.Altar;
+        } else { // 70%
+            return MapType.Plain;
+        }
     }
 
     public static Map make(Point size, MapType type) {
@@ -39,7 +42,7 @@ public class MapMaker {
         map.seed = Ra.global.seed();
         map.ra = new Ra(map.seed);
 
-        Logger.log("Map", "Map making (" + type + ":" + size.x + "x" + size.y + ":" + Long.toHexString(map.seed) + ")");
+        Logger.log("Map", "Map making (" + type + ":" + Long.toHexString(map.seed) + ")");
 
         map.bigs = type.bigs;
 
