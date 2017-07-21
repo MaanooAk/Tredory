@@ -118,14 +118,17 @@ public class Point implements Cloneable, Poolable {
         return (float) Math.sqrt(pow2(x - p.x) + pow2(y - p.y));
     }
 
+    public float distanceSquared(Point p) {
+        return pow2(x - p.x) + pow2(y - p.y);
+    }
+
     public float distanceAngle(Point p) {
         final float x = this.x - p.x;
         final float y = this.y - p.y;
         return (float) Math.toDegrees(Math.atan2(x, -y)) + 180;
     }
 
-    // TODO move inside
-    private static float pow2(float x) {
+    public static float pow2(float x) {
         return x * x;
     }
 

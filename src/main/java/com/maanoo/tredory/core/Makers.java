@@ -2,6 +2,7 @@
 
 package com.maanoo.tredory.core;
 
+import com.maanoo.tredory.core.map.MapMaker;
 import com.maanoo.tredory.core.quest.QuestMaker;
 
 
@@ -12,6 +13,8 @@ import com.maanoo.tredory.core.quest.QuestMaker;
  */
 public class Makers {
 
-    public static QuestMaker quest = new QuestMaker();
+    public static final MapMaker map = new MapMaker();
+
+    public static final QuestMaker quest = new QuestMaker();
 
 }

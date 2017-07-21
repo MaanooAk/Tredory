@@ -62,6 +62,7 @@ public class Op {
     // Debug
     public static boolean debug = false;
     public static boolean debugBare = false;
+    public static boolean second = false;
 
     public static void load(String[] args) {
 

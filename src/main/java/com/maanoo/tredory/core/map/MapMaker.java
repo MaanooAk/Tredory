@@ -2,6 +2,7 @@
 
 package com.maanoo.tredory.core.map;
 
+import com.maanoo.tredory.core.IMaker;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
@@ -14,16 +15,20 @@ import com.maanoo.tredory.face.assets.Assets;
  *
  * @author MaanooAk
  */
-public class MapMaker {
+public class MapMaker implements IMaker {
 
     private static Point basicSize = new Point(4000, 4000);
 
-    public static Map make() {
+    public MapMaker() {
+        // TODO create possible
+    }
+
+    public Map make() {
         return make(basicSize, getRandomType());
     }
 
     // TODO use map type commones field
-    public static MapType getRandomType() {
+    public MapType getRandomType() {
         final int value = Ra.global.range(100);
 
         if (value < 10) { // 10%
@@ -35,7 +40,7 @@ public class MapMaker {
         }
     }
 
-    public static Map make(Point size, MapType type) {
+    public Map make(Point size, MapType type) {
 
         final Map map = new Map(size);
         map.type = type;
@@ -91,7 +96,7 @@ public class MapMaker {
         return map;
     }
 
-    private static int createSpots(Map map, float area, int bigs) {
+    private int createSpots(Map map, float area, int bigs) {
         map.spots.clear();
 
         area = (map.size.x * map.size.y * area);
@@ -117,12 +122,12 @@ public class MapMaker {
         return count;
     }
 
-    private static float addSpot(Map map, float r) {
+    private float addSpot(Map map, float r) {
         map.spots.add(new Spot(map.ra.range(r, (int) map.size.x - r), map.ra.range(r, (int) map.size.y - r), r));
         return Ma.PI * r * r;
     }
 
-    private static boolean fitSpots(Map map) {
+    private boolean fitSpots(Map map) {
         boolean changed = false;
         final Point vec = new Point();
 
@@ -161,7 +166,7 @@ public class MapMaker {
         return changed;
     }
 
-    private static Spot emptyPoint(Map map) {
+    private Spot emptyPoint(Map map) {
         // return new Point(map.ra.range(32, (int)size.x-32), map.ra.range(32,
         // (int)size.y-32));
         return map.spots.get(map.spots_index++);

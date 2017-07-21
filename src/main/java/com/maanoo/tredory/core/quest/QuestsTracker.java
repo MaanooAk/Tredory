@@ -14,7 +14,8 @@ import com.maanoo.tredory.core.IUpdate;
  */
 public class QuestsTracker implements IUpdate {
 
-    public final int maxMaxQuests;
+    public static final int MAX_QUESTS = 3;
+
     public int maxQuests;
 
     public final ArrayList<QuestProgress> quests;
@@ -23,15 +24,14 @@ public class QuestsTracker implements IUpdate {
 
     public QuestsTracker() {
 
-        maxMaxQuests = 5;
         maxQuests = 0;
 
-        quests = new ArrayList<>(maxMaxQuests);
+        quests = new ArrayList<>(MAX_QUESTS);
 
     }
 
     public void increaseCapacity() {
-        if (maxQuests < maxMaxQuests) {
+        if (maxQuests < MAX_QUESTS) {
             maxQuests += 1;
         }
     }

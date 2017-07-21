@@ -23,6 +23,8 @@ import com.maanoo.tredory.core.memory.Inspector;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Str;
+import com.maanoo.tredory.engine.Logger;
+import com.maanoo.tredory.engine.profile.Profile;
 import com.maanoo.tredory.face.InputHandler;
 import com.maanoo.tredory.face.assets.Assets;
 import com.maanoo.tredory.face.ui.InterfaceMap;
@@ -57,6 +59,10 @@ public class StateGame extends State {
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 
+        Profile.global.add("render");
+        Profile.global.add("update");
+        Profile.global.add("special");
+
     }
 
     @Override
@@ -75,24 +81,15 @@ public class StateGame extends State {
         }
     }
 
-    private long timeRenderS = 0;
-    private long timeRenderE = 1;
-    private long timeRender = 1;
-    private long timeUpdateS = 0;
-    private long timeUpdateE = 1;
-    private long timeUpdate = 1;
-
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
 
-        timeRenderS = System.nanoTime();
+        Profile.global.start("render");
 
         face.setSize(gc.getWidth(), gc.getHeight());
         face.setZoom(zoom);
 
-        for (int layer = 0; layer < 10; layer++) {
-            face.draw(g);
-        }
+        face.draw(g);
 
         if (Op.debug) {
             Assets.font1.drawString(10, 10,
@@ -104,8 +101,11 @@ public class StateGame extends State {
                             Integer.toString((int) c.player.location.x), " ",
                             Integer.toString((int) c.player.location.y), " ", Integer.toString((int) c.player.angle)),
                     Color.darkGray);
-            Assets.font1.drawString(10, h - 200, Str.create(Long.toString(timeRender / 100000), " ",
-                    Long.toString(timeUpdate / 100000), " ", Long.toString(160 - (timeRender - timeUpdate) / 100000)),
+            Assets.font1.drawString(10, h - 200,
+                    Str.create(Long.toString(Profile.global.get("render") / 100000), " ",
+                            Long.toString(Profile.global.get("update") / 100000), " ",
+                            Long.toString(
+                                    160 - (Profile.global.get("render") - Profile.global.get("update")) / 100000)),
                     Color.darkGray);
             Assets.font1.drawString(10, h - 120,
                     Str.create("gcs ", Long.toString(Inspector.instance.getGcs()), " | am ",
@@ -118,23 +118,23 @@ public class StateGame extends State {
             g.setColor(Color.darkGray);
 
             g.fillRect(10, h - 180, 10000f / 60f, 2f);
-            g.fillRect(10, h - 183, (timeRender + timeUpdate) / 100000f, 2f);
-            g.fillRect(10, h - 186, timeUpdate / 100000f, 2f);
+            g.fillRect(10, h - 183, (Profile.global.get("render") + Profile.global.get("update")) / 100000f, 2f);
+            g.fillRect(10, h - 186, Profile.global.get("update") / 100000f, 2f);
+            g.fillRect(10, h - 189, Profile.global.get("special") / 100000f, 2f);
 
             g.fillRect(10, h - 100, 160f, 2f);
             g.fillRect(10, h - 103, Inspector.instance.getAllocatedMemory() * 160f, 2f);
             if (Inspector.instance.didGarbageCollect()) g.fillRect(10, h - 106, 160f, 2f);
         }
 
-        timeRenderE = System.nanoTime();
-        timeRender = timeRenderE - timeRenderS;
+        Profile.global.end("render");
 
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int d) throws SlickException {
 
-        timeUpdateS = System.nanoTime();
+        Profile.global.start("update");
 
         w = gc.getWidth();
         h = gc.getHeight();
@@ -265,12 +265,17 @@ public class StateGame extends State {
             else Op.debug = !Op.debug;
         }
 
+        if (in.isKeyPressed(Input.KEY_F2)) {
+            Op.second = !Op.second;
+            Logger.log("DEBUG", "second: " + Op.second);
+        }
+
         if (c.player.dead) {
             changeState(game, StateId.Over);
         }
 
-        timeUpdateE = System.nanoTime();
-        timeUpdate = timeUpdateE - timeUpdateS;
+        Profile.global.end("update");
+
     }
 
 }

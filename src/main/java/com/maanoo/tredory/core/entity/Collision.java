@@ -2,9 +2,9 @@
 
 package com.maanoo.tredory.core.entity;
 
-import com.maanoo.tredory.core.utils.Point;
-
 import java.util.ArrayList;
+
+import com.maanoo.tredory.core.utils.Ma;
 
 
 /**
@@ -22,36 +22,94 @@ public class Collision {
         collision_checks = 0;
         collision_detections = 0;
 
-        int count = l.size();
-        for (int i1 = 0; i1 < count; i1++) {
-            Entity e1 = l.get(i1);
-            if (e1.state == EntityState.Die) continue;
+        doublePass(l);
 
-            for (int i2 = i1 + 1; i2 < count; i2++) {
-                Entity e2 = l.get(i2);
-                if (e2.state == EntityState.Die) continue;
+    }
 
-                // TODO remove when collision detection is not O(n^2)
-                if (e1.state == EntityState.Idle && e2.state == EntityState.Idle) continue;
+//    private static void onePass(ArrayList<Entity> l) {
+//
+//        final int count = l.size();
+//        for (int i1 = 0; i1 < count; i1++) {
+//            final Entity e1 = l.get(i1);
+//            if (e1.state == EntityState.Die) continue;
+//
+//            for (int i2 = i1 + 1; i2 < count; i2++) {
+//                final Entity e2 = l.get(i2);
+//                if (e2.state == EntityState.Die) continue;
+//
+//                // TODO remove when collision detection is not O(n^2)
+//                if (e1.state == EntityState.Idle && e2.state == EntityState.Idle) continue;
+//
+//                final float r = e1.sizecol + e2.sizecol;
+//                final float d = e1.location.distance(e2.location);
+//
+//                if (d < r) {
+//                    e1.collide(e2);
+//                    e2.collide(e1);
+//
+//                    if (e1.state == EntityState.Die) i2 = count;
+//
+//                    collision_detections += 1;
+//                }
+//
+//                collision_checks += 1;
+//            }
+//        }
+//
+//    }
 
-                float r1 = e1.sizecol;
-                float r2 = e2.sizecol;
-                Point c1 = e1.location;
-                Point c2 = e2.location;
+    private static final ArrayList<Entity> list = new ArrayList<>();
 
-                if (c1.distance(c2) < (r1 + r2) * 1.0f) {
-                    e1.collide(e2);
-                    e2.collide(e1);
+    private static void doublePass(ArrayList<Entity> l) {
 
-                    if (e1.state == EntityState.Die) i2 = count;
+        list.clear();
 
-                    collision_detections += 1;
+        { // find collisions
+
+            // TODO use grid
+            // TODO make parallel
+
+            final int count = l.size();
+            for (int i1 = 0; i1 < count; i1++) {
+                final Entity e1 = l.get(i1);
+                if (e1.state == EntityState.Die) continue;
+
+                for (int i2 = i1 + 1; i2 < count; i2++) {
+                    final Entity e2 = l.get(i2);
+                    if (e2.state == EntityState.Die) continue;
+
+                    // TODO remove when collision detection is not O(n^2)
+                    if (e1.state == EntityState.Idle && e2.state == EntityState.Idle) continue;
+
+                    final float r = Ma.pow2(e1.sizecol + e2.sizecol);
+                    final float d = e1.location.distanceSquared(e2.location);
+
+                    if (d < r) {
+                        list.add(e1);
+                        list.add(e2);
+
+                        collision_detections += 1;
+                    }
+
+                    collision_checks += 1;
                 }
-
-                collision_checks += 1;
             }
         }
 
+        { // perform collision
+
+            final int count = list.size();
+            for (int i = 0; i < count; i += 2) {
+                final Entity e1 = list.get(i);
+                final Entity e2 = list.get(i + 1);
+
+                if (e1.state == EntityState.Die || e2.state == EntityState.Die) continue;
+
+                e1.collide(e2);
+                e2.collide(e1);
+            }
+
+        }
     }
 
 }

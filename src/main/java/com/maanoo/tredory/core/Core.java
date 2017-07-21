@@ -10,7 +10,6 @@ import com.maanoo.tredory.core.entity.entities.Item;
 import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.entity.entities.Player;
 import com.maanoo.tredory.core.map.Map;
-import com.maanoo.tredory.core.map.MapMaker;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.assets.Assets;
@@ -22,7 +21,7 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntity;
  */
 public class Core implements IUpdate {
 
-    public static Core c; // TODO remove this at some point
+    public static Core c; // TODO remove
 
     public static void addEntity(Entity ent) {
         c.entities.add(ent);
@@ -77,7 +76,7 @@ public class Core implements IUpdate {
 
         entities.clearNonPlayers();
 
-        map = MapMaker.make();
+        map = Makers.map.make();
 
         player.location.set(map.spawn);
 
@@ -121,7 +120,8 @@ public class Core implements IUpdate {
         }
 
         // collision detection
-        Collision.perform(entities.getAll());
+        for (int i = 0; i < 10; i++)
+            Collision.perform(entities.getAll());
 
         entities.perform();
 
