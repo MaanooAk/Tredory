@@ -7,6 +7,6 @@ package com.maanoo.tredory.states;
  */
 public enum StateId {
 
-    Menu, Game, Over, Options, Gallery, Loading;
+    Menu, GameSetup, Game, Over, Options, Gallery, Loading;
 
 }

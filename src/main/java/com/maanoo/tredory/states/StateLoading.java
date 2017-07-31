@@ -236,7 +236,7 @@ public class StateLoading extends State {
             if (i.timeE > max) max = i.timeE;
         }
         final long dis = max - min;
-        final long chars = 120;
+        final long chars = 80;
         for (final LoadingStep i : loadings) {
             System.out.println(Str.repeat(" ", (int) (chars * (i.timeS - min) / dis)) + "|"
                     + Str.repeat("-", (int) (chars * (i.timeE - i.timeS) / dis)) + "|" + i.name);

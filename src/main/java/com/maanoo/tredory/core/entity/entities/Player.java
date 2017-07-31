@@ -15,6 +15,8 @@ import com.maanoo.tredory.core.entity.Souls;
 import com.maanoo.tredory.core.quest.QuestsTracker;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
+import com.maanoo.tredory.engine.SpriteSheet;
+import com.maanoo.tredory.face.assets.AssetSet;
 import com.maanoo.tredory.face.assets.SpriteBundle;
 
 
@@ -41,6 +43,9 @@ public final class Player extends Entity {
     public final Stats stats;
 
     public final QuestsTracker quests;
+
+    // TODO change, tmp
+    public AssetSet<SpriteSheet> projectile;
 
     public Player(Team team, Point location, float angle, SpriteBundle sprites) {
         super(team, location, angle, sprites);

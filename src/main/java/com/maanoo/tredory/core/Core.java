@@ -13,7 +13,6 @@ import com.maanoo.tredory.core.map.Map;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
 import com.maanoo.tredory.face.assets.Assets;
-import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 
 /**
@@ -47,14 +46,14 @@ public class Core implements IUpdate {
 
     }
 
-    public void init() {
+    public void init(PlayerSetup ps) {
 
         entities.clear();
 
-        player = new Player(Team.Good, new Point(2000, 2000), 0, new SpriteBundleEntity(Assets.chara.get()));
+        player = ps.createPlayer();
         entities.addPlayer(player);
 
-        pa = new ActionsPlayer(c.player, Assets.fireball);
+        pa = new ActionsPlayer(c.player, player.projectile);
 
         // TODO revisit
         c.player.actions.add(pa.spellFireball1);

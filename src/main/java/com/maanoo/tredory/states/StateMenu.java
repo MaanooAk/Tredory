@@ -2,11 +2,17 @@
 
 package com.maanoo.tredory.states;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+
 import com.maanoo.tredory.Op;
+import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.face.assets.Assets;
-import org.newdawn.slick.*;
-import org.newdawn.slick.state.StateBasedGame;
 
 
 /**
@@ -45,7 +51,7 @@ public class StateMenu extends State {
 
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-        int w = gc.getWidth(), h = gc.getHeight();
+        final int w = gc.getWidth(), h = gc.getHeight();
 
         Assets.icon.draw(w / 2 - Assets.icon.getWidth() * 4, (float) (50 + Math.cos(t / 800.0) * 8), 8);
 
@@ -67,8 +73,12 @@ public class StateMenu extends State {
             switch (menu_index) {
             case 0:
 
-                Assets.trans.play();
-                changeState(game, StateId.Game);
+                if (Core.c == null || Core.c.player.dead) {
+                    changeState(game, StateId.GameSetup);
+                } else {
+                    changeState(game, StateId.Game);
+                }
+
                 break;
             case 1:
 

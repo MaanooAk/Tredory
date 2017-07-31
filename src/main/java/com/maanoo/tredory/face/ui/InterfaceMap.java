@@ -240,13 +240,13 @@ public class InterfaceMap extends Interface {
             if (!q.isActive()) continue;
 
             g.setColor(Color.darkGray);
-            g.fillRect(-1, h / 2 + (barh + 10) * i, barw * q.getProgress(), barh);
+            g.fillRect(4, h / 2 + (barh + 10) * i, barw * q.getProgress(), barh);
             if (q.quest.hasDuration()) {
                 g.setColor(Color.gray);
-                g.drawRect(-1, h / 2 + (barh + 10) * i, barw * (1f - q.getTimeProgress()), barh);
+                g.drawRect(4, h / 2 + (barh + 10) * i, barw * (1f - q.getTimeProgress()), barh);
             }
             g.setColor(Color.darkGray);
-            g.drawRect(-1, h / 2 + (barh + 10) * i, barw, barh);
+            g.drawRect(4, h / 2 + (barh + 10) * i, barw, barh);
         }
 
     }

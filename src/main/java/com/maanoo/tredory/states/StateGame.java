@@ -40,6 +40,7 @@ public class StateGame extends State {
     private int w, h;
     private float zoom;
 
+    // TODO change
     private Core c;
 
     private final InterfaceMap face;
@@ -54,6 +55,8 @@ public class StateGame extends State {
         face = new InterfaceMap();
 
         inhalder = new InputHandler();
+
+        zoom = 1;
     }
 
     @Override
@@ -71,14 +74,8 @@ public class StateGame extends State {
 
         gc.getInput().clearKeyPressedRecord();
 
-        if (c == null || c.player.dead) {
+        c = Core.c;
 
-            c = new Core();
-            Core.c = c;
-            c.init();
-
-            zoom = 1;
-        }
     }
 
     @Override

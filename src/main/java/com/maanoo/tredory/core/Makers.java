@@ -4,6 +4,7 @@ package com.maanoo.tredory.core;
 
 import com.maanoo.tredory.core.map.MapMaker;
 import com.maanoo.tredory.core.quest.QuestMaker;
+import com.maanoo.tredory.core.world.WorldMaker;
 
 
 /**
@@ -12,6 +13,8 @@ import com.maanoo.tredory.core.quest.QuestMaker;
  * @author MaanooAk
  */
 public class Makers {
+
+    public static final WorldMaker world = new WorldMaker();
 
     public static final MapMaker map = new MapMaker();
 

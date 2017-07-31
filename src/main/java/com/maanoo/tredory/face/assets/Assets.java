@@ -101,6 +101,7 @@ public class Assets {
         imagePaths.add("data/sprites/entities/portal1.png");
         imagePaths.add("data/sprites/entities/slime1.png");
         imagePaths.add("data/sprites/entities/fireball1.png");
+        imagePaths.add("data/sprites/entities/invball1.png");
         imagePaths.add("data/sprites/entities/toxicball1.png");
         imagePaths.add("data/sprites/entities/flameblast1.png");
         imagePaths.add("data/sprites/entities/axeman1.png");
@@ -180,7 +181,7 @@ public class Assets {
         slime = loadSpriteSheetSet("slime");
 
         fireball = loadSpriteSheetSet("fireball");
-        invball = loadSpriteSheetSet("fireinvball");
+        invball = loadSpriteSheetSet("invball");
         toxicball = loadSpriteSheetSet("toxicball");
 
         flameblast = loadSpriteSheetSet("flameblast");

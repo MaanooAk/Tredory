@@ -12,6 +12,7 @@ import org.newdawn.slick.util.Log;
 
 import com.maanoo.tredory.states.StateGallery;
 import com.maanoo.tredory.states.StateGame;
+import com.maanoo.tredory.states.StateGameSetup;
 import com.maanoo.tredory.states.StateLoading;
 import com.maanoo.tredory.states.StateMenu;
 import com.maanoo.tredory.states.StateOptions;
@@ -65,6 +66,7 @@ public class Main extends StateBasedGame {
 
         this.addState(new StateLoading());
         this.addState(new StateMenu());
+        this.addState(new StateGameSetup());
         this.addState(new StateGame());
         this.addState(new StateOver());
         this.addState(new StateGallery());
