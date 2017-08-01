@@ -57,6 +57,8 @@ public class Op {
         public static int PickUp = Input.KEY_E;
         public static int Activate = Input.KEY_E; // TODO use
         public static int Information = Input.KEY_TAB;
+
+        public static int Screenshot = Input.KEY_F;
     }
 
     // Debug

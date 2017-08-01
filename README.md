@@ -10,6 +10,10 @@ A 2d topdown randomly generated endless tail of a wizard in a no background worl
 
 [More screenshots](https://github.com/MaanooAk/Tredory/issues/2)
 
+<img src="https://user-images.githubusercontent.com/6997990/28828506-ae1ac1f0-76d9-11e7-883d-a7630fb5827e.png" width="30%"> <img src="https://user-images.githubusercontent.com/6997990/28828511-ae7474ac-76d9-11e7-94e3-272c681a0b1d.png" width="30%"> <img src="https://user-images.githubusercontent.com/6997990/28828508-ae6a540e-76d9-11e7-8b96-4c2f492c436c.png" width="30%">
+
+[More screenshots](https://github.com/MaanooAk/Tredory/issues/2)
+
 ## Development
 
 - Build and run with executing `make` in the root folder. To run on debug mode execute `make build debug`.

@@ -68,6 +68,8 @@ public class StateGameSetup extends State {
 
         ps.projectile.get(0).getSprite(0, 1).draw(w / 4 - 32, h / 2 - 32, 64, 64);
 
+        Assets.font1.drawString(w / 2 - Assets.font1.getWidth(ps.info.name) / 2, 100, ps.info.name);
+
         final String current_bar = bar[index];
         Assets.font1.drawString(w / 2 - Assets.font1.getWidth(current_bar) / 2, h - 70, current_bar, Color.darkGray);
 

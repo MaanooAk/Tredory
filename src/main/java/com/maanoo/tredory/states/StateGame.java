@@ -24,6 +24,7 @@ import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Str;
 import com.maanoo.tredory.engine.Logger;
+import com.maanoo.tredory.engine.Screenshot;
 import com.maanoo.tredory.engine.profile.Profile;
 import com.maanoo.tredory.face.InputHandler;
 import com.maanoo.tredory.face.assets.Assets;
@@ -223,6 +224,10 @@ public class StateGame extends State {
 
         if (in.isKeyPressed(Keys.Select)) {
             c.player.selectpressed = true;
+        }
+
+        if (in.isKeyPressed(Op.Keys.Screenshot)) {
+            Screenshot.capture(gc);
         }
 
         // ====
