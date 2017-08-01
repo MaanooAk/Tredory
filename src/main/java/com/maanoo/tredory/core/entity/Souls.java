@@ -4,6 +4,7 @@ package com.maanoo.tredory.core.entity;
 
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.IUpdate;
+import com.maanoo.tredory.core.entity.ActionsPlayer.Group;
 import com.maanoo.tredory.core.entity.entities.Items;
 
 
@@ -28,7 +29,7 @@ public final class Souls implements IUpdate {
             souls += 1;
         } else if (stones > 0) {
             souls -= 3 * stones;
-            Core.c.pa.soulAttacks[stones - 1].perform();
+            Core.c.player.getActions().get(Group.Soul, stones - 1).perform();
         }
     }
 

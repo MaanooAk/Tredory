@@ -162,7 +162,7 @@ public class StateGame extends State {
         Action action = null;
 
         if (inhalder.isSelectedAttack) {
-            action = Core.c.pa.getAttack(inhalder.selectedAttackGroup, inhalder.selectedAttack);
+            action = Core.c.player.getActions().get(inhalder.selectedAttackGroup, inhalder.selectedAttack);
         }
 
         if (c.player.getState() != EntityState.Attack) {

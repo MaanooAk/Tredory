@@ -11,9 +11,10 @@ import java.util.Collections;
  */
 public class ActionsSimple extends Actions {
 
-    private final ArrayList<Action> actions;
+    protected final ArrayList<Action> actions;
 
     public ActionsSimple(Action... actions) {
+        super();
 
         this.actions = new ArrayList<>();
         Collections.addAll(this.actions, actions);
@@ -31,7 +32,7 @@ public class ActionsSimple extends Actions {
 
     @Override
     public Action getReady() {
-        for (Action i : actions) {
+        for (final Action i : actions) {
             if (i.canStart()) return i;
         }
         return null;
@@ -39,7 +40,7 @@ public class ActionsSimple extends Actions {
 
     @Override
     public Action getActive() {
-        for (Action i : actions) {
+        for (final Action i : actions) {
             if (i.isActive()) return i;
         }
         return null;
@@ -48,7 +49,7 @@ public class ActionsSimple extends Actions {
     @Override
     public void update(int d) {
 
-        for (Action i : actions) {
+        for (final Action i : actions) {
             i.update(d);
         }
     }

@@ -9,14 +9,14 @@ import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.CrystalComp;
 import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.entity.ActionsPlayer;
 import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
+import com.maanoo.tredory.core.entity.ProjectileType;
 import com.maanoo.tredory.core.entity.Souls;
 import com.maanoo.tredory.core.quest.QuestsTracker;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
-import com.maanoo.tredory.engine.SpriteSheet;
-import com.maanoo.tredory.face.assets.AssetSet;
 import com.maanoo.tredory.face.assets.SpriteBundle;
 
 
@@ -45,7 +45,7 @@ public final class Player extends Entity {
     public final QuestsTracker quests;
 
     // TODO change, tmp
-    public AssetSet<SpriteSheet> projectile;
+    public ProjectileType projectile;
 
     public Player(Team team, Point location, float angle, SpriteBundle sprites) {
         super(team, location, angle, sprites);
@@ -79,7 +79,7 @@ public final class Player extends Entity {
 
         switch (state) {
         case Idle:
-            final ArrayList<Item> l = Core.c.findItems(location, 52);
+            final ArrayList<Item> l = Core.c.findItems(location, 52); // TODO make 52 variable
 
             for (final Item i : l) {
                 if (i.type == ItemType.Copper) {
@@ -240,6 +240,10 @@ public final class Player extends Entity {
         } else {
             shields.remove(0);
         }
+    }
+
+    public ActionsPlayer getActions() {
+        return (ActionsPlayer) actions;
     }
 
 }

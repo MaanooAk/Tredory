@@ -19,7 +19,7 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntity;
  */
 public class AttackProjectileArc extends AttackProjectile {
 
-    private final float angle;
+    protected float angle;
 
     public AttackProjectileArc(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time,
             ProjectileType projectile, float speed, float count, float angle) {

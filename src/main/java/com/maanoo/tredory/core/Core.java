@@ -28,7 +28,6 @@ public class Core implements IUpdate {
 
     // TODO support multiple players (in the logic)
     public Player player;
-    public ActionsPlayer pa;
 
     public Map map;
 
@@ -50,23 +49,9 @@ public class Core implements IUpdate {
 
         entities.clear();
 
-        player = ps.createPlayer();
+        player = ps.create();
+
         entities.addPlayer(player);
-
-        pa = new ActionsPlayer(c.player, player.projectile);
-
-        // TODO revisit
-        c.player.actions.add(pa.spellFireball1);
-        c.player.actions.add(pa.spellFireball2);
-        c.player.actions.add(pa.spellFireball3);
-        c.player.actions.add(pa.spellFireballCyclone1);
-        c.player.actions.add(pa.spellFireballCyclone2);
-        c.player.actions.add(pa.spellTeleport);
-        c.player.actions.add(pa.spellSwap);
-        c.player.actions.add(pa.spellChannel1);
-        c.player.actions.add(pa.spellChannel2);
-        c.player.actions.add(pa.spellPush);
-        c.player.actions.add(pa.spellHoming);
 
         newMap();
     }

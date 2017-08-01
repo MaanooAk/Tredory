@@ -9,17 +9,24 @@ import com.maanoo.tredory.core.utils.Ma;
 
 /**
  * TODO doc
- * 
+ *
  * @author MaanooAk
  */
 public class AttackProjectileBlow extends AttackProjectileArc {
 
-    private final float start_count;
+    private final float count_start;
+    private final float count_diff;
+    private final float angle_start;
+    private final float angle_diff;
 
     public AttackProjectileBlow(Entity user, float charge_time, float recharge_time, float end_time,
-            float cooldown_time, ProjectileType projectile, float speed, float count, float angle) {
-        super(user, charge_time, recharge_time, end_time, cooldown_time, projectile, speed, count, angle);
-        this.start_count = count;
+            float cooldown_time, ProjectileType projectile, float speed, float count_start, float count_diff,
+            float angle_start, float angle_diff) {
+        super(user, charge_time, recharge_time, end_time, cooldown_time, projectile, speed, count_start, angle_start);
+        this.count_start = count_start;
+        this.count_diff = count_diff;
+        this.angle_start = angle_start;
+        this.angle_diff = angle_diff;
     }
 
     @Override
@@ -28,7 +35,7 @@ public class AttackProjectileBlow extends AttackProjectileArc {
         case Charging:
             return charge_time / user.getEffect().attackspeed.apply(1f);
         case Recharging:
-            return Ma.max(recharge_time / user.getEffect().attackspeed.apply(1f) - perform_count * 10, 150);
+            return Ma.max(recharge_time / user.getEffect().attackspeed.apply(1f) - perform_count * 10, 200);
         case Ending:
             return end_time / user.getEffect().attackspeed.apply(1f);
         case Cooling:
@@ -41,7 +48,8 @@ public class AttackProjectileBlow extends AttackProjectileArc {
     @Override
     public void perform() {
 
-        this.count = Ma.limit(start_count + perform_count / 3, 1, 10);
+        this.count = Ma.limit(count_start + count_diff * perform_count, 1, 20);
+        this.angle = Ma.limit(angle_start + angle_diff * perform_count, 0, 360);
 
         super.perform();
     }
@@ -50,7 +58,7 @@ public class AttackProjectileBlow extends AttackProjectileArc {
     public void end() {
         super.end();
 
-        this.count = start_count;
+        this.count = count_start;
     }
 
 }
