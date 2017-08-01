@@ -48,7 +48,7 @@ public class StateGameSetup extends State {
 
         gc.getInput().clearKeyPressedRecord();
 
-        count = 5;
+        count = PlayerSetups.all.length;
 
         bar = new String[count];
         for (int i = 0; i < count; i++) {

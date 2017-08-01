@@ -12,6 +12,10 @@ import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.basicSoul3;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.basicSoul4;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.fireballCyclone1;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.fireballCyclone2;
+import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost1;
+import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost2;
+import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost3;
+import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost4;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.spellChannel1;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.spellChannel2;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.spellHoming;
@@ -63,7 +67,7 @@ public final class PlayerSetups {
                     // secondary
                     spellTeleport, spellPullCoins, spellChannel1, spellChannel2, spellSwap, spellPush, spellHoming,
                     // soul
-                    basicSoul1, basicSoul2, basicSoul3, basicSoul4)),
+                    speedBoost1, speedBoost2, speedBoost3, speedBoost4)),
 
             new PlayerSetup(InfoText.create("Singleton"), Assets.chara.get(0), Assets.fireball, new ActionsPlayerSetup(
                     // primary

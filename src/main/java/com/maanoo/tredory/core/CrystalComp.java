@@ -2,7 +2,7 @@
 
 package com.maanoo.tredory.core;
 
-import com.maanoo.tredory.core.entity.Effect;
+import com.maanoo.tredory.core.entity.effect.Effect;
 import com.maanoo.tredory.core.entity.entities.Item;
 import com.maanoo.tredory.core.entity.entities.Items;
 
@@ -16,11 +16,12 @@ public final class CrystalComp {
 
     public final int count[];
 
-    public Effect effect;
+    public final Effect effect;
 
     public CrystalComp(int c1, int c2, int c3) {
         count = new int[] { c1, c2, c3 };
 
+        effect = new Effect();
         calcEffect();
     }
 
@@ -53,7 +54,6 @@ public final class CrystalComp {
     }
 
     private void calcEffect() {
-        effect = new Effect(); // TODO can we remove this line ?
         effect.shields.add = count[0] * 0.5f;
         effect.speed.add = count[1] * 0.03f;
         effect.attackspeed.mul = count[2] * 0.2f;

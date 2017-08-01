@@ -9,6 +9,8 @@ import com.maanoo.tredory.Op;
 import com.maanoo.tredory.core.IDraw;
 import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.entity.effect.Effect;
+import com.maanoo.tredory.core.entity.effect.EffectStack;
 import com.maanoo.tredory.core.memory.Poolable;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
@@ -25,6 +27,8 @@ public class Entity implements IUpdate, IDraw, Poolable {
     // TODO fame gain
     // TODO remove frame depend and add time depend
     // TODO fix player not dead after die call
+
+    private final float lspeed_base = 0.35f;
 
     /**
      * The duration of its life.
@@ -43,6 +47,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public Point location;
     public float speed;
     public float angle;
+    public float lspeed;
     /**
      * Stores the last vector that was added to the location.
      */
@@ -59,6 +64,8 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public int shieldsSum;
     public boolean opened;
 
+    public final EffectStack effects;
+
     protected final int targetlayer;
 
     public Actions actions;
@@ -66,10 +73,12 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public Entity() {
         move = new Point();
         targetlayer = 5;
+        effects = new EffectStack();
     }
 
     public Entity(Team team, Point location, float angle, SpriteBundle sprites) {
         move = new Point();
+        effects = new EffectStack();
         init(team, location, angle, sprites);
         targetlayer = 5;
     }
@@ -89,8 +98,10 @@ public class Entity implements IUpdate, IDraw, Poolable {
         shieldsSum = 0;
         actions = new ActionsSimple();
         speed = 0;
+        lspeed = lspeed_base;
         spriteRotate = true;
         move.init();
+        effects.init(this);
     }
 
     public void init(Team team, Point location, float angle, SpriteBundle sprites) {
@@ -117,6 +128,8 @@ public class Entity implements IUpdate, IDraw, Poolable {
         sprites.getAnimation(state).addProgress(d);
 
         actions.update(d);
+
+        effects.update(d);
 
         switch (state) {
         case Attack:
@@ -191,7 +204,12 @@ public class Entity implements IUpdate, IDraw, Poolable {
     }
 
     public Effect getEffect() {
-        return Effect.EMPTY;
+        return effects.getEffect();
+    }
+
+    public void updateEffectsEffects() {
+
+        lspeed = getEffect().speed.apply(lspeed_base);
     }
 
     public void collide(Entity e) {

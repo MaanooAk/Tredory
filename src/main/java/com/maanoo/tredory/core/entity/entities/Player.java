@@ -10,7 +10,6 @@ import com.maanoo.tredory.core.CrystalComp;
 import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.ActionsPlayer;
-import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.ProjectileType;
 import com.maanoo.tredory.core.entity.Souls;
@@ -24,9 +23,6 @@ import com.maanoo.tredory.face.assets.SpriteBundle;
  * @author MaanooAk
  */
 public final class Player extends Entity {
-
-    private final float lspeed_base = 0.35f;
-    public float lspeed;
 
     public int coins;
 
@@ -52,8 +48,6 @@ public final class Player extends Entity {
 
         coins = 0;
 
-        lspeed = lspeed_base;
-
         shields = new Items(2);
         crystals = new Items(15);
         stones = new Items(4);
@@ -61,6 +55,7 @@ public final class Player extends Entity {
         souls = new Souls();
 
         ccomp = new CrystalComp(0, 0, 0);
+        effects.addPermanent(ccomp.effect);
 
         stats = new Stats();
         quests = new QuestsTracker();
@@ -122,17 +117,18 @@ public final class Player extends Entity {
         ccomp.update(crystals, shields);
         ccomp.effect.crystals.add = stones.size() * 2;
 
-        shields.max = (int) ccomp.effect.shields.apply(shields.max_base);
-        crystals.max = (int) ccomp.effect.crystals.apply(crystals.max_base);
+        effects.updateEffects();
 
-        lspeed = ccomp.effect.speed.apply(lspeed_base);
-
-        dropWorstShields();
     }
 
     @Override
-    public Effect getEffect() {
-        return ccomp.effect;
+    public void updateEffectsEffects() {
+        super.updateEffectsEffects();
+
+        shields.max = (int) getEffect().shields.apply(shields.max_base);
+        crystals.max = (int) getEffect().crystals.apply(crystals.max_base);
+
+        dropWorstShields();
     }
 
     public void takeItem(Item i) {

@@ -3,9 +3,9 @@
 package com.maanoo.tredory.core.entity.actions;
 
 import com.maanoo.tredory.core.Core;
-import com.maanoo.tredory.core.entity.Effect;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.ProjectileType;
+import com.maanoo.tredory.core.entity.effect.Effect;
 import com.maanoo.tredory.core.entity.entities.Projectile;
 import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.core.utils.Point;

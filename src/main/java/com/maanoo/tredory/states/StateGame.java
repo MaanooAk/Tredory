@@ -17,6 +17,7 @@ import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.EntityState;
+import com.maanoo.tredory.core.entity.effect.Effect;
 import com.maanoo.tredory.core.entity.entities.Item;
 import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.memory.Inspector;
@@ -260,7 +261,11 @@ public class StateGame extends State {
 
         if (in.isKeyPressed(Input.KEY_9)) c.requestNewMap();
 
-        if (in.isKeyPressed(Input.KEY_0)) c.player.takeDamage();
+        if (in.isKeyPressed(Input.KEY_0)) {
+            final Effect e = new Effect();
+            e.speed.mul = 1.2f;
+            Core.c.player.effects.addTemporary(e, 1000);
+        }
 
         if (in.isKeyPressed(Input.KEY_F1)) {
             if (in.isKeyDown(Input.KEY_LSHIFT)) Op.debugBare = !Op.debugBare;

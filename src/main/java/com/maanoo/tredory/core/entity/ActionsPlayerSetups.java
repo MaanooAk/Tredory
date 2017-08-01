@@ -11,6 +11,9 @@ import com.maanoo.tredory.core.entity.actions.AttackProjectileCyclone;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileHoming;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileLine;
 import com.maanoo.tredory.core.entity.actions.Spell;
+import com.maanoo.tredory.core.entity.effect.Effect;
+import com.maanoo.tredory.core.entity.effect.EffectStack.EffectDuration;
+import com.maanoo.tredory.core.entity.effect.Effects;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Points;
@@ -27,7 +30,32 @@ public final class ActionsPlayerSetups {
 
     public static final ActionSuppilier basic, basicArc, basicCircle, fireballCyclone1, fireballCyclone2, spellChannel1,
             spellChannel2, basicLine1, spellTeleport, spellSwap, spellPush, spellHoming, basicSoul1, basicSoul2,
-            basicSoul3, basicSoul4, spellPullCoins;
+            basicSoul3, basicSoul4, spellPullCoins, speedBoost1, speedBoost2, speedBoost3, speedBoost4;
+
+    public static final class EffectGiver extends Spell {
+
+        private final Effect effect;
+        private final float duration;
+
+        private EffectDuration ef = null;
+
+        public EffectGiver(Entity user, Effect effect, float duration) {
+            super(user, 0, 0, 0, 0);
+            this.effect = effect;
+            this.duration = duration;
+        }
+
+        @Override
+        public void perform() {
+            super.perform();
+            if (ef == null || ef.duration <= 0) {
+                ef = user.effects.addTemporary(effect, duration);
+            } else {
+                ef.duration = duration;
+            }
+        }
+
+    }
 
     static {
 
@@ -165,6 +193,11 @@ public final class ActionsPlayerSetups {
         basicSoul2 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 6, 0.28f);
         basicSoul3 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 9, 0.31f);
         basicSoul4 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 11, 0.34f);
+
+        speedBoost1 = (p) -> new EffectGiver(p, Effects.speedBoost, 1000);
+        speedBoost2 = (p) -> new EffectGiver(p, Effects.speedBoost, 1500);
+        speedBoost3 = (p) -> new EffectGiver(p, Effects.speedBoost, 2000);
+        speedBoost4 = (p) -> new EffectGiver(p, Effects.speedBoost, 1500);
 
     }
 
