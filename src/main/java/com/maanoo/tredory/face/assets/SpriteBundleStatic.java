@@ -2,11 +2,8 @@
 
 package com.maanoo.tredory.face.assets;
 
-import org.newdawn.slick.Image;
-
 import com.maanoo.tredory.engine.Animation;
 import com.maanoo.tredory.engine.Sprite;
-import com.maanoo.tredory.engine.SpriteSingle;
 
 
 /**
@@ -14,19 +11,19 @@ import com.maanoo.tredory.engine.SpriteSingle;
  */
 public class SpriteBundleStatic extends SpriteBundle {
 
-    public final Image image;
+    public final Sprite sprite;
 
-    public SpriteBundleStatic(Image image) {
+    public SpriteBundleStatic(Sprite sprite) {
 
-        this.image = image;
+        this.sprite = sprite;
 
-        this.idle = new Animation(new Sprite[] { new SpriteSingle(image) }, new float[] { 1000 }, true);
+        this.idle = new Animation(new Sprite[] { sprite }, new float[] { 1000 }, true);
 
     }
 
     @Override
     public SpriteBundle copy() {
-        return new SpriteBundleStatic(image);
+        return new SpriteBundleStatic(sprite);
     }
 
 }

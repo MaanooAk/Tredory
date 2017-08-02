@@ -5,7 +5,7 @@ package com.maanoo.tredory.core.entity;
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.entity.ActionsPlayer.Group;
-import com.maanoo.tredory.core.entity.entities.Items;
+import com.maanoo.tredory.core.entity.item.Items;
 
 
 /**

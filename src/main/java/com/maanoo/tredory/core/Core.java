@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.Entity;
-import com.maanoo.tredory.core.entity.entities.Item;
-import com.maanoo.tredory.core.entity.entities.ItemType;
 import com.maanoo.tredory.core.entity.entities.Player;
+import com.maanoo.tredory.core.entity.item.Item;
+import com.maanoo.tredory.core.entity.item.ItemType;
 import com.maanoo.tredory.core.map.Map;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
@@ -254,7 +254,7 @@ public class Core implements IUpdate {
             for (int i = 0; i < 3; i++) {
 
                 final ItemType type = Ra.global
-                        .list(new ItemType[] { ItemType.Crystal1, ItemType.Crystal2, ItemType.Crystal3 });
+                        .list(new ItemType[] { ItemType.CrystalR, ItemType.CrystalG, ItemType.CrystalB });
 
                 item = new Item(type, p.clone());
                 item.push(con.angle + i * 120, 0.2f);

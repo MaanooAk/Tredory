@@ -4,7 +4,7 @@ package com.maanoo.tredory.core;
 
 import java.util.ArrayList;
 
-import com.maanoo.tredory.core.entity.entities.ItemType;
+import com.maanoo.tredory.core.entity.item.ItemType;
 
 
 /**

@@ -59,7 +59,8 @@ public final class Effect {
     public final Item projangle = new Item(0, 360);
     public final Item projspeed = new Item(0);
 
-    public final Item[] all = new Item[] { shields, speed, attackspeed, projcount, projangle, projspeed };
+    public final Item[] all = new Item[] { shields, crystals, speed, attackspeed, cooldown, projcount, projangle,
+            projspeed };
 
     public Effect() {
 

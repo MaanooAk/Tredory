@@ -27,6 +27,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
     // TODO fame gain
     // TODO remove frame depend and add time depend
     // TODO fix player not dead after die call
+    // TODO move all objects to init
 
     private final float lspeed_base = 0.35f;
 

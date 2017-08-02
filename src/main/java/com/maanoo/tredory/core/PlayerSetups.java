@@ -23,6 +23,12 @@ import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.spellPullCoins;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.spellPush;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.spellSwap;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.spellTeleport;
+import static com.maanoo.tredory.core.entity.item.ItemType.CrystalB;
+import static com.maanoo.tredory.core.entity.item.ItemType.CrystalG;
+import static com.maanoo.tredory.core.entity.item.ItemType.CrystalR;
+import static com.maanoo.tredory.core.entity.item.ItemType.CrystalW;
+import static com.maanoo.tredory.core.entity.item.ItemType.Shield0;
+import static com.maanoo.tredory.core.entity.item.ItemType.Shield2;
 
 import com.maanoo.tredory.core.entity.ActionsPlayerSetup;
 import com.maanoo.tredory.face.assets.Assets;
@@ -43,7 +49,9 @@ public final class PlayerSetups {
                     // secondary
                     spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
                     // soul
-                    basicSoul1, basicSoul2, basicSoul3, basicSoul4)),
+                    basicSoul1, basicSoul2, basicSoul3, basicSoul4),
+                    // items
+                    Shield0, Shield0, CrystalR, CrystalG, CrystalB),
 
             new PlayerSetup(InfoText.create("Toxic"), Assets.chara.get(0), Assets.toxicball, new ActionsPlayerSetup(
                     // primary
@@ -51,7 +59,9 @@ public final class PlayerSetups {
                     // secondary
                     spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
                     // soul
-                    basicSoul1, basicSoul2, basicSoul3, basicSoul4)),
+                    basicSoul1, basicSoul2, basicSoul3, basicSoul4),
+                    // items
+                    Shield0, Shield0, CrystalR, CrystalG, CrystalB),
 
             new PlayerSetup(InfoText.create("Inv"), Assets.chara.get(0), Assets.invball, new ActionsPlayerSetup(
                     // primary
@@ -59,7 +69,9 @@ public final class PlayerSetups {
                     // secondary
                     spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
                     // soul
-                    basicSoul1, basicSoul2, basicSoul3, basicSoul4)),
+                    basicSoul1, basicSoul2, basicSoul3, basicSoul4),
+                    // items
+                    Shield0, Shield0, CrystalR, CrystalG, CrystalB),
 
             new PlayerSetup(InfoText.create("Speed"), Assets.chara.get(0), Assets.fireball, new ActionsPlayerSetup(
                     // primary
@@ -67,7 +79,9 @@ public final class PlayerSetups {
                     // secondary
                     spellTeleport, spellPullCoins, spellChannel1, spellChannel2, spellSwap, spellPush, spellHoming,
                     // soul
-                    speedBoost1, speedBoost2, speedBoost3, speedBoost4)),
+                    speedBoost1, speedBoost2, speedBoost3, speedBoost4),
+                    // items
+                    Shield0, Shield0, CrystalG, CrystalG, CrystalG),
 
             new PlayerSetup(InfoText.create("Singleton"), Assets.chara.get(0), Assets.fireball, new ActionsPlayerSetup(
                     // primary
@@ -75,7 +89,19 @@ public final class PlayerSetups {
                     // secondary
                     spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
                     // soul
-                    basicSoul1, basicSoul2, basicSoul3, basicSoul4))
+                    basicSoul1, basicSoul2, basicSoul3, basicSoul4),
+                    // items
+                    Shield2, Shield2, CrystalW, CrystalW),
+
+            new PlayerSetup(InfoText.create("Heva"), Assets.chara.get(0), Assets.fireball, new ActionsPlayerSetup(
+                    // primary
+                    basic, basicArc, basicCircle, fireballCyclone1, basic,
+                    // secondary
+                    spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
+                    // soul
+                    basicSoul1, basicSoul2, basicSoul3, basicSoul4),
+                    // items
+                    Shield2, Shield2, Shield2, CrystalR, CrystalR, CrystalR),
 
     };
 

@@ -2,19 +2,19 @@
 
 package com.maanoo.tredory.core;
 
-import static com.maanoo.tredory.core.entity.entities.ItemType.Crystal1;
-import static com.maanoo.tredory.core.entity.entities.ItemType.Crystal2;
-import static com.maanoo.tredory.core.entity.entities.ItemType.Crystal3;
-import static com.maanoo.tredory.core.entity.entities.ItemType.Nothing;
-import static com.maanoo.tredory.core.entity.entities.ItemType.Shield3;
-import static com.maanoo.tredory.core.entity.entities.ItemType.Shield4;
-import static com.maanoo.tredory.core.entity.entities.ItemType.Stone;
+import static com.maanoo.tredory.core.entity.item.ItemType.CrystalR;
+import static com.maanoo.tredory.core.entity.item.ItemType.CrystalG;
+import static com.maanoo.tredory.core.entity.item.ItemType.CrystalB;
+import static com.maanoo.tredory.core.entity.item.ItemType.Nothing;
+import static com.maanoo.tredory.core.entity.item.ItemType.Shield3;
+import static com.maanoo.tredory.core.entity.item.ItemType.Shield4;
+import static com.maanoo.tredory.core.entity.item.ItemType.Stone;
 
 import java.util.ArrayList;
 
 import com.maanoo.tredory.core.Recipe.Bundle;
-import com.maanoo.tredory.core.entity.entities.Item;
-import com.maanoo.tredory.core.entity.entities.ItemType;
+import com.maanoo.tredory.core.entity.item.Item;
+import com.maanoo.tredory.core.entity.item.ItemType;
 
 
 /**
@@ -24,14 +24,14 @@ public class Recipes {
 
     public static final Recipe all[] = new Recipe[] {
 
-            new Recipe(new Bundle(Crystal1, Crystal1, Crystal1, Crystal2, Crystal2, Crystal2, Crystal3, Crystal3,
-                    Crystal3), new Bundle(Stone)),
+            new Recipe(new Bundle(CrystalR, CrystalR, CrystalR, CrystalG, CrystalG, CrystalG, CrystalB, CrystalB,
+                    CrystalB), new Bundle(Stone)),
 
-            new Recipe(new Bundle(Crystal1, Crystal2, Crystal3, Shield3), new Bundle(Shield4)),
+            new Recipe(new Bundle(CrystalR, CrystalG, CrystalB, Shield3), new Bundle(Shield4)),
 
-            new Recipe(new Bundle(Crystal1, Crystal1, Crystal1), new Bundle(Crystal1, Crystal2, Crystal3)),
-            new Recipe(new Bundle(Crystal2, Crystal2, Crystal2), new Bundle(Crystal1, Crystal2, Crystal3)),
-            new Recipe(new Bundle(Crystal3, Crystal3, Crystal3), new Bundle(Crystal1, Crystal2, Crystal3)),
+            new Recipe(new Bundle(CrystalR, CrystalR, CrystalR), new Bundle(CrystalR, CrystalG, CrystalB)),
+            new Recipe(new Bundle(CrystalG, CrystalG, CrystalG), new Bundle(CrystalR, CrystalG, CrystalB)),
+            new Recipe(new Bundle(CrystalB, CrystalB, CrystalB), new Bundle(CrystalR, CrystalG, CrystalB)),
 
     };
 

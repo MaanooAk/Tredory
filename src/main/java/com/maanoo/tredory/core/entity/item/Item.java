@@ -1,6 +1,6 @@
 // Tredory Copyright (c) 2014-2017 Tredory author list (see README.md)
 
-package com.maanoo.tredory.core.entity.entities;
+package com.maanoo.tredory.core.entity.item;
 
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Entity;
@@ -17,8 +17,11 @@ public class Item extends Entity implements Comparable<Item> {
     public final ItemType type;
     public final ItemTag tag;
 
-    // TODO change into time diff based not absolute values
     private int unpicable;
+
+    public Item(ItemType type) {
+        this(type, new Point());
+    }
 
     public Item(ItemType type, Point location) {
         super(Team.Neutral, location, 180, new SpriteBundleStatic(Assets.getItem(type).get()));
@@ -26,7 +29,7 @@ public class Item extends Entity implements Comparable<Item> {
         this.type = type;
         this.speed = 0;
 
-        tag = ItemType.getTag(type);
+        tag = type.tag;
 
         undead = true;
         pickable = true;

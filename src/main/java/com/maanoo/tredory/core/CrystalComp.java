@@ -3,8 +3,8 @@
 package com.maanoo.tredory.core;
 
 import com.maanoo.tredory.core.entity.effect.Effect;
-import com.maanoo.tredory.core.entity.entities.Item;
-import com.maanoo.tredory.core.entity.entities.Items;
+import com.maanoo.tredory.core.entity.item.Item;
+import com.maanoo.tredory.core.entity.item.Items;
 
 
 /**
@@ -33,13 +33,18 @@ public final class CrystalComp {
         for (final Items iitems : items)
             for (final Item i : iitems) {
                 switch (i.type) {
-                case Crystal1:
+                case CrystalR:
                     count[0] += 1;
                     break;
-                case Crystal2:
+                case CrystalG:
                     count[1] += 1;
                     break;
-                case Crystal3:
+                case CrystalB:
+                    count[2] += 1;
+                    break;
+                case CrystalW:
+                    count[0] += 1;
+                    count[1] += 1;
                     count[2] += 1;
                     break;
                 case Shield4:

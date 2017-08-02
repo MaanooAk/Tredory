@@ -15,7 +15,8 @@ import org.newdawn.slick.imageout.ImageOut;
 
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Res;
-import com.maanoo.tredory.core.entity.entities.ItemType;
+import com.maanoo.tredory.core.entity.item.ItemType;
+import com.maanoo.tredory.engine.Sprite;
 import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.engine.SpriteSheetMasked;
 import com.maanoo.tredory.engine.SpriteSheetSingle;
@@ -61,7 +62,7 @@ public class Assets {
     public static AssetSet<SpriteSheet> slime;
 
     public static SpriteSheetSingle items_sheet;
-    public static AssetSet<Image> items[];
+    public static AssetSet<Sprite> items[];
 
     public static AssetSet<Image> terrain_small;
     public static AssetSet<Image> terrain_glyphs;
@@ -210,16 +211,17 @@ public class Assets {
         grid[4][0] = grid[4][1] = grid[4][2] = ItemType.Shield2;
         grid[5][0] = grid[5][1] = grid[5][2] = ItemType.Shield3;
         grid[6][0] = grid[6][1] = grid[6][2] = ItemType.Shield4;
-        grid[8][0] = grid[8][1] = grid[8][2] = grid[8][3] = grid[8][4] = ItemType.Crystal1;
-        grid[9][0] = grid[9][1] = grid[9][2] = grid[9][3] = grid[9][4] = ItemType.Crystal2;
-        grid[10][0] = grid[10][1] = grid[10][2] = grid[10][3] = grid[10][4] = ItemType.Crystal3;
+        grid[8][0] = grid[8][1] = grid[8][2] = grid[8][3] = grid[8][4] = ItemType.CrystalR;
+        grid[9][0] = grid[9][1] = grid[9][2] = grid[9][3] = grid[9][4] = ItemType.CrystalG;
+        grid[10][0] = grid[10][1] = grid[10][2] = grid[10][3] = grid[10][4] = ItemType.CrystalB;
+        grid[11][0] = grid[11][1] = grid[11][2] = grid[11][3] = grid[11][4] = ItemType.CrystalW;
         grid[14][0] = ItemType.Stone;
 
         for (int i1 = 0; i1 < grid.length; i1++) {
             for (int i2 = 0; i2 < grid[i1].length; i2++) {
                 if (grid[i1][i2] == null) continue;
 
-                items[grid[i1][i2].ordinal()].add(items_sheet.getImage(i1, i2));
+                items[grid[i1][i2].ordinal()].add(items_sheet.getSprite(i1, i2));
             }
         }
 
@@ -293,7 +295,7 @@ public class Assets {
         return new Sound(loadResBuffered(path), path);
     }
 
-    public static AssetSet<Image> getItem(ItemType type) {
+    public static AssetSet<Sprite> getItem(ItemType type) {
         return items[type.ordinal()];
     }
 

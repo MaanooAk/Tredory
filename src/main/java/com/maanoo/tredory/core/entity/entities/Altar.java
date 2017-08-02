@@ -5,6 +5,7 @@ package com.maanoo.tredory.core.entity.entities;
 import com.maanoo.tredory.core.*;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.EntityState;
+import com.maanoo.tredory.core.entity.item.ItemType;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
 import com.maanoo.tredory.face.assets.SpriteBundleEntity;
@@ -39,7 +40,7 @@ public class Altar extends Entity {
         if (rec != null) {
 
             for (ItemType i : rec.in.items) {
-                p.giveItem(i);
+                p.destroyItem(i);
             }
             for (ItemType i : rec.out.items) {
                 Drops.dropItem(Core.c, this, 0, 360, 0.2f, 0.25f, i);

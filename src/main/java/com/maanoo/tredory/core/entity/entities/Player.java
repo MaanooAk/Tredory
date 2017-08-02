@@ -13,6 +13,10 @@ import com.maanoo.tredory.core.entity.ActionsPlayer;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.ProjectileType;
 import com.maanoo.tredory.core.entity.Souls;
+import com.maanoo.tredory.core.entity.item.Item;
+import com.maanoo.tredory.core.entity.item.ItemTag;
+import com.maanoo.tredory.core.entity.item.ItemType;
+import com.maanoo.tredory.core.entity.item.Items;
 import com.maanoo.tredory.core.quest.QuestsTracker;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
@@ -59,9 +63,6 @@ public final class Player extends Entity {
 
         stats = new Stats();
         quests = new QuestsTracker();
-
-        takeShield(new Item(ItemType.Shield0, null));
-        takeShield(new Item(ItemType.Shield0, null));
 
         updateEffects();
     }
@@ -115,6 +116,8 @@ public final class Player extends Entity {
     public void updateEffects() {
 
         ccomp.update(crystals, shields);
+
+        // TODO move stone effect to separate effect
         ccomp.effect.crystals.add = stones.size() * 2;
 
         effects.updateEffects();
@@ -133,7 +136,7 @@ public final class Player extends Entity {
 
     public void takeItem(Item i) {
 
-        switch (ItemType.getTag(i.type)) {
+        switch (i.type.tag) {
         case Crystal:
             takeCrystal(i);
             break;
@@ -142,6 +145,8 @@ public final class Player extends Entity {
             break;
         case Stone:
             takeStone(i);
+            break;
+        default:
             break;
         }
     }
@@ -204,9 +209,9 @@ public final class Player extends Entity {
         updateEffects();
     }
 
-    public void giveItem(ItemType type) {
+    public void destroyItem(ItemType type) {
 
-        switch (ItemType.getTag(type)) {
+        switch (type.tag) {
         case Crystal:
             for (int i = 0; i < crystals.size(); i++) {
                 if (crystals.get(i).type == type) {
@@ -225,6 +230,9 @@ public final class Player extends Entity {
                 }
             }
             break;
+        default:
+            // TODO handle the rest of the types
+            throw new UnsupportedOperationException();
         }
 
     }
