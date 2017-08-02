@@ -2,7 +2,7 @@
 
 package com.maanoo.tredory.core;
 
-import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.Entity;
@@ -137,10 +137,7 @@ public class Core implements IUpdate {
         return min;
     }
 
-    // TODO stop returning arraylists, pass the list as parameter?
-
-    public ArrayList<Entity> findAll(Entity ent, Team team, float radius) {
-        final ArrayList<Entity> ret = new ArrayList<>();
+    public void findAll(Entity ent, Team team, float radius, Consumer<Entity> consumer) {
 
         for (final Entity i : entities.getAll()) {
 
@@ -150,16 +147,13 @@ public class Core implements IUpdate {
 
             final float dis = i.location.distance(ent.location);
             if (dis <= radius) {
-                ret.add(i);
+                consumer.accept(i);
             }
 
         }
-
-        return ret;
     }
 
-    public ArrayList<Item> findItems(Point location, int radius) {
-        final ArrayList<Item> ret = new ArrayList<>();
+    public void findItems(Point location, int radius, Consumer<Item> consumer) {
 
         for (final Entity i : entities.getAll()) {
 
@@ -167,12 +161,10 @@ public class Core implements IUpdate {
 
             final float dis = i.location.distance(location);
             if (dis <= radius) {
-                ret.add((Item) i);
+                consumer.accept((Item) i);
             }
 
         }
-
-        return ret;
     }
 
     // TODO pass the entity who triggers

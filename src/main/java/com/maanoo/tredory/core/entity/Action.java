@@ -29,6 +29,8 @@ public abstract class Action implements IUpdate {
     protected final float end_time;
     protected final float cooldown_time;
 
+    protected final boolean backgroud;
+
     protected State state;
     private float state_time;
     private float time_left;
@@ -36,6 +38,11 @@ public abstract class Action implements IUpdate {
     protected int perform_count;
 
     public Action(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time) {
+        this(user, charge_time, recharge_time, end_time, cooldown_time, false);
+    }
+
+    public Action(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time,
+            boolean backgroud) {
         this.user = user;
 
         recharge = recharge_time > 0;
@@ -45,6 +52,8 @@ public abstract class Action implements IUpdate {
         this.recharge_time = recharge_time;
         this.end_time = end_time;
         this.cooldown_time = cooldown_time;
+
+        this.backgroud = backgroud;
 
         state = State.Idle;
         state_time = 1;
@@ -56,6 +65,10 @@ public abstract class Action implements IUpdate {
 
     public boolean canStart() {
         return state == State.Idle;
+    }
+
+    public boolean canStartBackground() {
+        return canStart() && backgroud;
     }
 
     public void start() {

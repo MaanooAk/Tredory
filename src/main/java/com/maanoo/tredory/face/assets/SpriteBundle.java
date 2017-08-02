@@ -12,7 +12,7 @@ import com.maanoo.tredory.engine.Sprite;
  */
 public abstract class SpriteBundle {
 
-    public Animation idle, move, attack, die, special;
+    public Animation idle, move, action, die, special;
 
     public Animation getAnimation(EntityState state) {
         switch (state) {
@@ -21,13 +21,14 @@ public abstract class SpriteBundle {
         case Move:
             return move;
         case Attack:
-            return attack;
+            return action;
         case Die:
             return die;
         case Special:
             return special;
+        default:
+            return null;
         }
-        return null;
     }
 
     public Sprite getStaticSprite() {

@@ -43,7 +43,8 @@ public class Op {
         public static int Attack2 = Input.MOUSE_RIGHT_BUTTON;
         public static int Attack3 = Input.MOUSE_MIDDLE_BUTTON;
         public static int Attack4 = Input.KEY_Q;
-        public static int Attack[] = new int[] { Attack1, Attack2, Attack3, Attack4 };
+        public static int Attack5 = Input.KEY_SPACE;
+        public static int Attack[] = new int[] { Attack1, Attack2, Attack3, Attack4, Attack5 };
 
         public static int Spell1 = Input.KEY_Z;
         public static int Spell2 = Input.KEY_X;

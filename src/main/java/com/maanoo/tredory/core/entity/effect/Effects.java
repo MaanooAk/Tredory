@@ -15,7 +15,7 @@ public final class Effects {
 
     static {
 
-        speedBoost.speed.mul = 1.2f;
+        speedBoost.speed.mul = 0.4f;
 
     }
 

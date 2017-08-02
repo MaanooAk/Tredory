@@ -2,8 +2,6 @@
 
 package com.maanoo.tredory.core.entity.entities;
 
-import java.util.ArrayList;
-
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Brain;
@@ -56,11 +54,11 @@ public class Animal extends Entity {
         super.takeDamage();
 
         // alert all near by allies when it takes damage
-        // TODO find all allies not teammates
-        final ArrayList<Entity> l = Core.c.findAll(this, team, 250);
-        for (final Entity i : l) {
+        // TODO find all allies not team mates
+        Core.c.findAll(this, team, 250, (i) -> {
             i.alerted = true;
-        }
+        });
+
     }
 
     @Override

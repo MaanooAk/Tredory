@@ -60,7 +60,7 @@ public class Projectile extends Entity {
 
         final AttackProjectile attack = new AttackProjectile(this, charge_time);
         actions.add(attack);
-        startAttack(attack);
+        startAction(attack);
 
         return this;
     }

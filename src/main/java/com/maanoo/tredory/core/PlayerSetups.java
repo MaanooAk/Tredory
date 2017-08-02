@@ -12,6 +12,7 @@ import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.basicSoul3;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.basicSoul4;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.fireballCyclone1;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.fireballCyclone2;
+import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.instantPush;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost1;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost2;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost3;
@@ -45,7 +46,7 @@ public final class PlayerSetups {
 
             new PlayerSetup(InfoText.create("Fire"), Assets.chara.get(0), Assets.fireball, new ActionsPlayerSetup(
                     // primary
-                    basic, basicArc, basicCircle, fireballCyclone1, basic,
+                    basic, basicArc, basicCircle, fireballCyclone1, instantPush,
                     // secondary
                     spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
                     // soul

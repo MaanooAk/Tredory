@@ -62,7 +62,7 @@ public class AnimalBrain extends Brain {
                 final float angle = target.location.distanceAngle(ent.location);
 
                 if (distance < ((AttackMelee) ent.actions.get()).range) { // TODO move logic inside AttackMelee
-                    ent.startAttack(ent.actions.get());
+                    ent.startAction(ent.actions.get());
                 } else {
                     ent.location.addAngled(angle, ent.lspeed * d);
                 }

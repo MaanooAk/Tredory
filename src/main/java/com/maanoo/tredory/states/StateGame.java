@@ -17,7 +17,6 @@ import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.EntityState;
-import com.maanoo.tredory.core.entity.effect.Effect;
 import com.maanoo.tredory.core.entity.item.Item;
 import com.maanoo.tredory.core.entity.item.ItemType;
 import com.maanoo.tredory.core.memory.Inspector;
@@ -163,22 +162,26 @@ public class StateGame extends State {
 
         Action action = null;
 
-        if (inhalder.isSelectedAttack) {
-            action = Core.c.player.getActions().get(inhalder.selectedAttackGroup, inhalder.selectedAttack);
+        if (inhalder.isSelectedAction) {
+            action = Core.c.player.getActions().get(inhalder.selectedActionGroup, inhalder.selectedAction);
         }
 
         if (c.player.getState() != EntityState.Attack) {
 
             if (action != null) {
-                c.player.startAttack(action);
-                action.start();
+
+                c.player.startAction(action);
             }
 
         } else {
 
             final Action active_action = c.player.actions.getActive();
 
-            if (active_action != null && active_action.isRecharge()) {
+            if (action != null && action.canStartBackground()) {
+
+                c.player.startAction(action);
+
+            } else if (active_action != null && active_action.isRecharge()) {
                 if (action != active_action) {
                     active_action.stopRecharge();
                 }
@@ -261,11 +264,7 @@ public class StateGame extends State {
 
         if (in.isKeyPressed(Input.KEY_9)) c.requestNewMap();
 
-        if (in.isKeyPressed(Input.KEY_0)) {
-            final Effect e = new Effect();
-            e.speed.mul = 1.2f;
-            Core.c.player.effects.addTemporary(e, 1000);
-        }
+        if (in.isKeyDown(Input.KEY_0)) Core.c.player.souls.addSoul();
 
         if (in.isKeyPressed(Input.KEY_F1)) {
             if (in.isKeyDown(Input.KEY_LSHIFT)) Op.debugBare = !Op.debugBare;

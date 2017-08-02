@@ -2,7 +2,6 @@
 
 package com.maanoo.tredory.core.entity.entities;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 import com.maanoo.tredory.core.Core;
@@ -75,29 +74,10 @@ public final class Player extends Entity {
 
         switch (state) {
         case Idle:
-            final ArrayList<Item> l = Core.c.findItems(location, 52); // TODO make 52 variable
 
-            for (final Item i : l) {
-                if (i.type == ItemType.Copper) {
-                    Core.c.removeItem(i);
-                    coins += 1;
-                } else if (i.type == ItemType.Gold) {
-                    Core.c.removeItem(i);
-                    coins += 10;
-                } else if (i.tag == ItemTag.Shield && canTakeShield(i)) {
-                    Core.c.removeItem(i);
-                    takeShield(i);
-                } else if (i.tag == ItemTag.Crystal) {
-                    Core.c.removeItem(i);
-                    takeCrystal(i);
-                } else if (i.tag == ItemTag.Stone) {
-                    Core.c.removeItem(i);
-                    takeItem(i);
-                } else {
-                    continue;
-                }
-                break;
-            }
+            Core.c.findItems(location, 52, (i) -> {
+                this.handleReachableItem(i);
+            });
 
             Core.c.activateStepables(location, 30);
 
@@ -106,11 +86,36 @@ public final class Player extends Entity {
             }
 
             break;
+        default:
+            break;
         }
 
         selectpressed = false;
 
         quests.update(d);
+    }
+
+    private void handleReachableItem(Item i) {
+
+        // TODO transform to switch
+
+        if (i.type == ItemType.Copper) {
+            Core.c.removeItem(i);
+            coins += 1;
+        } else if (i.type == ItemType.Gold) {
+            Core.c.removeItem(i);
+            coins += 10;
+        } else if (i.tag == ItemTag.Shield && canTakeShield(i)) {
+            Core.c.removeItem(i);
+            takeShield(i);
+        } else if (i.tag == ItemTag.Crystal) {
+            Core.c.removeItem(i);
+            takeCrystal(i);
+        } else if (i.tag == ItemTag.Stone) {
+            Core.c.removeItem(i);
+            takeItem(i);
+        }
+
     }
 
     public void updateEffects() {

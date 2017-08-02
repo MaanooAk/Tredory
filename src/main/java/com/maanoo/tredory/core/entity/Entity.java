@@ -139,11 +139,11 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
             if (action == null) {
 
-                stopAttack();
+                stopAction();
 
             } else {
 
-                sprites.attack.setSprite(action.getAnimationFrame());
+                sprites.action.setSprite(action.getAnimationFrame());
             }
 
             break;
@@ -230,12 +230,15 @@ public class Entity implements IUpdate, IDraw, Poolable {
     }
 
     // TODO change to start action
-    public final void startAttack(Action action) {
+    public final void startAction(Action action) {
 
-        if (action.canStart() && changeState(EntityState.Attack)) {
+        if (action.canStartBackground()) {
             action.start();
 
-            sprites.attack.reset();
+        } else if (action.canStart() && changeState(EntityState.Attack)) {
+            action.start();
+
+            sprites.action.reset();
         }
 
     }
@@ -254,9 +257,9 @@ public class Entity implements IUpdate, IDraw, Poolable {
 //        state = EntityState.Attack;
 //    }
 
-    public final void stopAttack() {
+    public final void stopAction() {
 
-        sprites.attack.reset();
+        sprites.action.reset();
 
         state = EntityState.Idle;
 

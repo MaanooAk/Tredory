@@ -7,7 +7,7 @@ default: build run
 
 .phony: build
 build:
-	$(MVN) clean package
+	$(MVN) package
 
 .phony: clean
 clean:

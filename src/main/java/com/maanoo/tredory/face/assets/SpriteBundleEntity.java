@@ -25,7 +25,7 @@ public class SpriteBundleEntity extends SpriteBundle {
 
         idle = new Animation(sheet, frames[0], duration6i, true);
         move = new Animation(sheet, frames[1], duration6, true);
-        attack = new Animation(sheet, frames[2], duration6, false);
+        action = new Animation(sheet, frames[2], duration6, false);
         die = new Animation(sheet, frames[3], duration6, false);
         special = new Animation(sheet, frames[4], duration12, true);
 
@@ -36,7 +36,7 @@ public class SpriteBundleEntity extends SpriteBundle {
     public SpriteBundleEntity(SpriteBundleEntity other) {
         this.idle = resetAnimation(other.idle.copy());
         this.move = resetAnimation(other.move.copy());
-        this.attack = resetAnimation(other.attack.copy());
+        this.action = resetAnimation(other.action.copy());
         this.die = resetAnimation(other.die.copy());
         this.special = resetAnimation(other.special.copy());
 

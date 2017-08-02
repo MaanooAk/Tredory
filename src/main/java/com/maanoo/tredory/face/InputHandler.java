@@ -25,9 +25,11 @@ public final class InputHandler {
 
     public final Point direction;
 
-    public boolean isSelectedAttack;
-    public int selectedAttackGroup;
-    public int selectedAttack;
+    // TODO support multiple actions at the same time
+
+    public boolean isSelectedAction;
+    public int selectedActionGroup;
+    public int selectedAction;
 
     public InputHandler() {
 
@@ -36,7 +38,7 @@ public final class InputHandler {
         mouseAngle = 0;
         direction = new Point();
 
-        isSelectedAttack = false;
+        isSelectedAction = false;
 
     }
 
@@ -60,9 +62,10 @@ public final class InputHandler {
 
         // select attack
 
-        isSelectedAttack = false;
+        isSelectedAction = false;
 
-        if (in.isMouseButtonDown(Keys.Attack1)) selectAttack(0, 0);
+        if (in.isKeyDown(Keys.Attack5)) selectAttack(0, 4);
+        else if (in.isMouseButtonDown(Keys.Attack1)) selectAttack(0, 0);
         else if (in.isMouseButtonDown(Keys.Attack2)) selectAttack(0, 1);
         else if (in.isMouseButtonDown(Keys.Attack3)) selectAttack(0, 2);
         else if (in.isKeyDown(Keys.Attack4)) selectAttack(0, 3);
@@ -74,9 +77,9 @@ public final class InputHandler {
     }
 
     private void selectAttack(int group, int index) {
-        isSelectedAttack = true;
-        selectedAttackGroup = group;
-        selectedAttack = index;
+        isSelectedAction = true;
+        selectedActionGroup = group;
+        selectedAction = index;
     }
 
 }

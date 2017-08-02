@@ -10,13 +10,11 @@ import com.maanoo.tredory.core.entity.actions.AttackProjectileBlow;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileCyclone;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileHoming;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileLine;
+import com.maanoo.tredory.core.entity.actions.EffectGiver;
+import com.maanoo.tredory.core.entity.actions.Instant;
 import com.maanoo.tredory.core.entity.actions.Spell;
-import com.maanoo.tredory.core.entity.effect.Effect;
-import com.maanoo.tredory.core.entity.effect.EffectStack.EffectDuration;
 import com.maanoo.tredory.core.entity.effect.Effects;
 import com.maanoo.tredory.core.utils.Ma;
-import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.core.utils.Points;
 
 
 /**
@@ -30,32 +28,7 @@ public final class ActionsPlayerSetups {
 
     public static final ActionSuppilier basic, basicArc, basicCircle, fireballCyclone1, fireballCyclone2, spellChannel1,
             spellChannel2, basicLine1, spellTeleport, spellSwap, spellPush, spellHoming, basicSoul1, basicSoul2,
-            basicSoul3, basicSoul4, spellPullCoins, speedBoost1, speedBoost2, speedBoost3, speedBoost4;
-
-    public static final class EffectGiver extends Spell {
-
-        private final Effect effect;
-        private final float duration;
-
-        private EffectDuration ef = null;
-
-        public EffectGiver(Entity user, Effect effect, float duration) {
-            super(user, 0, 0, 0, 0);
-            this.effect = effect;
-            this.duration = duration;
-        }
-
-        @Override
-        public void perform() {
-            super.perform();
-            if (ef == null || ef.duration <= 0) {
-                ef = user.effects.addTemporary(effect, duration);
-            } else {
-                ef.duration = duration;
-            }
-        }
-
-    }
+            basicSoul3, basicSoul4, spellPullCoins, speedBoost1, speedBoost2, speedBoost3, speedBoost4, instantPush;
 
     static {
 
@@ -133,20 +106,15 @@ public final class ActionsPlayerSetups {
             @Override
             public void perform() {
 
-                final Point vec = Points.create();
+                Core.c.findAll(user, Team.Bad, 200, (i) -> { // TODO change enemy team selection
 
-                for (final Entity i : Core.c.findAll(user, Team.Bad, 200)) { // TODO change enemy team selection
+                    if (!i.movable) return;
 
-                    if (!i.movable) continue;
+                    final float dis = p.location.distance(i.location);
+                    i.location.addAngled(i.location.distanceAngle(p.location), 10000 / Ma.pow2(dis));
 
-                    vec.init(i.location).sub(user.location);
-                    vec.mul(10000 / Ma.pow2(vec.len()));
+                });
 
-                    i.location.add(vec);
-
-                }
-
-                Points.dispose(vec);
             }
 
         };
@@ -167,9 +135,9 @@ public final class ActionsPlayerSetups {
 
                 if (active) {
 
-                    for (final Entity i : Core.c.findItems(p.location, Integer.MAX_VALUE)) {
+                    Core.c.findItems(p.location, Integer.MAX_VALUE, (i) -> {
 
-                        if (!i.pickable) continue;
+                        if (!i.pickable) return;
 
                         final float dis = p.location.distance(i.location);
 
@@ -179,7 +147,7 @@ public final class ActionsPlayerSetups {
                             i.location.addAngled(p.location.distanceAngle(i.location), 52 - dis + 3);
                         }
 
-                    }
+                    });
 
                 }
             }
@@ -198,6 +166,41 @@ public final class ActionsPlayerSetups {
         speedBoost2 = (p) -> new EffectGiver(p, Effects.speedBoost, 1500);
         speedBoost3 = (p) -> new EffectGiver(p, Effects.speedBoost, 2000);
         speedBoost4 = (p) -> new EffectGiver(p, Effects.speedBoost, 1500);
+
+        instantPush = (p) -> new Instant(p, 10_000) {
+
+            private static final float effect_distance = 78;
+            private static final float effect_duration = 600;
+
+            private float duration_left = 0;
+
+            @Override
+            public void perform() {
+
+                duration_left = effect_duration;
+            }
+
+            @Override
+            public void update(int d) {
+                super.update(d);
+
+                if (duration_left > 0) {
+
+                    Core.c.findAll(user, Team.Bad, effect_distance, (i) -> {
+
+                        if (!i.movable) return;
+
+                        final float dis = p.location.distance(i.location);
+                        i.location.addAngled(i.location.distanceAngle(p.location), effect_distance - dis);
+
+                    });
+
+                    duration_left -= d;
+                }
+
+            }
+
+        };
 
     }
 
