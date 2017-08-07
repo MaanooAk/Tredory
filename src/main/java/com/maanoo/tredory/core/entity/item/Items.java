@@ -28,4 +28,14 @@ public final class Items extends ArrayList<Item> {
     public boolean isMax() {
         return size() >= max;
     }
+
+    public int count(ItemType type) {
+        int count = 0;
+        for (final Item i : this) {
+            if (i.type == type) {
+                count += 1;
+            }
+        }
+        return count;
+    }
 }

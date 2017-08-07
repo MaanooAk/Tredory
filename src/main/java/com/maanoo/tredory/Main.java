@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.Log;
 
+import com.maanoo.tredory.states.StateAchievements;
 import com.maanoo.tredory.states.StateGallery;
 import com.maanoo.tredory.states.StateGame;
 import com.maanoo.tredory.states.StateGameSetup;
@@ -70,6 +71,7 @@ public class Main extends StateBasedGame {
         this.addState(new StateGame());
         this.addState(new StateOver());
         this.addState(new StateGallery());
+        this.addState(new StateAchievements());
         this.addState(new StateOptions());
 
     }

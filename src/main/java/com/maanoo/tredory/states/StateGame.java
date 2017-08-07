@@ -14,6 +14,7 @@ import com.maanoo.tredory.Op.Keys;
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.Draws;
 import com.maanoo.tredory.core.Team;
+import com.maanoo.tredory.core.achieve.Achievements;
 import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.EntityState;
@@ -278,11 +279,18 @@ public class StateGame extends State {
         }
 
         if (c.player.dead) {
-            changeState(game, StateId.Over);
+            gameover(game);
         }
 
         Profile.global.end("update");
 
+    }
+
+    public void gameover(StateBasedGame game) {
+
+        Achievements.instance.check(c.player);
+
+        changeState(game, StateId.Over);
     }
 
 }

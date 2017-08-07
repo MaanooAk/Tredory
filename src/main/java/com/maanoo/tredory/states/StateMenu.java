@@ -43,8 +43,8 @@ public class StateMenu extends State {
         gc.getInput().clearKeyPressedRecord();
 
         menu = new String[] { "Press SPACE to start", "Press SPACE to enter the gallery",
-                "Press SPACE to enter the options" };
-        menuInd = new String[] { "", "- O -", "- - O" };
+                "Press SPACE to enter the achievements", "Press SPACE to enter the options" };
+        menuInd = new String[] { "", "- O - -", "- - O -", "- - - O" };
         menu_index = 0;
 
     }
@@ -85,6 +85,10 @@ public class StateMenu extends State {
                 changeState(game, StateId.Gallery);
                 break;
             case 2:
+
+                changeState(game, StateId.Achievements);
+                break;
+            case 3:
 
                 changeState(game, StateId.Options);
                 break;

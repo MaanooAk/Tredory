@@ -30,7 +30,7 @@ public abstract class QuestStat extends Quest {
     @Override
     public void giveReward(Player player) {
         // TODO give reward
-        Logger.log("Quest", "Give reward");
+        Logger.log("Quest", "TODO Give reward");
     }
 
 }
