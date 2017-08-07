@@ -13,6 +13,8 @@ import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.basicSoul4;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.fireballCyclone1;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.fireballCyclone2;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.instantPush;
+import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.signletonBasic;
+import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.signletonCircle;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost1;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost2;
 import static com.maanoo.tredory.core.entity.ActionsPlayerSetups.speedBoost3;
@@ -56,7 +58,7 @@ public final class PlayerSetups {
 
             new PlayerSetup(InfoText.create("Toxic"), Assets.chara.get(0), Assets.toxicball, new ActionsPlayerSetup(
                     // primary
-                    basic, basicArc, basicCircle, fireballCyclone1, basic,
+                    basic, basicArc, basicCircle, fireballCyclone1, instantPush,
                     // secondary
                     spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
                     // soul
@@ -66,7 +68,7 @@ public final class PlayerSetups {
 
             new PlayerSetup(InfoText.create("Inv"), Assets.chara.get(0), Assets.invball, new ActionsPlayerSetup(
                     // primary
-                    basic, basicArc, basicCircle, fireballCyclone1, basic,
+                    basic, basicArc, basicCircle, fireballCyclone1, instantPush,
                     // secondary
                     spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
                     // soul
@@ -76,7 +78,7 @@ public final class PlayerSetups {
 
             new PlayerSetup(InfoText.create("Speed"), Assets.chara.get(0), Assets.fireball, new ActionsPlayerSetup(
                     // primary
-                    basic, basicLine1, basicCircle, fireballCyclone1, basic,
+                    basic, basicLine1, basicCircle, fireballCyclone1, instantPush,
                     // secondary
                     spellTeleport, spellPullCoins, spellChannel1, spellChannel2, spellSwap, spellPush, spellHoming,
                     // soul
@@ -86,7 +88,7 @@ public final class PlayerSetups {
 
             new PlayerSetup(InfoText.create("Singleton"), Assets.chara.get(0), Assets.fireball, new ActionsPlayerSetup(
                     // primary
-                    basic, basicArc, basicCircle, fireballCyclone1, basic,
+                    basic, signletonBasic, signletonCircle, fireballCyclone1, instantPush,
                     // secondary
                     spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
                     // soul
@@ -96,7 +98,7 @@ public final class PlayerSetups {
 
             new PlayerSetup(InfoText.create("Heva"), Assets.chara.get(0), Assets.fireball, new ActionsPlayerSetup(
                     // primary
-                    basic, basicArc, basicCircle, fireballCyclone1, basic,
+                    basic, basicArc, basicCircle, fireballCyclone1, instantPush,
                     // secondary
                     spellTeleport, spellChannel1, spellChannel2, fireballCyclone2, spellSwap, spellPush, spellHoming,
                     // soul

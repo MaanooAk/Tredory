@@ -215,13 +215,25 @@ public class InterfaceMap extends Interface {
 
     private void drawSpells(Graphics g, ActionsPlayer actions) {
 
-        final int count = 5;
+        final int count_prime = 5;
+        final int count = count_prime + 7;
         final int wi = 16;
+        final int down_offset = 8;
+        final int down_space = 14;
 
         int x = w / 2 - count * (wi + 10) / 2;
         for (int i = 0; i < count; i++) {
 
-            final Action action = actions.get(0, i);
+            if (i == count_prime) {
+                x += 5;
+            }
+
+            Action action;
+            if (i <= count_prime) {
+                action = actions.get(0, i);
+            } else {
+                action = actions.get(1, i - count_prime);
+            }
 
             if (action.isCooling()) {
 
@@ -232,15 +244,15 @@ public class InterfaceMap extends Interface {
 
                 float offset = 0;
                 if (time_passed < 300f) {
-                    offset = 16 * Ma.pow2(1 - time_passed / 300f);
+                    offset = down_offset * Ma.pow2(1 - time_passed / 300f);
                 } else if (time_left < 300f) {
-                    offset = 16 * Ma.pow2(1 - time_left / 300f);
+                    offset = down_offset * Ma.pow2(1 - time_left / 300f);
                 }
 
-                Assets.action.get(0, progress).draw(x - 8, h - wi - 4 - offset, 1);
+                Assets.action.get(0, progress).draw(x - 8, h - wi - down_space - offset, 1);
 
             } else if (action.canStart()) {
-                Assets.action.get().draw(x - 8, h - wi - 16 - 4, 1);
+                Assets.action.get().draw(x - 8, h - wi - down_offset - down_space, 1);
             } else if (action.isActive()) {
 
                 float progress = action.getStateProgress() / 2;
@@ -251,16 +263,8 @@ public class InterfaceMap extends Interface {
                     progress += 0.5;
                 }
 
-                Assets.action.get(1, progress).draw(x - 8, h - wi - 16 - 4, 1);
+                Assets.action.get(1, progress).draw(x - 8, h - wi - down_offset - down_space, 1);
             }
-
-//            g.setColor(Colors.black75);
-//            g.fillOval(w / 2 + x, h - wi - 10, wi, wi);
-//            g.setColor(Color.darkGray);
-//            g.drawOval(w / 2 + x, h - wi - 10, wi, wi);
-//
-//            g.setColor(Color.darkGray);
-//            g.fillArc(w / 2 + x, h - wi - 10, wi, wi, -180, -180);
 
             x += wi + 10;
         }

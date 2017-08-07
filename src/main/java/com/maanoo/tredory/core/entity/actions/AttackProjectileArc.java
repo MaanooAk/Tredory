@@ -42,7 +42,8 @@ public class AttackProjectileArc extends AttackProjectile {
             final Point start = user.location.clone().add(new Point(user.angle).mul(32));
 
             Core.addEntity(Pools.obtain(Projectile.class).init(user.team, start, user.angle,
-                    new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time, 1500));
+                    new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time,
+                    Projectile.NORMAL_LIFETIME));
 
         } else {
 
@@ -55,7 +56,8 @@ public class AttackProjectileArc extends AttackProjectile {
                 final Point start = user.location.clone().add(new Point(iangle).mul(32));
 
                 Core.addEntity(Pools.obtain(Projectile.class).init(user.team, start, iangle,
-                        new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time, 1500));
+                        new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time,
+                        Projectile.NORMAL_LIFETIME));
 
             }
         }

@@ -29,20 +29,33 @@ public abstract class Action implements IUpdate {
     protected final float end_time;
     protected final float cooldown_time;
 
+    // TODO change, to protected final
+    public int max_perform_count;
+
     protected final boolean backgroud;
 
     protected State state;
-    private float state_time;
-    private float time_left;
-    private boolean stop_recharge;
+    protected float state_time;
+    protected float time_left;
+    protected boolean stop_recharge;
     protected int perform_count;
 
     public Action(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time) {
-        this(user, charge_time, recharge_time, end_time, cooldown_time, false);
+        this(user, charge_time, recharge_time, end_time, cooldown_time, Integer.MAX_VALUE, false);
     }
 
     public Action(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time,
             boolean backgroud) {
+        this(user, charge_time, recharge_time, end_time, cooldown_time, Integer.MAX_VALUE, backgroud);
+    }
+
+    public Action(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time,
+            int max_perform_count) {
+        this(user, charge_time, recharge_time, end_time, cooldown_time, max_perform_count, false);
+    }
+
+    public Action(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time,
+            int max_perform_count, boolean backgroud) {
         this.user = user;
 
         recharge = recharge_time > 0;
@@ -52,6 +65,8 @@ public abstract class Action implements IUpdate {
         this.recharge_time = recharge_time;
         this.end_time = end_time;
         this.cooldown_time = cooldown_time;
+
+        this.max_perform_count = max_perform_count;
 
         this.backgroud = backgroud;
 
@@ -132,6 +147,9 @@ public abstract class Action implements IUpdate {
             case Recharging:
 
                 recharge();
+                if (perform_count > max_perform_count) {
+                    stop_recharge = true;
+                }
 
             case Charging:
 
@@ -173,7 +191,7 @@ public abstract class Action implements IUpdate {
         case Ending:
             return Ma.limit((int) (4 + 2 * (1f - time_left / state_time)), 4, 5);
         case Recharging:
-            return 3; // Ma.limit((int) (2 + 2 * (1f - time_left / state_time)), 2, 3);
+            return (time_left / state_time) < 0.25 ? 2 : 3;
         default:
             return 0;
         }

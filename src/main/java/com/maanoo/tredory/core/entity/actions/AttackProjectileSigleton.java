@@ -3,19 +3,24 @@
 package com.maanoo.tredory.core.entity.actions;
 
 import com.maanoo.tredory.core.entity.Entity;
+import com.maanoo.tredory.core.entity.ProjectileType;
 import com.maanoo.tredory.core.utils.Ma;
 
 
 /**
+ * TODO doc
+ *
  * @author MaanooAk
  */
-public abstract class Spell extends Attack {
+public class AttackProjectileSigleton extends AttackProjectileArc {
 
-    protected boolean active;
+    public AttackProjectileSigleton(Entity user, float charge_time, float recharge_time, float end_time,
+            float cooldown_time, ProjectileType projectile, float speed, float count, float angle,
+            int max_perform_count) {
+        super(user, charge_time, recharge_time, end_time, cooldown_time, projectile, speed, count, angle);
 
-    public Spell(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time) {
-        super(user, charge_time, recharge_time, end_time, cooldown_time);
-        active = false;
+        this.max_perform_count = max_perform_count;
+
     }
 
     @Override
@@ -31,21 +36,5 @@ public abstract class Spell extends Attack {
             return 0;
         }
     }
-
-    @Override
-    public void perform() {
-        active = true;
-    }
-
-    @Override
-    public void recharge() {}
-
-    @Override
-    public void end() {
-        active = false;
-    }
-
-    @Override
-    public void cooldown() {}
 
 }

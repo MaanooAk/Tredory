@@ -17,6 +17,8 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntityBasic;
  */
 public class Projectile extends Entity {
 
+    public static final int NORMAL_LIFETIME = 1000;
+
     public static final class AttackProjectile extends Action {
 
         public AttackProjectile(Entity user, float charge_time) {
@@ -42,12 +44,10 @@ public class Projectile extends Entity {
     public float rota;
     public float lifetime;
 
-    private float tmp;
-
     public Projectile() {}
 
-    public Projectile init(Team team, Point location, float angle, SpriteBundleEntityBasic sprites, float speed, float rota,
-            float charge_time, float lifetime) {
+    public Projectile init(Team team, Point location, float angle, SpriteBundleEntityBasic sprites, float speed,
+            float rota, float charge_time, float lifetime) {
         init(team, location, angle, sprites);
         this.rota = rota;
         this.lifetime = lifetime;

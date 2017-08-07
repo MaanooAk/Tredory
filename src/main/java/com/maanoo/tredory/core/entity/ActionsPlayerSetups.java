@@ -10,6 +10,7 @@ import com.maanoo.tredory.core.entity.actions.AttackProjectileBlow;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileCyclone;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileHoming;
 import com.maanoo.tredory.core.entity.actions.AttackProjectileLine;
+import com.maanoo.tredory.core.entity.actions.AttackProjectileSigleton;
 import com.maanoo.tredory.core.entity.actions.EffectGiver;
 import com.maanoo.tredory.core.entity.actions.Instant;
 import com.maanoo.tredory.core.entity.actions.Spell;
@@ -28,7 +29,8 @@ public final class ActionsPlayerSetups {
 
     public static final ActionSuppilier basic, basicArc, basicCircle, fireballCyclone1, fireballCyclone2, spellChannel1,
             spellChannel2, basicLine1, spellTeleport, spellSwap, spellPush, spellHoming, basicSoul1, basicSoul2,
-            basicSoul3, basicSoul4, spellPullCoins, speedBoost1, speedBoost2, speedBoost3, speedBoost4, instantPush;
+            basicSoul3, basicSoul4, spellPullCoins, speedBoost1, speedBoost2, speedBoost3, speedBoost4, instantPush,
+            signletonBasic, signletonCircle;
 
     static {
 
@@ -37,7 +39,7 @@ public final class ActionsPlayerSetups {
         basicArc = (p) -> new AttackProjectileArc(p, 400 / 0.9f, 0, 250 / 0.9f, 0, p.projectile, 0.6f, 5, 40);
         basicLine1 = (p) -> new AttackProjectileLine(p, 400 / 0.9f, 0, 250 / 0.9f, 0, p.projectile, 0.6f, 5, 100);
 
-        basicCircle = (p) -> new AttackProjectileArc(p, 400 / 0.5f, 400 / 4.0f, 250 / 0.6f, 1000, p.projectile, 0.6f,
+        basicCircle = (p) -> new AttackProjectileArc(p, 400 / 0.5f, 400 / 4.0f, 250 / 0.4f, 1000, p.projectile, 0.6f,
                 16, 360) {
 
             @Override
@@ -47,10 +49,10 @@ public final class ActionsPlayerSetups {
             }
         };
 
-        fireballCyclone1 = (p) -> new AttackProjectileCyclone(p, 400 / 2.0f, 0, 250 / 2.0f, 0, p.projectile, 0.45f, 3,
-                0.0f, 160, 0.0f);
-        fireballCyclone2 = (p) -> new AttackProjectileCyclone(p, 400 / 4.0f, 0, 250 / 4.0f, 0, p.projectile, 0.3f, 16,
-                1.0f, 320, 0.25f);
+        fireballCyclone1 = (p) -> new AttackProjectileCyclone(p, 400 / 2.0f, 400 / 2.0f, 250 / 2.0f, 0, p.projectile,
+                0.45f, 3, 0.0f, 160, 0.0f);
+        fireballCyclone2 = (p) -> new AttackProjectileCyclone(p, 400 / 2.0f, 400 / 4.0f, 250 / 4.0f, 4000, p.projectile,
+                0.3f, 16, 1.0f, 320, 0.25f);
 
         spellChannel1 = (p) -> new AttackProjectileBlow(p, 400 / 1.0f, 400 / 1.0f, 250 / 0.9f, 0, p.projectile, 0.6f, 5,
                 0.34f, 40, 0);
@@ -88,7 +90,7 @@ public final class ActionsPlayerSetups {
 
         };
 
-        spellSwap = (p) -> new Spell(p, 400 * 0.6f, 0, 200 * 0.6f, 0) {
+        spellSwap = (p) -> new Spell(p, 400 * 0.6f, 0, 200 * 0.6f, 3000) {
 
             @Override
             public void perform() {
@@ -155,12 +157,12 @@ public final class ActionsPlayerSetups {
         };
 
         spellHoming = (p) -> new AttackProjectileHoming(p, 400 / 1.5f, 400 / 10.5f, 250 / 1.5f, 0, p.projectile, 0.6f,
-                10, 0.35f);
+                10, 0.35f, true);
 
-        basicSoul1 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 3, 0.25f);
-        basicSoul2 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 6, 0.28f);
-        basicSoul3 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 9, 0.31f);
-        basicSoul4 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 11, 0.34f);
+        basicSoul1 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 3, 0.25f, false);
+        basicSoul2 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 6, 0.28f, false);
+        basicSoul3 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 9, 0.31f, false);
+        basicSoul4 = (p) -> new AttackProjectileHoming(p, 0, 0, 0, 0, p.projectile, 0.6f, 11, 0.34f, false);
 
         speedBoost1 = (p) -> new EffectGiver(p, Effects.speedBoost, 1000);
         speedBoost2 = (p) -> new EffectGiver(p, Effects.speedBoost, 1500);
@@ -201,6 +203,11 @@ public final class ActionsPlayerSetups {
             }
 
         };
+
+        signletonBasic = (p) -> new AttackProjectileSigleton(p, 400 / 1.5f, 400 / 8f, 250 / 1.5f, 0, p.projectile, 0.6f,
+                1, 0, 3);
+        signletonCircle = (p) -> new AttackProjectileSigleton(p, 400 / 1.5f, 400 / 8f, 250 / 1.5f, 1000, p.projectile,
+                0.6f, 1, 0, 8);
 
     }
 

@@ -14,7 +14,7 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntityBasic;
 
 /**
  * TODO doc
- * 
+ *
  * @author MaanooAk
  */
 public class AttackProjectileLine extends AttackProjectile {
@@ -37,21 +37,23 @@ public class AttackProjectileLine extends AttackProjectile {
 
         if (projcount == 1) {
 
-            Point start = user.location.clone().add(new Point(user.angle).mul(32));
+            final Point start = user.location.clone().add(new Point(user.angle).mul(32));
 
             Core.addEntity(Pools.obtain(Projectile.class).init(user.team, start, user.angle,
-                    new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time, 1500));
+                    new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time,
+                    Projectile.NORMAL_LIFETIME));
 
         } else {
 
             for (int i = 0; i < projcount; i += 1) {
 
-                float offset = width * i / (projcount - 1) - width / 2;
-                Point start = user.location.clone().add(new Point(user.angle).mul(32))
+                final float offset = width * i / (projcount - 1) - width / 2;
+                final Point start = user.location.clone().add(new Point(user.angle).mul(32))
                         .add(new Point(user.angle + 90).mul(offset));
 
                 Core.addEntity(Pools.obtain(Projectile.class).init(user.team, start, user.angle,
-                        new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time, 1500));
+                        new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time,
+                        Projectile.NORMAL_LIFETIME));
 
             }
         }

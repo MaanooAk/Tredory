@@ -27,6 +27,8 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntity;
  */
 public final class Player extends Entity {
 
+    public static final int EXTRA_CRYSTALS_PER_STONE = 1;
+
     public int coins;
 
     public final Items shields;
@@ -52,7 +54,7 @@ public final class Player extends Entity {
         coins = 0;
 
         shields = new Items(2);
-        crystals = new Items(15);
+        crystals = new Items(12);
         stones = new Items(4);
 
         souls = new Souls();
@@ -123,7 +125,7 @@ public final class Player extends Entity {
         ccomp.update(crystals, shields);
 
         // TODO move stone effect to separate effect
-        ccomp.effect.crystals.add = stones.size() * 2;
+        ccomp.effect.crystals.add = stones.size() * EXTRA_CRYSTALS_PER_STONE;
 
         effects.updateEffects();
 

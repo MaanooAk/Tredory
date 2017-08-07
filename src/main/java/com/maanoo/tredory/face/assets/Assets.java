@@ -58,6 +58,7 @@ public class Assets {
     public static AssetSet<SpriteSheet> axeman;
     public static AssetSet<SpriteSheet> maceman;
     public static AssetSet<SpriteSheet> swordman;
+    public static AssetSet<SpriteSheet> plain;
 
     public static AssetSet<SpriteSheet> slime;
 
@@ -122,6 +123,8 @@ public class Assets {
         imagePaths.add("data/sprites/entities/maceman2m.png");
         imagePaths.add("data/sprites/entities/swordman1.png");
         imagePaths.add("data/sprites/entities/swordman1m.png");
+        imagePaths.add("data/sprites/entities/plain1.png");
+        imagePaths.add("data/sprites/entities/plain1m.png");
         imagePaths.add("data/sprites/ui/action.png");
 
     }
@@ -267,6 +270,7 @@ public class Assets {
         axeman = loadSpriteSheetSet("axeman");
         maceman = loadSpriteSheetSet("maceman");
         swordman = loadSpriteSheetSet("swordman");
+        plain = loadSpriteSheetSet("plain");
     }
 
     public static void loadSounds() {
