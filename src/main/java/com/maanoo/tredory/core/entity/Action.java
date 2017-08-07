@@ -180,7 +180,8 @@ public abstract class Action implements IUpdate {
     }
 
     public float getStateProgress() {
-        return 1f - time_left / state_time;
+        if (state_time != 0) return 1f - time_left / state_time;
+        return 1f;
     }
 
     public boolean isActive() {
@@ -193,12 +194,24 @@ public abstract class Action implements IUpdate {
         }
     }
 
+    public boolean isCooling() {
+        return state == State.Cooling;
+    }
+
     public boolean isRecharge() {
         return recharge && !stop_recharge;
     }
 
     public State getState() {
         return state;
+    }
+
+    public float getStateTime() {
+        return state_time;
+    }
+
+    public float getStateTimeLeft() {
+        return time_left;
     }
 
 }

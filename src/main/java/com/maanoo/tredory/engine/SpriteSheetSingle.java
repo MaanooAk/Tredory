@@ -42,6 +42,7 @@ public class SpriteSheetSingle extends SpriteSheet {
         return sprites[x][y];
     }
 
+    @Deprecated
     public Image getImage(int x, int y) {
         return sprites[x][y].getImage();
     }

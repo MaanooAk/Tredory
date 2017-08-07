@@ -19,7 +19,7 @@ public abstract class Sprite {
         draw(x, y, width, height, Color.white);
     }
 
-    public void draw(float x, float y, float scale) {
+    public void draw(float x, float y, int scale) {
         draw(x, y, getImage().getWidth() * scale, getImage().getHeight() * scale);
     }
 

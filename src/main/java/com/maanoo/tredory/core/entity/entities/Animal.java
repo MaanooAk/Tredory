@@ -9,7 +9,7 @@ import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.actions.AttackMelee;
 import com.maanoo.tredory.core.entity.brains.AnimalBrain;
 import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.face.assets.SpriteBundleEntity;
+import com.maanoo.tredory.face.assets.SpriteBundleEntityBasic;
 
 
 /**
@@ -22,7 +22,7 @@ public class Animal extends Entity {
 
     public final AnimalBrain brain;
 
-    public Animal(Team team, Point location, float angle, SpriteBundleEntity sprites, float atackSpeedMul,
+    public Animal(Team team, Point location, float angle, SpriteBundleEntityBasic sprites, float atackSpeedMul,
             float speedMul) {
         super(team, location, angle, sprites);
 

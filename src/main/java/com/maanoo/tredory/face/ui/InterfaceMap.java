@@ -7,6 +7,9 @@ import org.newdawn.slick.Graphics;
 
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.Draws;
+import com.maanoo.tredory.core.entity.Action;
+import com.maanoo.tredory.core.entity.Action.State;
+import com.maanoo.tredory.core.entity.ActionsPlayer;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.Souls;
 import com.maanoo.tredory.core.entity.item.ItemType;
@@ -15,6 +18,7 @@ import com.maanoo.tredory.core.map.Map;
 import com.maanoo.tredory.core.quest.QuestProgress;
 import com.maanoo.tredory.core.quest.QuestsTracker;
 import com.maanoo.tredory.core.utils.Colors;
+import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
 
@@ -65,7 +69,7 @@ public class InterfaceMap extends Interface {
         drawCrystals(g, c.player.crystals);
         drawStones(g, c.player.stones, c.player.souls);
         drawCoins(g, c.player.coins);
-        drawSpells(g);
+        drawSpells(g, c.player.getActions());
         drawQuests(g, c.player.quests);
 
     }
@@ -209,21 +213,54 @@ public class InterfaceMap extends Interface {
 
     }
 
-    private void drawSpells(Graphics g) {
+    private void drawSpells(Graphics g, ActionsPlayer actions) {
 
-        final int count = 7;
+        final int count = 5;
         final int wi = 16;
 
-        int x = (int) (-count / 2f * (wi + 10));
+        int x = w / 2 - count * (wi + 10) / 2;
         for (int i = 0; i < count; i++) {
 
-            g.setColor(Colors.black75);
-            g.fillOval(w / 2 + x, h - wi - 10, wi, wi);
-            g.setColor(Color.darkGray);
-            g.drawOval(w / 2 + x, h - wi - 10, wi, wi);
+            final Action action = actions.get(0, i);
 
-            g.setColor(Color.darkGray);
-            g.fillArc(w / 2 + x, h - wi - 10, wi, wi, -180, -180);
+            if (action.isCooling()) {
+
+                final float progress = action.getStateProgress();
+                final float time = action.getStateTime();
+                final float time_left = action.getStateTimeLeft();
+                final float time_passed = time - time_left;
+
+                float offset = 0;
+                if (time_passed < 300f) {
+                    offset = 16 * Ma.pow2(1 - time_passed / 300f);
+                } else if (time_left < 300f) {
+                    offset = 16 * Ma.pow2(1 - time_left / 300f);
+                }
+
+                Assets.action.get(0, progress).draw(x - 8, h - wi - 4 - offset, 1);
+
+            } else if (action.canStart()) {
+                Assets.action.get().draw(x - 8, h - wi - 16 - 4, 1);
+            } else if (action.isActive()) {
+
+                float progress = action.getStateProgress() / 2;
+
+                if (action.isRecharge()) {
+                    progress = 0.5f;
+                } else if (action.getState() == State.Ending) {
+                    progress += 0.5;
+                }
+
+                Assets.action.get(1, progress).draw(x - 8, h - wi - 16 - 4, 1);
+            }
+
+//            g.setColor(Colors.black75);
+//            g.fillOval(w / 2 + x, h - wi - 10, wi, wi);
+//            g.setColor(Color.darkGray);
+//            g.drawOval(w / 2 + x, h - wi - 10, wi, wi);
+//
+//            g.setColor(Color.darkGray);
+//            g.fillArc(w / 2 + x, h - wi - 10, wi, wi, -180, -180);
 
             x += wi + 10;
         }

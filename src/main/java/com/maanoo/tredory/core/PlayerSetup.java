@@ -10,7 +10,7 @@ import com.maanoo.tredory.core.entity.item.ItemType;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.face.assets.AssetSet;
-import com.maanoo.tredory.face.assets.SpriteBundleEntity;
+import com.maanoo.tredory.face.assets.SpriteBundleEntityBasic;
 
 
 /**
@@ -42,7 +42,7 @@ public class PlayerSetup implements ISetup<Player> {
     }
 
     public Player create() {
-        final Player p = new Player(Team.Good, new Point(), 180, new SpriteBundleEntity(body));
+        final Player p = new Player(Team.Good, new Point(), 180, new SpriteBundleEntityBasic(body));
         p.projectile = new ProjectileType(projectile);
         p.actions = actions.create(p);
 

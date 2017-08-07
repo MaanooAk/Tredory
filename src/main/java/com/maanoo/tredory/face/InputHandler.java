@@ -64,7 +64,7 @@ public final class InputHandler {
 
         isSelectedAction = false;
 
-        if (in.isKeyDown(Keys.Attack5)) selectAttack(0, 4);
+        if (in.isKeyPressed(Keys.Attack5)) selectAttack(0, 4);
         else if (in.isMouseButtonDown(Keys.Attack1)) selectAttack(0, 0);
         else if (in.isMouseButtonDown(Keys.Attack2)) selectAttack(0, 1);
         else if (in.isMouseButtonDown(Keys.Attack3)) selectAttack(0, 2);

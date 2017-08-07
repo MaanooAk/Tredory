@@ -37,8 +37,8 @@ public final class ActionsPlayerSetups {
         basicArc = (p) -> new AttackProjectileArc(p, 400 / 0.9f, 0, 250 / 0.9f, 0, p.projectile, 0.6f, 5, 40);
         basicLine1 = (p) -> new AttackProjectileLine(p, 400 / 0.9f, 0, 250 / 0.9f, 0, p.projectile, 0.6f, 5, 100);
 
-        basicCircle = (p) -> new AttackProjectileArc(p, 400 / 0.5f, 400 / 4.0f, 250 / 0.6f, 0, p.projectile, 0.6f, 16,
-                360) {
+        basicCircle = (p) -> new AttackProjectileArc(p, 400 / 0.5f, 400 / 4.0f, 250 / 0.6f, 1000, p.projectile, 0.6f,
+                16, 360) {
 
             @Override
             public void recharge() {

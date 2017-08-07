@@ -6,7 +6,7 @@ import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
-import com.maanoo.tredory.face.assets.SpriteBundleStatic;
+import com.maanoo.tredory.face.assets.SpriteBundleEntityStatic;
 
 
 /**
@@ -24,7 +24,7 @@ public class Item extends Entity implements Comparable<Item> {
     }
 
     public Item(ItemType type, Point location) {
-        super(Team.Neutral, location, 180, new SpriteBundleStatic(Assets.getItem(type).get()));
+        super(Team.Neutral, location, 180, new SpriteBundleEntityStatic(Assets.getItem(type).get()));
 
         this.type = type;
         this.speed = 0;

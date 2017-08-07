@@ -7,7 +7,7 @@ import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.Entity;
 import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.core.utils.Point;
-import com.maanoo.tredory.face.assets.SpriteBundleEntity;
+import com.maanoo.tredory.face.assets.SpriteBundleEntityBasic;
 
 
 /**
@@ -22,7 +22,7 @@ public class HomingProjectile extends Projectile {
 
     public HomingProjectile() {}
 
-    public HomingProjectile init(Team team, Point location, float angle, SpriteBundleEntity sprites, float speed,
+    public HomingProjectile init(Team team, Point location, float angle, SpriteBundleEntityBasic sprites, float speed,
             float rota, float charge_time, float lifetime, float angleSpeed, Entity target) {
         super.init(team, location, angle, sprites, speed, rota, charge_time, lifetime);
         this.angleSpeed = angleSpeed;

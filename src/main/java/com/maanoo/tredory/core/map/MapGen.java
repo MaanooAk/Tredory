@@ -11,7 +11,7 @@ import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
-import com.maanoo.tredory.face.assets.SpriteBundleEntity;
+import com.maanoo.tredory.face.assets.SpriteBundleEntityBasic;
 
 
 /**
@@ -105,7 +105,7 @@ public class MapGen {
     public static final void genBoxguards(Map m, Spot center) {
         center.color = Colors.c404040;
 
-        m.l.add(new Container(Team.Bad, 1, center.clone(), m.ra.angle(), new SpriteBundleEntity(Assets.box.get())));
+        m.l.add(new Container(Team.Bad, 1, center.clone(), m.ra.angle(), new SpriteBundleEntityBasic(Assets.box.get())));
 
         genCircleGuard(m, center, 70, 10, range(m, 3, 7, m.type.population), 1);
     }
@@ -117,7 +117,7 @@ public class MapGen {
         genStepsAround(m, center, 40, 80, 300);
 
         final Container con = new Container(Team.Bad, 2, center.clone(), m.ra.angle(),
-                new SpriteBundleEntity(Assets.boxg.get()));
+                new SpriteBundleEntityBasic(Assets.boxg.get()));
         m.l.add(con);
         m.hotspots.add(con);
 
@@ -157,7 +157,7 @@ public class MapGen {
         genStepsAround(m, center, 50, 80, 300);
 
         final Portal po = new Portal(Team.Neutral, center.clone(), m.ra.angle(),
-                new SpriteBundleEntity(Assets.portal.get()));
+                new SpriteBundleEntityBasic(Assets.portal.get()));
         m.l.add(po);
         m.hotspots.add(po);
     }
@@ -209,10 +209,10 @@ public class MapGen {
 
         switch (m.ra.range(2)) {
         case 0:
-            m.l.add(new Animal(Team.Bad, p, angle, new SpriteBundleEntity(Assets.axeman.get()), 1, 1));
+            m.l.add(new Animal(Team.Bad, p, angle, new SpriteBundleEntityBasic(Assets.axeman.get()), 1, 1));
             return;
         case 1:
-            m.l.add(new Animal(Team.Bad, p, angle, new SpriteBundleEntity(Assets.maceman.get()), 1, 1));
+            m.l.add(new Animal(Team.Bad, p, angle, new SpriteBundleEntityBasic(Assets.maceman.get()), 1, 1));
             return;
         }
     }
@@ -221,7 +221,7 @@ public class MapGen {
 
         switch (m.ra.range(1)) {
         case 0:
-            m.l.add(new Animal(Team.Bad, p, angle, new SpriteBundleEntity(Assets.swordman.get()), 1.2f, 1));
+            m.l.add(new Animal(Team.Bad, p, angle, new SpriteBundleEntityBasic(Assets.swordman.get()), 1.2f, 1));
             return;
         }
     }

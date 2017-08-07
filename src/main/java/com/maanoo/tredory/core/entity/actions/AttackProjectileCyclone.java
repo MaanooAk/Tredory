@@ -10,7 +10,7 @@ import com.maanoo.tredory.core.entity.entities.Projectile;
 import com.maanoo.tredory.core.memory.Pools;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
-import com.maanoo.tredory.face.assets.SpriteBundleEntity;
+import com.maanoo.tredory.face.assets.SpriteBundleEntityBasic;
 
 
 /**
@@ -49,7 +49,7 @@ public class AttackProjectileCyclone extends AttackProjectile {
             final Point start = user.location.clone().add(new Point(angle).mul(32));
 
             Core.addEntity(Pools.obtain(Projectile.class).init(user.team, start, angle + 90,
-                    new SpriteBundleEntity(projectile.getSpriteSheet()), projspeed, 0.6f, proj_charge_time, 500));
+                    new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0.6f, proj_charge_time, 500));
 
         } else {
 
@@ -67,7 +67,7 @@ public class AttackProjectileCyclone extends AttackProjectile {
                 if (param1 == 0.0f) {
 
                     Core.addEntity(Pools.obtain(Projectile.class).init(user.team, start, iangle + 90,
-                            new SpriteBundleEntity(projectile.getSpriteSheet()), projspeed, 0.6f, proj_charge_time,
+                            new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0.6f, proj_charge_time,
                             500));
 
                 } else if (param1 == 1.0f) {
@@ -75,7 +75,7 @@ public class AttackProjectileCyclone extends AttackProjectile {
                     final float sign = Ra.global.sign();
 
                     Core.addEntity(Pools.obtain(Projectile.class).init(user.team, start, iangle + sign * 45,
-                            new SpriteBundleEntity(projectile.getSpriteSheet()), projspeed,
+                            new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed,
                             sign * Ra.global.range(0.1f, 0.2f), proj_charge_time, 20 + Ra.global.range(200)));
                 }
 

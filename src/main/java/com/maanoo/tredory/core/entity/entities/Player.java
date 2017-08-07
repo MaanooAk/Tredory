@@ -19,7 +19,7 @@ import com.maanoo.tredory.core.entity.item.Items;
 import com.maanoo.tredory.core.quest.QuestsTracker;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
-import com.maanoo.tredory.face.assets.SpriteBundle;
+import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 
 /**
@@ -46,7 +46,7 @@ public final class Player extends Entity {
     // TODO change, tmp
     public ProjectileType projectile;
 
-    public Player(Team team, Point location, float angle, SpriteBundle sprites) {
+    public Player(Team team, Point location, float angle, SpriteBundleEntity sprites) {
         super(team, location, angle, sprites);
 
         coins = 0;

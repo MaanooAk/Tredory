@@ -72,6 +72,8 @@ public class Assets {
     public static Image effect_arrow;
     public static Image effect_frenzy;
 
+    public static SpriteBunldeProgress action;
+
     // ===
 
     public static SoundBundle trans;
@@ -120,6 +122,7 @@ public class Assets {
         imagePaths.add("data/sprites/entities/maceman2m.png");
         imagePaths.add("data/sprites/entities/swordman1.png");
         imagePaths.add("data/sprites/entities/swordman1m.png");
+        imagePaths.add("data/sprites/ui/action.png");
 
     }
 
@@ -257,6 +260,8 @@ public class Assets {
             effects_sheet = new SpriteSheetSingle(atlas.get("data/sprites/effects.png"), 96, 96);
             effect_arrow = effects_sheet.getImage(0, 0);
             effect_frenzy = effects_sheet.getImage(2, 0);
+
+            action = new SpriteBunldeProgress(new SpriteSheetSingle(atlas.get("data/sprites/ui/action.png"), 32, 32));
         }
 
         axeman = loadSpriteSheetSet("axeman");

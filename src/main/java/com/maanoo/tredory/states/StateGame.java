@@ -74,6 +74,7 @@ public class StateGame extends State {
         super.enter(gc, game);
 
         gc.getInput().clearKeyPressedRecord();
+        gc.getInput().clearMousePressedRecord();
 
         c = Core.c;
 

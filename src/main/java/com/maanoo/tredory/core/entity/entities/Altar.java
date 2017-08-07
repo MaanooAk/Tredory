@@ -8,7 +8,7 @@ import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.core.entity.item.ItemType;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.face.assets.Assets;
-import com.maanoo.tredory.face.assets.SpriteBundleEntity;
+import com.maanoo.tredory.face.assets.SpriteBundleEntityBasic;
 
 
 /**
@@ -19,7 +19,7 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 public class Altar extends Entity {
 
     public Altar(Team team, Point location, float angle) {
-        super(team, location, angle, new SpriteBundleEntity(Assets.altar.get()));
+        super(team, location, angle, new SpriteBundleEntityBasic(Assets.altar.get()));
 
         shieldsSum = 2;
 

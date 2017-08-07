@@ -16,7 +16,7 @@ import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Points;
 import com.maanoo.tredory.core.utils.Rectangle;
-import com.maanoo.tredory.face.assets.SpriteBundle;
+import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 
 /**
@@ -54,7 +54,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
      */
     public Point move;
     public EntityState state;
-    public SpriteBundle sprites;
+    public SpriteBundleEntity sprites;
     public boolean spriteRotate;
     public int size;
     /**
@@ -77,7 +77,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         effects = new EffectStack();
     }
 
-    public Entity(Team team, Point location, float angle, SpriteBundle sprites) {
+    public Entity(Team team, Point location, float angle, SpriteBundleEntity sprites) {
         move = new Point();
         effects = new EffectStack();
         init(team, location, angle, sprites);
@@ -105,7 +105,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         effects.init(this);
     }
 
-    public void init(Team team, Point location, float angle, SpriteBundle sprites) {
+    public void init(Team team, Point location, float angle, SpriteBundleEntity sprites) {
         init();
         this.team = team;
         this.location = location;

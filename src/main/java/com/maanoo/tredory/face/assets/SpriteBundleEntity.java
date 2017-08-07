@@ -2,54 +2,23 @@
 
 package com.maanoo.tredory.face.assets;
 
-import com.maanoo.tredory.core.utils.Ra;
+import com.maanoo.tredory.core.entity.EntityState;
 import com.maanoo.tredory.engine.Animation;
-import com.maanoo.tredory.engine.SpriteSheet;
+import com.maanoo.tredory.engine.Sprite;
 
 
 /**
  * @author MaanooAk
  */
-public class SpriteBundleEntity extends SpriteBundle {
+public abstract class SpriteBundleEntity extends SpriteBundle {
 
-    private static final int[][] frames = new int[][] { { 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0 },
-            { 0, 1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1 }, { 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2 },
-            { 0, 3, 1, 3, 2, 3, 3, 3, 4, 3, 5, 3 },
-            { 0, 4, 1, 4, 2, 4, 3, 4, 4, 4, 5, 4, 0, 5, 1, 5, 2, 5, 3, 5, 4, 5, 5, 5 }, };
-    private static final float[] duration6i = new float[] { 700, 100, 100, 100, 100, 100 };
-    private static final float[] duration6 = new float[] { 100, 100, 100, 100, 100, 100 };
-    private static final float[] duration12 = new float[] { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-            100 };
+    public Animation idle, move, action, die, special;
 
-    public SpriteBundleEntity(SpriteSheet sheet) {
+    public abstract Animation getAnimation(EntityState state);
 
-        idle = new Animation(sheet, frames[0], duration6i, true);
-        move = new Animation(sheet, frames[1], duration6, true);
-        action = new Animation(sheet, frames[2], duration6, false);
-        die = new Animation(sheet, frames[3], duration6, false);
-        special = new Animation(sheet, frames[4], duration12, true);
-
-        idle.setProgress(Ra.global.unit());
-
-    }
-
-    public SpriteBundleEntity(SpriteBundleEntity other) {
-        this.idle = resetAnimation(other.idle.copy());
-        this.move = resetAnimation(other.move.copy());
-        this.action = resetAnimation(other.action.copy());
-        this.die = resetAnimation(other.die.copy());
-        this.special = resetAnimation(other.special.copy());
-
-        idle.setProgress(Ra.global.unit());
-    }
-
-    public static Animation resetAnimation(Animation a) {
-        a.reset();
-        return a;
-    }
+    public abstract Sprite getStaticSprite();
 
     @Override
-    public SpriteBundle copy() {
-        return new SpriteBundleEntity(this);
-    }
+    public abstract SpriteBundleEntity copy();
+
 }
