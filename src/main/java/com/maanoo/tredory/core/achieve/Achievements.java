@@ -5,6 +5,10 @@ package com.maanoo.tredory.core.achieve;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.maanoo.tredory.IStore;
 import com.maanoo.tredory.core.InfoText;
 import com.maanoo.tredory.core.achieve.Achievement.Status;
 import com.maanoo.tredory.core.entity.entities.Player;
@@ -16,7 +20,7 @@ import com.maanoo.tredory.core.entity.item.ItemType;
  *
  * @author MaanooAk
  */
-public final class Achievements implements Iterable<Achievement> {
+public final class Achievements implements Iterable<Achievement>, IStore {
 
     public static Achievements instance = new Achievements();
 
@@ -87,21 +91,50 @@ public final class Achievements implements Iterable<Achievement> {
             }
         }
         if (completed > 0) {
-            for (final Achievement i : all) {
-                if (i.status == Status.Hidden && i.parrent.status == Status.Complete) {
-                    i.status = Status.Viewable;
-                    // TODO count new available achievements
-                }
-            }
+            updateVisibility();
             return true;
         } else {
             return false;
         }
     }
 
+    private void updateVisibility() {
+        for (final Achievement i : all) {
+            if (i.status == Status.Hidden && i.parrent.status == Status.Complete) {
+                i.status = Status.Viewable;
+                // TODO count new available achievements
+            }
+        }
+    }
+
     @Override
     public Iterator<Achievement> iterator() {
         return all.iterator();
+    }
+
+    @Override
+    public JSONObject store() {
+        final JSONArray array = new JSONArray();
+        for (final Achievement i : all) {
+            if (i.status == Status.Complete) {
+                array.put(i.info.name);
+            }
+        }
+        final JSONObject o = new JSONObject();
+        o.put("complete", array);
+        return o;
+    }
+
+    @Override
+    public void load(JSONObject object) {
+        for (final Object i : object.getJSONArray("complete")) {
+            for (final Achievement a : all) {
+                if (a.info.name.equals(i)) {
+                    a.status = Status.Complete;
+                }
+            }
+        }
+        updateVisibility();
     }
 
 }

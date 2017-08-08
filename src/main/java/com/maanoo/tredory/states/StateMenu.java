@@ -10,7 +10,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.maanoo.tredory.Op;
+import com.maanoo.tredory.account.Account;
+import com.maanoo.tredory.account.AccountStorage;
 import com.maanoo.tredory.core.Core;
+import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.face.assets.Assets;
 
@@ -52,6 +55,9 @@ public class StateMenu extends State {
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
         final int w = gc.getWidth(), h = gc.getHeight();
+
+        Assets.font1.drawString(10, 10, Account.active.info.name, Colors.c404040);
+        Assets.font1.drawString(10, 10 + Assets.font1.getLineHeight(), Account.active.knowledge + "", Colors.c202020);
 
         Assets.icon.draw(w / 2 - Assets.icon.getWidth() * 4, (float) (50 + Math.cos(t / 800.0) * 8), 8);
 
@@ -103,12 +109,15 @@ public class StateMenu extends State {
         menu_index = Ma.looparound(menu_index, menu.length);
 
         if (gc.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            AccountStorage.store();
             gc.exit();
         }
 
-        if (gc.getInput().isKeyPressed(Input.KEY_F)) {
-            // setDisplayMode(Display.getDesktopDisplayMode().getWidth(),
-            // Display.getDesktopDisplayMode().getHeight(), true);
+        if (gc.getInput().isKeyPressed(Input.KEY_F5)) {
+            AccountStorage.load();
+        }
+        if (gc.getInput().isKeyPressed(Input.KEY_F6)) {
+            AccountStorage.store();
         }
 
     }

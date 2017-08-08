@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.Log;
 
+import com.maanoo.tredory.account.AccountStorage;
 import com.maanoo.tredory.states.StateAchievements;
 import com.maanoo.tredory.states.StateGallery;
 import com.maanoo.tredory.states.StateGame;
@@ -31,7 +32,9 @@ public class Main extends StateBasedGame {
      */
     public static void main(String[] args) throws SlickException {
 
-        Op.load(args);
+        AccountStorage.load();
+
+        handleArguments(args);
 
         Log.setVerbose(Op.debug);
 
@@ -46,6 +49,7 @@ public class Main extends StateBasedGame {
         }
 
         game.start();
+
     }
 
     public Main() {
@@ -74,6 +78,17 @@ public class Main extends StateBasedGame {
         this.addState(new StateAchievements());
         this.addState(new StateOptions());
 
+    }
+
+    public static void handleArguments(String args[]) {
+
+        for (int i = 0; i < args.length; i++) {
+            final String arg = args[i];
+
+            if (arg.equals("-d") || arg.equals("--debug")) {
+                Op.debug = true;
+            }
+        }
     }
 
 }

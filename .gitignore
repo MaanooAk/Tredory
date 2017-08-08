@@ -5,5 +5,8 @@
 # Hidden
 .*
 
+# Game store files
+player.json
+
 # IDEs
 *.iml

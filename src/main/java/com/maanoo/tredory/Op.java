@@ -2,6 +2,7 @@
 
 package com.maanoo.tredory;
 
+import org.json.JSONObject;
 import org.newdawn.slick.Input;
 
 
@@ -38,13 +39,14 @@ public class Op {
         public static int MoveD = Input.KEY_S;
         public static int MoveR = Input.KEY_D;
         public static int MoveL = Input.KEY_A;
+        public static transient int Move[];
 
         public static int Attack1 = Input.MOUSE_LEFT_BUTTON;
         public static int Attack2 = Input.MOUSE_RIGHT_BUTTON;
         public static int Attack3 = Input.MOUSE_MIDDLE_BUTTON;
         public static int Attack4 = Input.KEY_Q;
         public static int Attack5 = Input.KEY_SPACE;
-        public static int Attack[] = new int[] { Attack1, Attack2, Attack3, Attack4, Attack5 };
+        public static transient int Attack[];
 
         public static int Spell1 = Input.KEY_Z;
         public static int Spell2 = Input.KEY_X;
@@ -53,13 +55,23 @@ public class Op {
         public static int Spell5 = Input.KEY_B;
         public static int Spell6 = Input.KEY_N;
         public static int Spell7 = Input.KEY_M;
-        public static int Spell[] = new int[] { Spell1, Spell2, Spell3, Spell4, Spell5, Spell6, Spell7 };
+        public static transient int Spell[];
 
         public static int PickUp = Input.KEY_E;
         public static int Activate = Input.KEY_E; // TODO use
         public static int Information = Input.KEY_TAB;
 
         public static int Screenshot = Input.KEY_F;
+
+        public static void updateArrays() {
+            Move = new int[] { MoveU, MoveD, MoveR, MoveL };
+            Attack = new int[] { Attack1, Attack2, Attack3, Attack4, Attack5 };
+            Spell = new int[] { Spell1, Spell2, Spell3, Spell4, Spell5, Spell6, Spell7 };
+        }
+
+        static {
+            updateArrays();
+        }
     }
 
     // Debug
@@ -67,16 +79,37 @@ public class Op {
     public static boolean debugBare = false;
     public static boolean second = false;
 
-    public static void load(String[] args) {
+    // Store system
 
-        // TODO load options from a file
+    public static JSONObject store() {
+        return OpStorager.instance.store();
+    }
 
-        for (int i = 0; i < args.length; i++) {
-            final String arg = args[i];
+    public static void load(JSONObject o) {
+        OpStorager.instance.load(o);
+    }
 
-            if (arg.equals("-d") || arg.equals("--debug")) {
-                Op.debug = true;
+    private static class OpStorager implements IStore {
+
+        public static final OpStorager instance = new OpStorager();
+
+        private OpStorager() {}
+
+        @Override
+        public JSONObject store() {
+            final JSONObject o = IStore.storeStaticObject(Op.class);
+            o.put("keys", IStore.storeStaticObject(Op.Keys.class));
+            return o;
+        }
+
+        @Override
+        public void load(JSONObject o) {
+
+            IStore.storeStaticObject(o, Op.class);
+            if (o.has("keys")) {
+                IStore.storeStaticObject(o.getJSONObject("keys"), Op.Keys.class);
             }
+
         }
 
     }
