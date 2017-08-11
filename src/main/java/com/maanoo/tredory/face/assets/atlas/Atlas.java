@@ -61,6 +61,7 @@ public class Atlas {
         int px = 0;
         int py = 0;
         int npy = 0;
+        int mw = 0; // max w
 
         final HashMap<String, int[]> locations = new HashMap<>();
 
@@ -69,6 +70,9 @@ public class Atlas {
             final int ih = entry.getValue().getHeight();
 
             if (px + iw > max) {
+                if (px > mw) {
+                    mw = px;
+                }
                 px = 0;
                 py = npy;
             }
@@ -84,9 +88,15 @@ public class Atlas {
             h = npy;
         }
 
+        if (px > mw) {
+            mw = px;
+        }
+
+//        Logger.log("Atlas", locations.size() + " locations");
+
         if (atlas != null) atlas.destroy();
 
-        atlas = new Image(w, h);
+        atlas = new Image(mw, h);
         atlasImageCount = locations.size();
 
         final Graphics graphics = atlas.getGraphics();
@@ -107,6 +117,8 @@ public class Atlas {
             image.destroy();
 
             images.put(name, atlas.getSubImage(location[0], location[1], imagew, imageh));
+
+//            Logger.log("Atlas", "images put " + name + " @ " + x + "," + y + " " + imagew + "," + imageh);
         }
 
         graphics.flush();
