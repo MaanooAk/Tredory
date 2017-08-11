@@ -2,10 +2,9 @@
 
 package com.maanoo.tredory.core.world;
 
-
 /**
  * TODO doc
- * 
+ *
  * @author MaanooAk
  */
 public class WorldMap {

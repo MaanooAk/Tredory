@@ -6,6 +6,7 @@ import java.util.Collections;
 
 import com.maanoo.tredory.core.Core;
 import com.maanoo.tredory.core.CrystalComp;
+import com.maanoo.tredory.core.Defs;
 import com.maanoo.tredory.core.Stats;
 import com.maanoo.tredory.core.Team;
 import com.maanoo.tredory.core.entity.ActionsPlayer;
@@ -16,6 +17,7 @@ import com.maanoo.tredory.core.entity.item.Item;
 import com.maanoo.tredory.core.entity.item.ItemTag;
 import com.maanoo.tredory.core.entity.item.ItemType;
 import com.maanoo.tredory.core.entity.item.Items;
+import com.maanoo.tredory.core.entity.item.Unique;
 import com.maanoo.tredory.core.quest.QuestsTracker;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
@@ -27,13 +29,15 @@ import com.maanoo.tredory.face.assets.SpriteBundleEntity;
  */
 public final class Player extends Entity {
 
-    public static final int EXTRA_CRYSTALS_PER_STONE = 1;
-
     public int coins;
+
+    // TODO move items to new Inventory class
 
     public final Items shields;
     public final Items crystals;
     public final Items stones;
+
+    public final Items uniques;
 
     public final Souls souls;
 
@@ -53,9 +57,11 @@ public final class Player extends Entity {
 
         coins = 0;
 
-        shields = new Items(2);
-        crystals = new Items(12);
-        stones = new Items(4);
+        shields = new Items(Defs.PLAYER_SHIELD_CAPACITY);
+        crystals = new Items(Defs.PLAYER_CRYSTAL_CAPACITY);
+        stones = new Items(Defs.PLAYER_STONE_CAPACITY);
+
+        uniques = new Items(Defs.PLAYER_UNIQUE_CAPACITY);
 
         souls = new Souls();
 
@@ -73,6 +79,10 @@ public final class Player extends Entity {
         super.update(d);
 
         souls.update(d);
+
+        for (final Item i : uniques) {
+            i.update(d);
+        }
 
         switch (state) {
         case Idle:
@@ -125,7 +135,7 @@ public final class Player extends Entity {
         ccomp.update(crystals, shields);
 
         // TODO move stone effect to separate effect
-        ccomp.effect.crystals.add = stones.size() * EXTRA_CRYSTALS_PER_STONE;
+        ccomp.effect.crystals.add = stones.size() * Defs.STONE_CRYSTAL_CAPACITY;
 
         effects.updateEffects();
 
@@ -153,16 +163,37 @@ public final class Player extends Entity {
         case Stone:
             takeStone(i);
             break;
-        default:
+        case Unique:
+            takeUnique(i);
             break;
+        default:
+            throw new RuntimeException();
         }
+    }
+
+    public boolean canTakeItem(Item i) {
+
+        switch (i.type.tag) {
+        case Crystal:
+            return canTakeCystal();
+        case Shield:
+            return canTakeShield(i);
+        case Stone:
+            return canTakeStone();
+        default:
+            return true;
+        }
+    }
+
+    public boolean canTakeShiled() {
+        return shields.size() < shields.max;
     }
 
     public boolean canTakeShield(Item shield) {
         return shields.size() < shields.max || shields.get(0).type.ordinal() < shield.type.ordinal();
     }
 
-    public void takeShield(Item shield) {
+    private void takeShield(Item shield) {
         shields.add(shield);
         Collections.sort(shields);
 
@@ -176,9 +207,13 @@ public final class Player extends Entity {
 
     }
 
-    public void takeCrystal(Item crystal) {
+    public boolean canTakeCystal() {
+        return crystals.size() < crystals.max;
+    }
 
-        if (crystals.size() == crystals.max) {
+    private void takeCrystal(Item crystal) {
+
+        if (!canTakeCystal()) {
             final Item i = crystals.remove(Ra.global.range(crystals.size()));
 
             i.unpicablify(1000);
@@ -192,7 +227,7 @@ public final class Player extends Entity {
         updateEffects();
     }
 
-    public Item giveCrystal() {
+    private Item giveCrystal() {
 
         final Item crystal = crystals.remove(Ra.global.range(0, crystals.size()));
 
@@ -200,9 +235,13 @@ public final class Player extends Entity {
         return crystal;
     }
 
-    public void takeStone(Item stone) {
+    public boolean canTakeStone() {
+        return !stones.isMax();
+    }
 
-        if (stones.isMax()) {
+    private void takeStone(Item stone) {
+
+        if (!canTakeStone()) {
             final Item it = stones.remove(Ra.global.range(stones.size()));
 
             it.unpicablify(1000);
@@ -213,6 +252,16 @@ public final class Player extends Entity {
         Collections.sort(stones);
 
         souls.updateStones(stones);
+        updateEffects();
+    }
+
+    private void takeUnique(Item unique) {
+
+        uniques.add(unique);
+        Collections.sort(uniques);
+
+        ((Unique) unique).setUser(this);
+
         updateEffects();
     }
 

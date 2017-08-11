@@ -26,6 +26,11 @@ public class ActionsSimple extends Actions {
     }
 
     @Override
+    public void clear() {
+        actions.clear();
+    }
+
+    @Override
     public Action get() {
         return actions.get(0);
     }

@@ -36,7 +36,7 @@ public class HomingProjectile extends Projectile {
 
         if (target != null) {
 
-            if (!target.dead) {
+            if (!target.dead && target.getState() != EntityState.Die) {
 
                 if (state == EntityState.Move) {
 

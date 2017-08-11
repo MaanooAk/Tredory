@@ -11,13 +11,21 @@ import com.maanoo.tredory.core.entity.Entity;
  */
 public abstract class Attack extends Action {
 
+    protected boolean affected_by_effects;
+
     public Attack(Entity user, float charge_time, float recharge_time, float end_time, float cooldown_time) {
         super(user, charge_time, recharge_time, end_time, cooldown_time);
 
+        affected_by_effects = true;
     }
 
     @Override
     public float getStateTime(State state) {
+
+        if (!affected_by_effects) {
+            return super.getStateTime(state);
+        }
+
         switch (state) {
         case Charging:
             return charge_time / user.getEffect().attackspeed.apply(1f);

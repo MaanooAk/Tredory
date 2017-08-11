@@ -70,7 +70,7 @@ public class Projectile extends Entity {
         super.update(d);
 
         switch (state) {
-        case Attack:
+        case Action:
 
             if (actions.get().getState() == State.Ending) {
                 state = EntityState.Move;

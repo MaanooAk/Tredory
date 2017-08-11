@@ -75,6 +75,11 @@ public final class Achievements implements Iterable<Achievement>, IStore {
             .child(InfoText.create("White crystals II"), (p) -> p.crystals.count(ItemType.CrystalW) >= 16)
                 .collect((a) -> add(a));
 
+        AchievementFactory
+            .create(InfoText.create("Balance crystals I"), (p) -> p.crystals.count(ItemType.CrystalW) >= 12)
+            .child(InfoText.create("Balance crystals II"), (p) -> p.crystals.count(ItemType.CrystalW) >= 16)
+                .collect((a) -> add(a));
+
         // @formatter:on
 
     }

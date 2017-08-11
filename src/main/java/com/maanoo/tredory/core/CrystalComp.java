@@ -59,7 +59,7 @@ public final class CrystalComp {
     }
 
     private void calcEffect() {
-        effect.shields.add = count[0] * 0.5f;
+        effect.shields.add = count[0] / Defs.CRYSTALS_PER_EXTRA_SHIELD;
         effect.speed.add = count[1] * 0.03f;
         effect.attackspeed.mul = count[2] * 0.2f;
     }

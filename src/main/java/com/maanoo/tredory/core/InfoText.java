@@ -27,6 +27,11 @@ public class InfoText {
         return new InfoText(name, desc, lore);
     }
 
+    public static InfoText get(String id) {
+        // TODO get loaded info text
+        return InfoText.create("id(" + id + ")");
+    }
+
     public final String name;
     public final String desc;
     public final String lore;

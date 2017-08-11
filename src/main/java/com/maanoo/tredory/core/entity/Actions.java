@@ -12,6 +12,8 @@ public abstract class Actions implements IUpdate {
 
     public abstract void add(Action action);
 
+    public abstract void clear();
+
     public abstract Action get();
 
     public abstract Action getReady();

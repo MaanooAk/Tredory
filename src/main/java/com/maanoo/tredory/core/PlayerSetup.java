@@ -2,6 +2,9 @@
 
 package com.maanoo.tredory.core;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import com.maanoo.tredory.core.entity.ActionsPlayerSetup;
 import com.maanoo.tredory.core.entity.ProjectileType;
 import com.maanoo.tredory.core.entity.entities.Player;
@@ -46,11 +49,37 @@ public class PlayerSetup implements ISetup<Player> {
         p.projectile = new ProjectileType(projectile);
         p.actions = actions.create(p);
 
-        for (final ItemType i : items) {
-            p.takeItem(new Item(i));
-        }
+        givePlayerItems(p, items);
 
         return p;
+    }
+
+    private void givePlayerItems(Player p, ItemType items[]) {
+
+        // list containing the items that have not be given yet
+        final ArrayList<Item> left = new ArrayList<>();
+
+        for (final ItemType i : items) {
+            left.add(new Item(i));
+        }
+
+        while (!left.isEmpty()) {
+            boolean gave = false;
+
+            for (final Iterator iterator = left.iterator(); iterator.hasNext();) {
+                final Item item = (Item) iterator.next();
+
+                if (p.canTakeItem(item)) {
+                    p.takeItem(item);
+                    iterator.remove();
+                    gave = true;
+                }
+            }
+
+            if (!gave) {
+                throw new RuntimeException("All the items cannot be given");
+            }
+        }
     }
 
 }

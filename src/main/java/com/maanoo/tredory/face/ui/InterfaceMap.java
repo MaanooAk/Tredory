@@ -66,6 +66,7 @@ public class InterfaceMap extends Interface {
 
         drawMinimap(g, map, camera);
         drawShields(g, c.player.shields);
+        drawUniques(g, c.player.uniques);
         drawCrystals(g, c.player.crystals);
         drawStones(g, c.player.stones, c.player.souls);
         drawCoins(g, c.player.coins);
@@ -117,6 +118,25 @@ public class InterfaceMap extends Interface {
             for (int i = shields.size() - 1; i >= 0; i--) {
                 shields.get(i).sprites.idle.getSprite().draw(x, h - 42, 32, 32);
                 x += 18;
+            }
+        }
+    }
+
+    private void drawUniques(Graphics g, Items uniques) {
+
+        final int step = 32;
+
+        if (uniques.size() > 0) {
+
+            g.setColor(Colors.black75);
+            g.fillRect(-1, h - 52 - 52, 20 + step * uniques.size() + 1, 52);
+            g.setColor(Color.darkGray);
+            g.drawRect(-1, h - 52 - 52, 20 + step * uniques.size() + 1, 52);
+
+            int x = 10;
+            for (int i = uniques.size() - 1; i >= 0; i--) {
+                uniques.get(i).getAnimation().getSprite().draw(x, h - 42 - 52, 32, 32);
+                x += step;
             }
         }
     }

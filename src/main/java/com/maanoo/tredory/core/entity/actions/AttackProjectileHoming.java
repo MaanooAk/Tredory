@@ -30,6 +30,8 @@ public class AttackProjectileHoming extends AttackProjectile {
         super(user, charge_time, recharge_time, end_time, cooldown_time, projectile, speed, count);
         this.angleSpeed = angleSpeed;
         this.rand_angle = rand_angle;
+
+        projectile_lifetime = 1500;
     }
 
     @Override
@@ -45,8 +47,8 @@ public class AttackProjectileHoming extends AttackProjectile {
             final Point start = user.location.clone().add(new Point(user.angle).mul(32));
 
             Core.addEntity(Pools.obtain(HomingProjectile.class).init(user.team, start, user.angle,
-                    new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time, 1500,
-                    angleSpeed, null));
+                    new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time,
+                    projectile_lifetime, angleSpeed, null));
 
         } else {
 
@@ -62,8 +64,8 @@ public class AttackProjectileHoming extends AttackProjectile {
                 final Point start = user.location.clone().add(new Point(iangle).mul(32));
 
                 Core.addEntity(Pools.obtain(HomingProjectile.class).init(user.team, start, iangle,
-                        new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time, 1500,
-                        angleSpeed, null));
+                        new SpriteBundleEntityBasic(projectile.getSpriteSheet()), projspeed, 0, proj_charge_time,
+                        projectile_lifetime, angleSpeed, null));
 
             }
         }

@@ -7,6 +7,6 @@ package com.maanoo.tredory.core.entity.item;
  */
 public enum ItemTag {
 
-    Unknown, Coin, Shield, Crystal, Stone;
+    Unknown, Coin, Shield, Crystal, Stone, Unique;
 
 }

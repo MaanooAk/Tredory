@@ -5,6 +5,7 @@ package com.maanoo.tredory.face.assets;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
@@ -16,6 +17,7 @@ import org.newdawn.slick.imageout.ImageOut;
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Res;
 import com.maanoo.tredory.core.entity.item.ItemType;
+import com.maanoo.tredory.core.entity.item.Uniques;
 import com.maanoo.tredory.engine.Sprite;
 import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.engine.SpriteSheetMasked;
@@ -66,6 +68,10 @@ public class Assets {
     public static AssetSet<Sprite> items[];
 
     public static AssetSet<SpriteSheet> heart;
+    public static AssetSet<SpriteSheet> energyshield;
+
+    // TODO tmp, don't use strings
+    public static HashMap<String, AssetSet<SpriteSheet>> uniques;
 
     public static AssetSet<Image> terrain_small;
     public static AssetSet<Image> terrain_glyphs;
@@ -128,6 +134,7 @@ public class Assets {
         imagePaths.add("data/sprites/entities/plain1.png");
         imagePaths.add("data/sprites/entities/plain1m.png");
         imagePaths.add("data/sprites/uniques/heart.png");
+        imagePaths.add("data/sprites/uniques/energyshield.png");
         imagePaths.add("data/sprites/ui/action.png");
 
     }
@@ -239,6 +246,12 @@ public class Assets {
         {
             heart = new AssetSet<>();
             heart.add(new SpriteSheetSingle(atlas.get("data/sprites/uniques/heart.png"), 16, 16));
+            energyshield = new AssetSet<>();
+            energyshield.add(new SpriteSheetSingle(atlas.get("data/sprites/uniques/energyshield.png"), 16, 16));
+
+            uniques = new HashMap<>();
+            uniques.put(Uniques.Heart.class.getSimpleName(), heart);
+            uniques.put(Uniques.EnergyShield.class.getSimpleName(), energyshield);
         }
 
         {
@@ -318,8 +331,8 @@ public class Assets {
         return items[type.ordinal()];
     }
 
-    public static AssetSet<SpriteSheet> getUniqueItem() {
-        return heart;
+    public static AssetSet<SpriteSheet> getUniqueItem(String name) {
+        return uniques.get(name);
     }
 
     // ===

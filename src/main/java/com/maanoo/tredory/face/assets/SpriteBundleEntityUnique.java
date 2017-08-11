@@ -10,29 +10,33 @@ import com.maanoo.tredory.engine.SpriteSheet;
 
 
 /**
+ * TODO doc
+ *
  * @author MaanooAk
  */
-public class SpriteBundleEntityBasic extends SpriteBundleEntity {
+public class SpriteBundleEntityUnique extends SpriteBundleEntity {
 
-    private static final int[][] frames = new int[][] { { 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0 },
-            { 0, 1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1 }, { 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2 },
-            { 0, 3, 1, 3, 2, 3, 3, 3, 4, 3, 5, 3 },
-            { 0, 4, 1, 4, 2, 4, 3, 4, 4, 4, 5, 4, 0, 5, 1, 5, 2, 5, 3, 5, 4, 5, 5, 5 }, };
+    private static final int[][] frames = new int[][] {
+
+            { 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0 },
+
+            { 0, 1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1 },
+
+            { 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2 }, };
+
     private static final float[] duration6i = new float[] { 700, 100, 100, 100, 100, 100 };
     private static final float[] duration6 = new float[] { 100, 100, 100, 100, 100, 100 };
-    private static final float[] duration12 = new float[] { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-            100 };
 
     public final SpriteSheet sheet;
 
-    public SpriteBundleEntityBasic(SpriteSheet sheet) {
+    public SpriteBundleEntityUnique(SpriteSheet sheet) {
         this.sheet = sheet;
 
         idle = new Animation(sheet, frames[0], duration6i, true);
-        move = new Animation(sheet, frames[1], duration6, true);
-        action = new Animation(sheet, frames[2], duration6, false);
-        die = new Animation(sheet, frames[3], duration6, false);
-        special = new Animation(sheet, frames[4], duration12, true);
+        action = new Animation(sheet, frames[1], duration6, true);
+        special = new Animation(sheet, frames[2], duration6, false);
+        move = null;
+        die = null;
 
         idle.setProgress(Ra.global.unit());
     }
@@ -42,12 +46,8 @@ public class SpriteBundleEntityBasic extends SpriteBundleEntity {
         switch (state) {
         case Idle:
             return idle;
-        case Move:
-            return move;
         case Action:
             return action;
-        case Die:
-            return die;
         case Special:
             return special;
         default:
@@ -62,6 +62,7 @@ public class SpriteBundleEntityBasic extends SpriteBundleEntity {
 
     @Override
     public SpriteBundleEntity copy() {
-        return new SpriteBundleEntityBasic(sheet);
+        return new SpriteBundleEntityUnique(sheet);
     }
+
 }

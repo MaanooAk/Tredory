@@ -28,7 +28,7 @@ public class AnimalBrain extends Brain {
         super(intelligence);
         this.ent = ent;
 
-        viewRange = 300;
+        viewRange = 400;
         viewRangeMax = 900;
 
         target = null;

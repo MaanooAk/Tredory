@@ -22,7 +22,9 @@ public enum ItemType {
     // Crystal of colors red, green, blue and white
     CrystalR(Crystal), CrystalG(Crystal), CrystalB(Crystal), CrystalW(Crystal),
 
-    Stone(ItemTag.Stone); // TODO add more stones
+    Stone(ItemTag.Stone),
+
+    Unique(ItemTag.Unique);
 
     public final ItemTag tag;
 

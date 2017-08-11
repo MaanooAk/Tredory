@@ -6,6 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import com.maanoo.tredory.Op;
+import com.maanoo.tredory.core.Defs;
 import com.maanoo.tredory.core.IDraw;
 import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.Team;
@@ -16,6 +17,7 @@ import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Points;
 import com.maanoo.tredory.core.utils.Rectangle;
+import com.maanoo.tredory.engine.Animation;
 import com.maanoo.tredory.face.assets.SpriteBundleEntity;
 
 
@@ -29,7 +31,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
     // TODO fix player not dead after die call
     // TODO move all objects to init
 
-    private final float lspeed_base = 0.35f;
+    private final float lspeed_base = Defs.ENTITY_BASE_SPEED;
 
     /**
      * The duration of its life.
@@ -126,14 +128,14 @@ public class Entity implements IUpdate, IDraw, Poolable {
     public void update(int d) {
         life += d;
 
-        sprites.getAnimation(state).addProgress(d);
+        sprites.getAnimation(getAnimationState()).addProgress(d);
 
         actions.update(d);
 
         effects.update(d);
 
         switch (state) {
-        case Attack:
+        case Action:
 
             final Action action = actions.getActive();
 
@@ -181,7 +183,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
             g.translate(location.x, location.y);
             if (spriteRotate) g.rotate(0, 0, angle + 180);
 
-            sprites.getAnimation(state).getSprite().draw(-size, -size, 2 * size, 2 * size);
+            sprites.getAnimation(getAnimationState()).getSprite().draw(-size, -size, 2 * size, 2 * size);
 
             g.popTransform();
         }
@@ -196,6 +198,14 @@ public class Entity implements IUpdate, IDraw, Poolable {
 
             g.popTransform();
         }
+    }
+
+    public EntityState getAnimationState() {
+        return state;
+    }
+
+    public Animation getAnimation() {
+        return sprites.getAnimation(getAnimationState());
     }
 
     @Override
@@ -235,7 +245,7 @@ public class Entity implements IUpdate, IDraw, Poolable {
         if (action.canStartBackground()) {
             action.start();
 
-        } else if (action.canStart() && changeState(EntityState.Attack)) {
+        } else if (action.canStart() && changeState(EntityState.Action)) {
             action.start();
 
             sprites.action.reset();

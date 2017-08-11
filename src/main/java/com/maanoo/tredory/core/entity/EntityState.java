@@ -19,7 +19,7 @@ public enum EntityState {
         }
     },
 
-    Attack() {
+    Action() {
 
         @Override
         public boolean canInterrupt() {

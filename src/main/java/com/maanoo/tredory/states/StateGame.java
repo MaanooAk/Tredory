@@ -18,8 +18,7 @@ import com.maanoo.tredory.core.achieve.Achievements;
 import com.maanoo.tredory.core.entity.Action;
 import com.maanoo.tredory.core.entity.Collision;
 import com.maanoo.tredory.core.entity.EntityState;
-import com.maanoo.tredory.core.entity.item.Item;
-import com.maanoo.tredory.core.entity.item.ItemType;
+import com.maanoo.tredory.core.entity.item.Uniques;
 import com.maanoo.tredory.core.memory.Inspector;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
@@ -154,7 +153,7 @@ public class StateGame extends State {
             changeState(game, StateId.Menu);
         }
 
-        if ((c.player.getState() != EntityState.Attack
+        if ((c.player.getState() != EntityState.Action
                 || c.player.actions.getActive().getState() != Action.State.Charging)
                 && c.player.getState() != EntityState.Die) { // TODO change second coondition
 
@@ -168,7 +167,7 @@ public class StateGame extends State {
             action = Core.c.player.getActions().get(inhalder.selectedActionGroup, inhalder.selectedAction);
         }
 
-        if (c.player.getState() != EntityState.Attack) {
+        if (c.player.getState() != EntityState.Action) {
 
             if (action != null) {
 
@@ -254,7 +253,8 @@ public class StateGame extends State {
         if (in.isKeyDown(Input.KEY_1)) Assets.bam.playAt(new Point(in.getMouseX() - (w / 2) + c.player.location.x,
                 in.getMouseY() - (h / 2) + c.player.location.y));
 
-        if (in.isKeyPressed(Input.KEY_2)) c.player.takeShield(new Item(ItemType.Shield0, null));
+        if (in.isKeyPressed(Input.KEY_2)) c.player.takeItem(new Uniques.Heart());
+        if (in.isKeyPressed(Input.KEY_F6)) c.player.takeItem(new Uniques.EnergyShield());
 
         if (in.isKeyPressed(Input.KEY_3)) c.player.coins += 10;
 
