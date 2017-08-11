@@ -65,6 +65,8 @@ public class Assets {
     public static SpriteSheetSingle items_sheet;
     public static AssetSet<Sprite> items[];
 
+    public static AssetSet<SpriteSheet> heart;
+
     public static AssetSet<Image> terrain_small;
     public static AssetSet<Image> terrain_glyphs;
     public static AssetSet<Image> terrain_steps;
@@ -125,6 +127,7 @@ public class Assets {
         imagePaths.add("data/sprites/entities/swordman1m.png");
         imagePaths.add("data/sprites/entities/plain1.png");
         imagePaths.add("data/sprites/entities/plain1m.png");
+        imagePaths.add("data/sprites/uniques/heart.png");
         imagePaths.add("data/sprites/ui/action.png");
 
     }
@@ -221,7 +224,9 @@ public class Assets {
         grid[9][0] = grid[9][1] = grid[9][2] = grid[9][3] = grid[9][4] = ItemType.CrystalG;
         grid[10][0] = grid[10][1] = grid[10][2] = grid[10][3] = grid[10][4] = ItemType.CrystalB;
         grid[11][0] = grid[11][1] = grid[11][2] = grid[11][3] = grid[11][4] = ItemType.CrystalW;
-        grid[14][0] = ItemType.Stone;
+        for (int i = 0; i < 16; i++) {
+            grid[14][i] = ItemType.Stone;
+        }
 
         for (int i1 = 0; i1 < grid.length; i1++) {
             for (int i2 = 0; i2 < grid[i1].length; i2++) {
@@ -229,6 +234,11 @@ public class Assets {
 
                 items[grid[i1][i2].ordinal()].add(items_sheet.getSprite(i1, i2));
             }
+        }
+
+        {
+            heart = new AssetSet<>();
+            heart.add(new SpriteSheetSingle(atlas.get("data/sprites/uniques/heart.png"), 16, 16));
         }
 
         {
@@ -306,6 +316,10 @@ public class Assets {
 
     public static AssetSet<Sprite> getItem(ItemType type) {
         return items[type.ordinal()];
+    }
+
+    public static AssetSet<SpriteSheet> getUniqueItem() {
+        return heart;
     }
 
     // ===
