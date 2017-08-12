@@ -93,9 +93,7 @@ public class StateGameSetup extends State {
         }
 
         name = ps.info.name;
-        name_w = Assets.font1.getWidth(name);
         current_bar = bar[index];
-        current_bar_w = Assets.font1.getWidth(current_bar);
 
     }
 
@@ -119,9 +117,9 @@ public class StateGameSetup extends State {
             ih += 32;
         }
 
-        Assets.font1.drawString(w / 2 - name_w / 2, 100, name);
+        Assets.font1.drawStringCentered(w / 2, 100, name);
 
-        Assets.font1.drawString(w / 2 - current_bar_w / 2, h - 70, current_bar, Color.darkGray);
+        Assets.font1.drawStringCentered(w / 2, h - 70, current_bar, Color.darkGray);
 
     }
 

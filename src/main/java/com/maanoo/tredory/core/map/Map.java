@@ -12,9 +12,9 @@ import com.maanoo.tredory.Op;
 import com.maanoo.tredory.core.IDraw;
 import com.maanoo.tredory.core.IUpdate;
 import com.maanoo.tredory.core.entity.Entity;
-import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Point;
 import com.maanoo.tredory.core.utils.Ra;
+import com.maanoo.tredory.engine.Colors;
 
 
 /**

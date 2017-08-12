@@ -55,7 +55,7 @@ public class StateAchievements extends State {
         }
 
         final String message = "Press ESC to exit";
-        Assets.font1.drawString(w / 2 - Assets.font1.getWidth(message) / 2, h - 50, message);
+        Assets.font1.drawStringCentered(w / 2, h - 50, message);
     }
 
     @Override

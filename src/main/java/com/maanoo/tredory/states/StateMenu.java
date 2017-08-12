@@ -13,8 +13,8 @@ import com.maanoo.tredory.Op;
 import com.maanoo.tredory.account.Account;
 import com.maanoo.tredory.account.AccountStorage;
 import com.maanoo.tredory.core.Core;
-import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
+import com.maanoo.tredory.engine.Colors;
 import com.maanoo.tredory.face.assets.Assets;
 
 
@@ -33,7 +33,7 @@ public class StateMenu extends State {
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
         t = 0;
 
-        gc.getGraphics().setFont(Assets.font1);
+        // gc.getGraphics().setFont(Assets.font1);
     }
 
     private String menu[], menuInd[];
@@ -46,8 +46,9 @@ public class StateMenu extends State {
         gc.getInput().clearKeyPressedRecord();
 
         menu = new String[] { "Press SPACE to start", "Press SPACE to enter the gallery",
-                "Press SPACE to enter the achievements", "Press SPACE to enter the options" };
-        menuInd = new String[] { "", "- O - -", "- - O -", "- - - O" };
+                "Press SPACE to enter the achievements", "Press SPACE to enter the options",
+                "Press SPACE to exit\n\n\n\n\nThis is not a joke" };
+        menuInd = new String[] { "", "- O - - -", "- - O - -", "- - - O -", "- - - - O" };
         menu_index = 0;
 
     }
@@ -62,10 +63,10 @@ public class StateMenu extends State {
         Assets.icon.draw(w / 2 - Assets.icon.getWidth() * 4, (float) (50 + Math.cos(t / 800.0) * 8), 8);
 
         String message = menu[menu_index];
-        Assets.font1.drawString(w / 2 - Assets.font1.getWidth(message) / 2, h - 100, message);
+        Assets.font1.drawStringCenteredMultiline(w / 2, h - 100, message);
 
         message = menuInd[menu_index];
-        Assets.font1.drawString(w / 2 - Assets.font1.getWidth(message) / 2, h - 70, message, Color.darkGray);
+        Assets.font1.drawStringCentered(w / 2, h - 70, message, Color.darkGray);
 
     }
 
@@ -97,6 +98,11 @@ public class StateMenu extends State {
             case 3:
 
                 changeState(game, StateId.Options);
+                break;
+            case 4:
+
+                AccountStorage.store();
+                gc.exit();
                 break;
             }
 

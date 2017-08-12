@@ -17,9 +17,9 @@ import com.maanoo.tredory.core.entity.item.Items;
 import com.maanoo.tredory.core.map.Map;
 import com.maanoo.tredory.core.quest.QuestProgress;
 import com.maanoo.tredory.core.quest.QuestsTracker;
-import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.engine.Colors;
 import com.maanoo.tredory.face.assets.Assets;
 
 

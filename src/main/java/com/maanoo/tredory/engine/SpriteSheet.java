@@ -11,8 +11,16 @@ public abstract class SpriteSheet {
 
     public abstract Sprite getSprite(int x, int y);
 
+    public Sprite getSprite(int index) {
+        return getSprite(index % getHCount(), index / getHCount());
+    }
+
     public abstract int getHCount();
 
     public abstract int getVCount();
+
+    public int getCount() {
+        return getHCount() * getVCount();
+    }
 
 }

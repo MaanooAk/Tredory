@@ -31,6 +31,8 @@ public class Entity implements IUpdate, IDraw, Poolable {
     // TODO fix player not dead after die call
     // TODO move all objects to init
 
+    // TODO add angle speed, also add the effect of angle speed
+
     private final float lspeed_base = Defs.ENTITY_BASE_SPEED;
 
     /**

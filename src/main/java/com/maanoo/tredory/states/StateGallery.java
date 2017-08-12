@@ -70,7 +70,7 @@ public class StateGallery extends State {
         sprites.get(index).draw(w / 2 - 32, h / 2 - 32, 2);
 
         final String message = "Press SPACE to exit";
-        Assets.font1.drawString(w / 2 - Assets.font1.getWidth(message) / 2, h - 50, message);
+        Assets.font1.drawStringCentered(w / 2, h - 50, message);
     }
 
     @Override

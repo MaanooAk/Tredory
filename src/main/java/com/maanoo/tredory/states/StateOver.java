@@ -30,7 +30,7 @@ public class StateOver extends State {
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 
-        gc.getGraphics().setFont(Assets.font1);
+        // gc.getGraphics().setFont(Assets.font1);
     }
 
     private int t;
@@ -94,7 +94,7 @@ public class StateOver extends State {
         g.popTransform();
 
         final String message = "Press SPACE to continue";
-        Assets.font1.drawString(w / 4 - Assets.font1.getWidth(message) / 2, h - 100, message);
+        Assets.font1.drawStringCentered(w / 4, h - 100, message);
 
     }
 

@@ -218,7 +218,7 @@ public class StateLoading extends State {
         if (done) return;
         done = true;
 
-        gc.setDefaultFont(Assets.font1);
+        // gc.setDefaultFont(Assets.font1);
 
         try {
             gc.setMouseCursor(Assets.cursor.getImage(0, 0).getScaledCopy(2), 0, 0);

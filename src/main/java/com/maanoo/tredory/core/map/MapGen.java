@@ -7,9 +7,9 @@ import com.maanoo.tredory.core.entity.entities.Altar;
 import com.maanoo.tredory.core.entity.entities.Animal;
 import com.maanoo.tredory.core.entity.entities.Container;
 import com.maanoo.tredory.core.entity.entities.Portal;
-import com.maanoo.tredory.core.utils.Colors;
 import com.maanoo.tredory.core.utils.Ma;
 import com.maanoo.tredory.core.utils.Point;
+import com.maanoo.tredory.engine.Colors;
 import com.maanoo.tredory.face.assets.Assets;
 import com.maanoo.tredory.face.assets.SpriteBundleEntityBasic;
 

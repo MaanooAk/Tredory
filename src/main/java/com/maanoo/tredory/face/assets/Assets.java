@@ -11,13 +11,13 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-import org.newdawn.slick.SpriteSheetFont;
 import org.newdawn.slick.imageout.ImageOut;
 
 import com.maanoo.tredory.Op;
 import com.maanoo.tredory.Res;
 import com.maanoo.tredory.core.entity.item.ItemType;
 import com.maanoo.tredory.core.entity.item.Uniques;
+import com.maanoo.tredory.engine.Font;
 import com.maanoo.tredory.engine.Sprite;
 import com.maanoo.tredory.engine.SpriteSheet;
 import com.maanoo.tredory.engine.SpriteSheetMasked;
@@ -39,9 +39,9 @@ public class Assets {
     public static Image icon;
     public static SpriteSheetSingle cursor;
 
-    public static SpriteSheetFont font1;
-    public static SpriteSheetFont font2;
-    public static SpriteSheetFont font3;
+    public static Font font1;
+    public static Font font2;
+    public static Font font3;
 
     public static AssetSet<SpriteSheet> chara;
     public static AssetSet<SpriteSheet> box;
@@ -192,12 +192,9 @@ public class Assets {
         icon = atlas.get("data/icon.png");
         cursor = new SpriteSheetSingle(atlas.get("data/cursor.png"), 16, 16);
 
-        font1 = new SpriteSheetFont(new org.newdawn.slick.SpriteSheet(atlas.get("data/fonts/font1.png"), 8 * 1, 12 * 1),
-                '\0');
-        font2 = new SpriteSheetFont(new org.newdawn.slick.SpriteSheet(atlas.get("data/fonts/font2.png"), 8 * 2, 12 * 2),
-                '\0');
-        font3 = new SpriteSheetFont(new org.newdawn.slick.SpriteSheet(atlas.get("data/fonts/font3.png"), 8 * 3, 12 * 3),
-                '\0');
+        font1 = new Font(new SpriteSheetSingle(atlas.get("data/fonts/font1.png"), 8 * 1, 12 * 1));
+        font2 = new Font(new SpriteSheetSingle(atlas.get("data/fonts/font2.png"), 8 * 2, 12 * 2));
+        font3 = new Font(new SpriteSheetSingle(atlas.get("data/fonts/font3.png"), 8 * 3, 12 * 3));
 
         // ===
 
